@@ -53,13 +53,13 @@ return  array(
     'DEFAULT_FILTER'        =>  'htmlspecialchars', // 默认参数过滤方法 用于I函数...
 
     /* 数据库设置 */
-    'DB_TYPE'               =>  '',     // 数据库类型
-    'DB_HOST'               =>  '', // 服务器地址
-    'DB_NAME'               =>  '',          // 数据库名
-    'DB_USER'               =>  '',      // 用户名
+    'DB_TYPE'               =>  'mysql',     // 数据库类型
+    'DB_HOST'               =>  '127.0.0.1', // 服务器地址
+    'DB_NAME'               =>  'project',          // 数据库名
+    'DB_USER'               =>  'root',      // 用户名
     'DB_PWD'                =>  '',          // 密码
-    'DB_PORT'               =>  '',        // 端口
-    'DB_PREFIX'             =>  '',    // 数据库表前缀
+    'DB_PORT'               =>  '3306',        // 端口
+    'DB_PREFIX'             =>  'prj',    // 数据库表前缀
     'DB_PARAMS'          	=>  array(), // 数据库连接参数    
     'DB_DEBUG'  			=>  TRUE, // 数据库调试模式 开启后可以记录SQL日志
     'DB_FIELDS_CACHE'       =>  true,        // 启用字段缓存
@@ -121,7 +121,7 @@ return  array(
     'TMPL_CACHE_PREFIX'     =>  '',         // 模板缓存前缀标识，可以动态改变
     'TMPL_CACHE_TIME'       =>  0,         // 模板缓存有效期 0 为永久，(以数字为值，单位:秒)
     'TMPL_LAYOUT_ITEM'      =>  '{__CONTENT__}', // 布局模板的内容替换标识
-    'LAYOUT_ON'             =>  false, // 是否启用布局
+    'LAYOUT_ON'             =>  true, // 是否启用布局
     'LAYOUT_NAME'           =>  'layout', // 当前布局名称 默认为layout
 
     // Think模板引擎标签库相关设定
