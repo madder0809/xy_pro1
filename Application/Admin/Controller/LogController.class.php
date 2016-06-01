@@ -12,7 +12,7 @@ class LogController extends Controller {
     }
     #退出登录
     public function logout(){
-
+    	
     }
     
 }
