@@ -1,9 +1,0 @@
-INSERT INTO `prj_menu` VALUES (1, 0, '系统管理', 0, 'System/index', 1, '系统管理');
-INSERT INTO `prj_menu` VALUES (2, 0, '门户管理', 1, 'Portal/index', 1, '门户管理');
-INSERT INTO `prj_menu` VALUES (3, 0, '实验室管理', 2, 'Lab/index', 1, '实验室管理');
-INSERT INTO `prj_menu` VALUES (4, 0, '资源点播共享管理', 3, 'Stream/index', 1, '资源点播共享管理');
-INSERT INTO `prj_menu` VALUES (5, 1, '用户管理', 0, 'User/index', 1, '用户管理');
-INSERT INTO `prj_menu` VALUES (6, 8, '学生信息', 0, 'User/Info?type=student', 1, '学生信息');
-INSERT INTO `prj_menu` VALUES (7, 8, '教师信息', 1, 'User/Info?type=teacher', 1, '教师信息');
-INSERT INTO `prj_menu` VALUES (8, 5, '用户信息', 0, 'User/Info', 1, '用户信息');
-INSERT INTO `prj_menu` VALUES (9, 0, '首页', 0, 'Index/index', 1, '首页');

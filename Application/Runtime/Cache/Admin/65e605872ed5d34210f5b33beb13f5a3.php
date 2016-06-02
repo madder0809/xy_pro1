@@ -41,7 +41,7 @@
 			<td></td>
 			<td></td>
 			<td>
-			<a href="/index.php/Admin/Menu/add/pid/<?php echo ($vo["id"]); ?>">添加子菜单</a> | 
+			<a href="/index.php/Admin/Menu/add/pid/<?php echo ($vo["id"]); ?>">设置用户组</a> | 
 			<a href="/index.php/Admin/Menu/edit/id/<?php echo ($vo["id"]); ?>">编辑</a> | 
 			<a href="/index.php/Admin/Menu/del/id/<?php echo ($vo["id"]); ?>">删除</a>
 			</td>

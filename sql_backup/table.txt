@@ -1,0 +1,46 @@
+CREATE TABLE `prj_user` (
+  `id` int(16) NOT NULL AUTO_INCREMENT,
+  `username` varchar(16) NOT NULL,
+  `password` varchar(32) NOT NULL,
+  `nickname` varchar(16) NOT NULL,
+  `status` int(4) NOT NULL DEFAULT '0',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+
+CREATE TABLE `prj_menu` (
+  `id` int(16) NOT NULL AUTO_INCREMENT,
+  `pid` int(16) NOT NULL DEFAULT '0' COMMENT '0为一级菜单，非0都是子级菜单',
+  `t_pid` int(16) NOT NULL DEFAULT '0' COMMENT '最上级的ID',
+  `title` varchar(16) NOT NULL COMMENT '菜单名称',
+  `sort` smallint(6) NOT NULL DEFAULT '0' COMMENT '默认为0，数值越小排序最前',
+  `url` varchar(32) NOT NULL COMMENT '要跳转到的路径',
+  `is_display` smallint(2) NOT NULL DEFAULT '1' COMMENT '默认为1：显示',
+  `remark` varchar(16) DEFAULT NULL COMMENT '菜单备注',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=28 DEFAULT CHARSET=utf8;
+
+CREATE TABLE `prj_auth_rule` (
+  `id` mediumint(8) unsigned NOT NULL AUTO_INCREMENT,
+  `name` char(80) NOT NULL DEFAULT '',
+  `title` char(20) NOT NULL DEFAULT '',
+  `status` tinyint(1) NOT NULL DEFAULT '1',
+  `condition` char(100) NOT NULL DEFAULT '',
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `name` (`name`)
+) ENGINE=MyISAM AUTO_INCREMENT=11 DEFAULT CHARSET=utf8;
+
+CREATE TABLE `prj_auth_group_access` (
+  `uid` mediumint(8) unsigned NOT NULL,
+  `group_id` mediumint(8) unsigned NOT NULL,
+  UNIQUE KEY `uid_group_id` (`uid`,`group_id`),
+  KEY `uid` (`uid`),
+  KEY `group_id` (`group_id`)
+) ENGINE=MyISAM DEFAULT CHARSET=utf8;
+
+CREATE TABLE `prj_auth_group` (
+  `id` mediumint(8) unsigned NOT NULL AUTO_INCREMENT,
+  `title` char(100) NOT NULL DEFAULT '',
+  `status` tinyint(1) NOT NULL DEFAULT '1',
+  `rules` char(80) NOT NULL DEFAULT '',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
