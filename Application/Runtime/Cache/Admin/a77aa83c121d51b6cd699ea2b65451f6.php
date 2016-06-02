@@ -21,6 +21,28 @@
 	</ul>
 </div>
 
- 
+ <div class="table">
+	<form action="/index.php/Admin/Menu/edit" method="post">
+		<p>菜单名称:<input type="text" name="title" value=""></p>
+		<p>
+		上级菜单:
+		<select name="pid">
+			<?php if(is_array($menu)): $i = 0; $__LIST__ = $menu;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$vo): $mod = ($i % 2 );++$i;?><option value="<?php echo ($vo["id"]); ?>" <?php if($vo['id']==$_GET['pid']) echo "selected=true" ?>><?php echo ($vo["sort_name"]); ?></option><?php endforeach; endif; else: echo "" ;endif; ?>
+		</select>
+		</p>
+		<p>
+			控制器:<input type="text" name="cotroller">
+		</p>
+		<p>方法:<input type="text" name="function"></p>
+		<p>参数:<input placeholder="示例:?a=bbbccc" type="text" name="param"></p>
+		<p>排序:<input type="text" name="sort" value="0"></p>
+		<p>是否显示:
+			<input type="radio" name="student" value="1" checked="checked" />显示
+			<input type="radio" name="student" value="0"/>隐藏
+		</p>
+		<p>备注:<input type="text" name="remark" value=""></p>
+		<p><input type="submit" name="submit" value="提交"></p>
+	</form>
+</div>
 </body>
 </html>

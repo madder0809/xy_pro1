@@ -1,0 +1,27 @@
+a:link {  
+color: #000000; 
+text-decoration: none; 
+} 
+a:visited { 
+color: #000000; 
+text-decoration: none; 
+} 
+a:hover { 
+color: #999999; 
+text-decoration: underline; 
+} 
+ul li{margin: 0}
+li{list-style: none;}
+#banner{background: #4E97E2;height: 50px}
+#banner ul {display: block;width: 80%;float: left}
+#banner ul li{float: left;width: 13%;font-family: 宋体;font-size: 18px;color: #FFF;font-weight: bold;}
+#logo {width: 15%;float: left;text-align: center;color: #FFF;font-size: 2em;line-height: 1.5;}
+.left_menu ul .current{background: #FFF;}
+
+.left_menu{width: 20%;float: left}
+.left_menu ul {display: block;}
+.left_menu ul li{width: 100%;height: 30px;text-align: center;color:#FFF;line-height: 1.9;}
+.left_menu ul .nav0{background: #ccc;}
+.left_menu ul .nav1{background: #363BCC;}
+.left_menu ul .nav2{background: #000;}
+.table{margin: 18px;float: left;width: 77%}

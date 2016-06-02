@@ -21,6 +21,26 @@
 	</ul>
 </div>
 
- 
+ <div class="table">
+	<div class="top_menu">
+		<a href="/index.php/Admin/Menu/add/pid/0">添加菜单</a>
+	</div>
+	<table>
+		<tr>
+			<th width="5%">ID</th>
+			<th width="70%">菜单名称</th>
+			<th width="20%">操作</th>
+		</tr>
+		<?php if(is_array($menu_all)): $i = 0; $__LIST__ = $menu_all;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$vo): $mod = ($i % 2 );++$i;?><tr>
+			<td><?php echo ($vo["id"]); ?></td>
+			<td><?php echo ($vo["sort_name"]); ?></td>
+			<td>
+			<a href="/index.php/Admin/Menu/add/pid/<?php echo ($vo["id"]); ?>">添加子菜单</a> | 
+			<a href="/index.php/Admin/Menu/edit/id/<?php echo ($vo["id"]); ?>">编辑</a> | 
+			<a href="/index.php/Admin/Menu/del/id/<?php echo ($vo["id"]); ?>">删除</a>
+			</td>
+		</tr><?php endforeach; endif; else: echo "" ;endif; ?>
+	</table>
+</div>
 </body>
 </html>

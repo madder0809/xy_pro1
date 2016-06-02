@@ -1,0 +1,29 @@
+<div class="table">
+	<div class="top_menu">
+		<a href="__APP__/Admin/User/add/">添加用户</a>
+	</div>
+	<table>
+		<tr>
+			<th width="5%">ID</th>
+			<th>用户名</th>
+			<th>性别</th>
+			<th>学籍</th>
+			<th>学籍号</th>
+			<th>操作</th>
+		</tr>
+		<volist name="user" id="vo">
+		<tr>
+			<td>{$vo.id}</td>
+			<td>{$vo.username}</td>
+			<td></td>
+			<td></td>
+			<td></td>
+			<td>
+			<a href="__APP__/Admin/Menu/add/pid/{$vo.id}">设置用户组</a> | 
+			<a href="__APP__/Admin/Menu/edit/id/{$vo.id}">编辑</a> | 
+			<a href="__APP__/Admin/Menu/del/id/{$vo.id}">删除</a>
+			</td>
+		</tr>
+		</volist>
+	</table>
+</div>
