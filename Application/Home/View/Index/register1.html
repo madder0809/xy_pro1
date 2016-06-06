@@ -1,0 +1,46 @@
+<div class="switch_page">
+        <div class="navigation">
+            <h4>注册</h4>
+            <i></i>
+            <div class="specific_position" id="specific_position">
+                <a href="javascript:void();" class="navigation_chart"><span>>></span><p>注册</p></a>
+            </div>
+        </div>
+        <div class="position">
+            <h3>您的位置：首页>>注册</h3>
+            <div class="lookup">
+                <form id="xuehao" method="post" action="{:U('Home/Index/register2')}" onsubmit="return check_form();">
+                <span>学号：</span><input type="text" name="xuehao" style="width:250px;height:27px;" /><i class="warning">*</i>
+                <div class="button_center">
+                    <button class="confirm" type="submit">确认</button><button class="cancel">取消</button>
+                </div>
+                </form>
+            </div>
+        </div>
+</div>
+<script type="text/javascript">
+    function check_form(){
+        var sid = $("#xuehao").find("input[name='xuehao']").val();//学号
+        var ok = "";
+        if(!sid){
+            alert("学号不能为空");
+            ok = false;
+        }else{
+            var url = "{:U('Home/Index/check_sid')}";
+            $.ajax({
+                url:url,
+                async : false,
+                type : 'post',
+                data : {sid:sid},
+                dataType : 'json',
+                success : function (data){
+                    if(!data){
+                        alert('该学籍号已被注册');
+                    }
+                    ok = data ? true : false;
+                }
+            });
+        }
+        return ok;
+    }
+</script>

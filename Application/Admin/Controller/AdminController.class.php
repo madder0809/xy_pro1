@@ -57,6 +57,5 @@ class AdminController extends Controller {
     	}
     	return $menus;
     }
-
 }
 ?>

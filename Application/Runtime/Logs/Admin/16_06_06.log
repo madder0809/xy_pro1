@@ -1,0 +1,29 @@
+[ 2016-06-06T09:42:57+08:00 ] ::1 /index.php?s=/Admin/Index/index
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000000s ]
+INFO: [ app_init ] --END-- [ RunTime:0.001000s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.001000s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.001000s ]
+NOTIC: [8] Use of undefined constant UID - assumed 'UID' D:\wamp\www\Application\Admin\Controller\AdminController.class.php 第 6 行.
+SQL: SHOW COLUMNS FROM `prj_auth_group_access` [ RunTime:0.0240s ]
+SQL: SELECT `uid`,`group_id`,`title`,`rules` FROM prj_auth_group_access a INNER JOIN prj_auth_group g on a.group_id=g.id  WHERE ( a.uid='1' and g.status='1' )  [ RunTime:0.0300s ]
+SQL: SHOW COLUMNS FROM `prj_auth_rule` [ RunTime:0.0700s ]
+SQL: SELECT `condition`,`name` FROM `prj_auth_rule` WHERE `id` IN ('1','2','3','4','5','6','7','8','9','10') AND `status` = 1  [ RunTime:0.0000s ]
+SQL: SHOW COLUMNS FROM `prj_menu` [ RunTime:0.0510s ]
+SQL: SELECT `id`,`title`,`url` FROM `prj_menu` WHERE ( pid = 0 AND is_display = 1 ) ORDER BY sort asc  [ RunTime:0.0000s ]
+SQL: SELECT * FROM `prj_menu` WHERE `pid` = 9 AND `is_display` = 1 ORDER BY pid ASC  [ RunTime:0.0000s ]
+NOTIC: [2] Invalid argument supplied for foreach() D:\wamp\www\Application\Admin\Controller\AdminController.class.php 第 50 行.
+INFO: [ view_parse ] --START--
+INFO: [ template_filter ] --START--
+INFO: Run Behavior\ContentReplaceBehavior [ RunTime:0.000000s ]
+INFO: [ template_filter ] --END-- [ RunTime:0.000000s ]
+INFO: Run Behavior\ParseTemplateBehavior [ RunTime:0.005000s ]
+INFO: [ view_parse ] --END-- [ RunTime:0.006000s ]
+INFO: [ view_filter ] --START--
+INFO: Run Behavior\WriteHtmlCacheBehavior [ RunTime:0.001000s ]
+INFO: [ view_filter ] --END-- [ RunTime:0.001000s ]
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTraceBehavior [ RunTime:0.001000s ]
+INFO: [ app_end ] --END-- [ RunTime:0.001000s ]
+

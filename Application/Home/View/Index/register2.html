@@ -1,0 +1,63 @@
+<div class="switch_page">
+        <div class="navigation">
+            <h4>注册</h4>
+            <i></i>
+            <div class="specific_position" id="specific_position">
+                <a href="javascript:void();" class="navigation_chart"><span>>></span><p>注册</p></a>
+            </div>
+        </div>
+        <div class="position">
+            <h3>您的位置：首页>>注册</h3>
+            <div class="lookup">
+                <form id="reg_form" method="post" action="{:U('Home/Index/register2')}" onsubmit="return check_form();">
+                <input type="hidden" name="student_no" value="{$student_no}">
+                <span>用户名：</span><input name="username" type="text" style="width:250px;height:27px;" /><i class="warning">*</i>
+                <span>真实姓名：</span><input name="realname" type="text" style="width:250px;height:27px;" /><i class="warning">*</i>
+                <span>密码：</span><input name="password" type="password" style="width:250px;height:27px;" /><i class="warning">*</i>
+                <span>密码确认：</span><input name="confirm_pwd" type="password" style="width:250px;height:27px;" /><i class="warning">*</i>
+                <span>性别：</span>
+                    <select name="sex" style="width:256px;">
+                        <option value ="1">男</option>
+                        <option value ="2">女</option>
+                    </select> <i class="warning">*</i>
+                <span>籍贯：</span>
+                    <select name="fir_na" style="width:124px;">
+                        <option value ="广东省">广东省</option>
+                    </select>
+                    <select name="sec_na" style="width:124px;">
+                        <option value ="广州市">广州市</option>
+                    </select><i class="warning">*</i>
+                <span>身份证号：</span><input name="id_card_no" type="text" style="width:250px;height:27px;" /><i class="warning">*</i>
+                <span>手机：</span><input name="mobile" type="text" style="width:250px;height:27px;" /><i class="warning">*</i>
+                <span>邮箱：</span><input name="email" type="text" style="width:250px;height:27px;" /><i class="warning">*</i>
+                <div class="button_center" style="margin-top:10px">
+                    <button class="confirm" type="submit">确认</button><button class="cancel">取消</button>
+                </div>
+                </form>
+            </div>
+        </div>
+    </div>
+<script type="text/javascript">
+    function check_form(){
+        var check = true;
+        $("#reg_form > input").each(function(){
+            if(!$(this).val()){
+                check = false;
+                return false;
+            }
+        })
+        if(!check){
+            alert("输入信息不完整");
+        }else{
+            if($("input[name='password']").val()!=$("input[name='confirm_pwd']").val()){
+                alert("两次输入的密码不对应,请重新输入");
+                $("input[name='password']").focus();
+                check = false;
+            }
+            //身份证验证
+            //邮箱验证
+            //手机验证
+        }
+        return check;
+    }
+</script>

@@ -1,0 +1,9 @@
+[ 2016-06-03T11:00:49+08:00 ] ::1 /eee/index.php?g=Admin&m=Menu&a=index&menuid=100
+NOTIC: D方法实例化没找到模型类Common\Model\AuthRuleModel
+
+[ 2016-06-03T11:01:10+08:00 ] ::1 /eee/index.php?g=Admin&m=Menu&a=index&menuid=100
+NOTIC: D方法实例化没找到模型类Common\Model\AuthRuleModel
+
+[ 2016-06-03T11:01:17+08:00 ] ::1 /eee/index.php?g=Admin&m=menu&a=spmy_export_menu_lang
+NOTIC: D方法实例化没找到模型类Common\Model\AuthRuleModel
+
