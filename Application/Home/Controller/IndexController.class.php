@@ -14,7 +14,7 @@ class IndexController extends Controller {
     //登录提交页
     public function login(){
     	if(IS_POST){
-    		$data = I('');
+    		$data = I();
     		//检测验证码
     		$Verify = new \Think\Verify();
     		if($Verify->check($data['verify'])){
@@ -60,7 +60,6 @@ class IndexController extends Controller {
 
     //注册step1
     public function register1(){
-
     	$this->display();
     }
     //注册step2
@@ -75,6 +74,9 @@ class IndexController extends Controller {
             //手机验证
     		$data['password'] = md5($data['password']);
     		$data['native'] = $data['fir_na'].$data['sec_na'];
+    		if($this->reg_check($data)){
+
+    		}
     		M('user')->create($data);
     		$uid = M('user')->add();
     		if($uid){
@@ -86,7 +88,6 @@ class IndexController extends Controller {
     }
     //注册成功
     public function reg_success(){
-
     	$this->display();
     }
     //检测学号
@@ -95,5 +96,60 @@ class IndexController extends Controller {
     	$r = M("user")->where("student_no = '{$sid}'")->find();
     	$data = $r ? 0 : 1;
     	$this->ajaxReturn($data);
+    }
+
+    //注册验证
+    public function reg_check(){
+    	$data = I();
+    	if(!$data){exit;}
+    	//检测用户名是否已注册
+    	if(M("user")->where("username = '{$data['username']}'")->find()){
+    		$this->ajaxReturn($this->error_return(4));
+    		exit();
+    	}
+       	foreach ($data as $k => $v) {
+    		switch ($k) {
+    			case 'mobile':
+    				$preg = "/^1[34578]{1}\d{9}$/";
+    				$error = 1;
+    				break;
+    			case 'id_card_no';
+    				$preg = "/^[1-9]\d{7}((0\d)|(1[0-2]))(([0|1|2]\d)|3[0-1])\d{3}$|^[1-9]\d{5}[1-9]\d{3}((0\d)|(1[0-2]))(([0|1|2]\d)|3[0-1])\d{3}([0-9]|X)$/";
+    				$error = 2;
+    				break;
+    			case 'email';
+    				$preg = "/^([0-9A-Za-z\\-_\\.]+)@([0-9a-z]+\\.[a-z]{2,3}(\\.[a-z]{2})?)$/i";
+    				$error = 3;
+    				break;
+    		}
+    		if($preg){
+    			if(!preg_match($preg,$v)){
+    				$this->ajaxReturn($this->error_return($error));
+    				return false;
+    			}
+    		}
+    	}
+    	
+    }
+
+    public function error_return($num){
+    	switch ($num) {
+    		case 1:
+    			$err_str = "请输入正确的手机号";
+    			break;
+    		case 2:
+    			$err_str = "身份证号码不正确";
+    			break;
+    		case 3:
+    			$err_str = "邮箱格式不正确";
+    			break;
+    		case 4:
+    			$err_str = "用户名已被注册";
+    			break;
+    		default:
+    			# code...
+    			break;
+    	}
+    	return $err_str;
     }
 }

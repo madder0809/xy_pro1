@@ -173,6 +173,7 @@
             </div>
         </div>
     </div>
+
 <script type="text/javascript">
     function check_form(){
         var check = true;
@@ -189,10 +190,34 @@
                 alert("两次输入的密码不对应,请重新输入");
                 $("input[name='password']").focus();
                 check = false;
+            }else{
+                var url = "<?php echo U('Home/Index/reg_check');?>";
+                $.ajax({
+                    type:"post",
+                    url:url,
+                    data:$("#reg_form").serialize(),
+                    async : false,
+                    success:function(data){
+                        if(data){
+                            alert(data);
+                            check = false;
+                        }else{
+                            check = true;
+                        }
+                    }
+                })
             }
-
         }
         return check;
+    }
+
+    function error_info(num){
+        switch(num)
+        {
+            case 1:
+            
+            break;
+        }
     }
 </script>
 	<div class="page_base">
