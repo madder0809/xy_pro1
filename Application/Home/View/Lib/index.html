@@ -1,0 +1,52 @@
+<div class="option_click">
+        <div style="width:1000px;margin:0 auto;" id="option">
+            <a href="{:U('Home/Index/index')}">首页</a>
+            <a href="{:U('Home/Center/index')}">中心介绍</a>
+            <a href="{:U('Home/Show/index')}">成果展示</a>
+            <a href="{:U('Home/Lib/index')}" class="click_switch">实验室管理</a>
+            <a href="{:U('Home/Play/index')}">资源点播共享</a>
+            <a href="{:U('Home/Exam/index')}">安全考试</a>
+            <a href="{:U('Home/Contact/index')}">联系我们</a>
+            <a href="{:U('Home/Person/index')}" style="border-right:1px #b6721b solid;">个人中心</a>
+        </div>
+</div>
+<div class="switch_page">
+        <div class="navigation">
+            <h4>实验室管理</h4>
+            <i></i>
+            <div class="specific_position" id="specific_position2">
+                    <a href="{:U('Home/Lib/index')}" class="navigation_chart2" title="仪器使用预约"><span>>></span><p>仪器使用预约</p></a>
+                    <a href="{:U('Home/Lib/orderSearch')}"title="预约查询"><span>>></span><p>预约查询</p></a>
+                    <a href="{:U('Home/Lib/expArr')}"title="综合设计性实验安排"><span>>></span><p>综合设计性实验安排</p></a>
+                    <a href="{:U('Home/Lib/expArrSearch')}" title="综合设计性实验查询"><span>>></span><p>综合设计性实验查询</p></a>
+                    <a href="{:U('Home/Lib/inExpArr')}"title="创新性实验安排"><span>>></span><p>创新性实验安排</p></a>
+                    <a href="{:U('Home/Lib/inExpArrSearch')}"title="创新性实验查询"><span>>></span><p>创新性实验查询</p></a>
+            </div>
+        </div>
+        <div class="position2">
+            <h3>您的位置：实验室管理>>仪器使用预约</h3>
+            <div class="order">
+                <ul>
+                    <li>
+                    <span>开始日期：</span><input name="Fruit" type="text" value="" style="height:25px;width:155px;" /><select style="width:85px;color:#8e8e8e;height:31px;margin-left: 5px;">
+                        <option value ="1">9:00</option>
+                        <option value ="2">10:00</option>
+                    </select>
+                    </li>
+                    <li>
+                    <span>结束日期：</span><input name="Fruit" type="text" value="" style="height:25px;width:155px;" /><select style="width:85px;color:#8e8e8e;height:31px;margin-left: 5px;">
+                        <option value ="1">9:00</option>
+                        <option value ="2">10:00</option>
+                    </select>
+                    </li>
+                    <li><span>实验仪器：</span><select style="width:250px;color:#8e8e8e;height:31px;">
+                        <option value ="1">分光仪</option>
+                    </select></li>
+                    <li><span>仪器编号：</span><input name="Fruit" type="text" value="" style="height:25px;width:245px;" /><button class="inquiry">查询</button></li>
+                    <li><span>用户备注：</span><textarea></textarea></li>
+                    <li class="point_control"><button class="ordered">预约</button></li>
+                </ul>
+            </div>
+            <img src="images/flow.jpg" height="308" width="308" style="float:right;margin: 20px 25px 0 0;">
+        </div>
+    </div>

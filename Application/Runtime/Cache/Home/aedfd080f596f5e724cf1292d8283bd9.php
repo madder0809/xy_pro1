@@ -8,7 +8,7 @@
     <script type="text/javascript" src="/Public/js/jquery.luara.0.0.1.min.js"></script>
     <script type="text/javascript" src="/Public/js/float.js"></script>
     <script type="text/javascript">
-        $(function(){
+        /*$(function(){
         $(".switch_page").hide();//隐藏wenben
         $(".switch_page:eq(0)").show();//显示第一个wenben
         $("#option a").click(function(){
@@ -67,7 +67,7 @@
             var i=$(this).index();//获得下标
             $(".about").hide();//隐藏wenben
             $(".about:eq("+i+")").show();//显示第i个wenben
-        });
+        });*/
 
          var speed=50
             marquePic2.innerHTML=marquePic1.innerHTML
@@ -85,7 +85,7 @@
         //调用Luara示例
         $(".example2").luara({width:"180",height:"150",interval:4500,selected:"seleted",deriction:"left"});
 
-    });
+    /*});*/
     function img1(){
         document.getElementById("img1").style.display="none";
     };
@@ -93,13 +93,7 @@
     </script>
 </head>
 <body>
-<div class="suspend conent" id="img1">
-    <h4>通知<a href="javascript:void();" onclick="img1();"></a></h4>
-    <i></i>
-    <ul>
-        <li>全校今天下午搞卫生</li>
-    </ul>
-</div>
+
 
 <div class="service">
     <h4>客服中心</h4>
@@ -113,7 +107,6 @@
     <p>09:00-18:00</p>
 </div>
 <div class="experiment_center">
-
     <div class="head_logo">
         <div class="head_title">
             <img src="/Public/images/syzx_logo.png" height="67" width="348">
@@ -122,19 +115,20 @@
             <img src="/Public/images/icon_prose.png" height="34" width="217" style="padding:0 20px 0 0;float:right;">
         </div>
     </div>
-    <div class="option_click">
+    
+ <div class="option_click">
         <div style="width:1000px;margin:0 auto;" id="option">
-            <a href="index.html" class="click_switch">首页</a>
-            <a href="javascript:void();">中心介绍</a>
-            <a href="javascript:void();">成果展示</a>
-            <a href="javascript:void();">实验室管理</a>
-            <a href="javascript:void();">资源点播共享</a>
-            <a href="javascript:void();">安全考试</a>
-            <a href="javascript:void();">联系我们</a>
-            <a href="javascript:void();" style="border-right:1px #b6721b solid;">个人中心</a>
+            <a href="<?php echo U('Home/Index/index');?>" class="click_switch">首页</a>
+            <a href="<?php echo U('Home/Center/index');?>">中心介绍</a>
+            <a href="<?php echo U('Home/Show/index');?>">成果展示</a>
+            <a href="<?php echo U('Home/Lib/index');?>">实验室管理</a>
+            <a href="<?php echo U('Home/Play/index');?>">资源点播共享</a>
+            <a href="<?php echo U('Home/Exam/index');?>">安全考试</a>
+            <a href="<?php echo U('Home/Contact/index');?>">联系我们</a>
+            <a href="<?php echo U('Home/Person/index');?>" style="border-right:1px #b6721b solid;">个人中心</a>
         </div>
-    </div>
- <div class="switch_page">
+</div>
+<div class="switch_page">
         <div class="navigation">
             <h4>注册</h4>
             <i></i>

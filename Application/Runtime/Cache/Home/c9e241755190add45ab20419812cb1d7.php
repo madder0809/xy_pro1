@@ -118,8 +118,8 @@
     
  <div class="option_click">
         <div style="width:1000px;margin:0 auto;" id="option">
-            <a href="<?php echo U('Home/Index/index');?>" class="click_switch">首页</a>
-            <a href="<?php echo U('Home/Center/index');?>">中心介绍</a>
+            <a href="<?php echo U('Home/Index/index');?>">首页</a>
+            <a href="<?php echo U('Home/Center/index');?>" class="click_switch">中心介绍</a>
             <a href="<?php echo U('Home/Show/index');?>">成果展示</a>
             <a href="<?php echo U('Home/Lib/index');?>">实验室管理</a>
             <a href="<?php echo U('Home/Play/index');?>">资源点播共享</a>
@@ -130,90 +130,30 @@
 </div>
 <div class="switch_page">
         <div class="navigation">
-            <h4>注册</h4>
+            <h4>中心简介</h4>
             <i></i>
             <div class="specific_position" id="specific_position">
-                <a href="javascript:void();" class="navigation_chart"><span>>></span><p>注册</p></a>
+                    <a href="<?php echo U('Home/Center/index');?>"><span>>></span><p>中心概况</p></a>
+                    <a href="<?php echo U('Home/Center/teachers');?>"><span>>></span><p>中心师资</p></a>
+                    <a href="<?php echo U('Home/Center/rules');?>" class="navigation_chart"><span>>></span><p>规章制度</p></a>
             </div>
         </div>
         <div class="position">
-            <h3>您的位置：首页>>注册</h3>
-            <div class="lookup">
-                <form id="reg_form" method="post" action="<?php echo U('Home/Index/register2');?>" onsubmit="return check_form();">
-                <input type="hidden" name="student_no" value="<?php echo ($student_no); ?>">
-                <span>用户名：</span><input name="username" type="text" style="width:250px;height:27px;" /><i class="warning">*</i>
-                <span>真实姓名：</span><input name="realname" type="text" style="width:250px;height:27px;" /><i class="warning">*</i>
-                <span>密码：</span><input name="password" type="password" style="width:250px;height:27px;" /><i class="warning">*</i>
-                <span>密码确认：</span><input name="confirm_pwd" type="password" style="width:250px;height:27px;" /><i class="warning">*</i>
-                <span>性别：</span>
-                    <select name="sex" style="width:256px;">
-                        <option value ="1">男</option>
-                        <option value ="2">女</option>
-                    </select> <i class="warning">*</i>
-                <span>籍贯：</span>
-                    <select name="fir_na" style="width:124px;">
-                        <option value ="广东省">广东省</option>
-                    </select>
-                    <select name="sec_na" style="width:124px;">
-                        <option value ="广州市">广州市</option>
-                    </select><i class="warning">*</i>
-                <span>身份证号：</span><input name="id_card_no" type="text" style="width:250px;height:27px;" /><i class="warning">*</i>
-                <span>手机：</span><input name="mobile" type="text" style="width:250px;height:27px;" /><i class="warning">*</i>
-                <span>邮箱：</span><input name="email" type="text" style="width:250px;height:27px;" /><i class="warning">*</i>
-                <div class="button_center" style="margin-top:10px">
-                    <button class="confirm" type="submit">确认</button><button class="cancel">取消</button>
-                </div>
-                </form>
-            </div>
+            <h3>您的位置：中心简介>>规章制度</h3>
+            <p>上海中医药大学教学实验中心于2003年正式成立，是校级建制的实验中心。教学实验中心的工作接受主管校长的全
+面领导，中心重大决策向学校实验室建设委员会提出征询意见，中心主任具体贯彻实施。教学业务接受教务处的指导，
+实验室的规范建设、整体规划、设备保障接受设备处的指导。中心与各二级学院、研究生部、成教部、国教院协调，完
+成学校的各项实验教学任务。其他工作接受相应职能部门指导。</p>
+            <p>中心下设中医学实验、中药学实验、基础医学实验和临床技能实训4大管理模块。中心使用面积约29212.4M2，设备
+总台件为7846，设备总值为6031.2万元。</p>
+            <p>中心建立了以能力培养为主线，分层次、多模块、相互衔接的实验教学体系，涵盖了基本实验、综合实验和创新性实
+验，综合型和创新型实验课程比例达到74.4%。中心承担205门实验、实训课，3387项实验、实训项目，年完成实验人时
+数597959。</p>
+            <p>目前中心已荣获国家级中药学实验教学示范中心、国家级中医学实验教学示范中心、国家级中医药虚拟仿真实验教学
+示范中心、上海市临床技能实训中心、上海市实验教学示范中心、上海市高校教师产学研见习基地等荣誉称号。</p>
         </div>
+
     </div>
-
-<script type="text/javascript">
-    function check_form(){
-        var check = true;
-        $("#reg_form > input").each(function(){
-            if(!$(this).val()){
-                check = false;
-                return false;
-            }
-        })
-        if(!check){
-            alert("输入信息不完整");
-        }else{
-            if($("input[name='password']").val()!=$("input[name='confirm_pwd']").val()){
-                alert("两次输入的密码不对应,请重新输入");
-                $("input[name='password']").focus();
-                check = false;
-            }else{
-                var url = "<?php echo U('Home/Index/reg_check');?>";
-                $.ajax({
-                    type:"post",
-                    url:url,
-                    data:$("#reg_form").serialize(),
-                    async : false,
-                    success:function(data){
-                        if(data){
-                            alert(data);
-                            check = false;
-                        }else{
-                            check = true;
-                        }
-                    }
-                })
-            }
-        }
-        return check;
-    }
-
-    function error_info(num){
-        switch(num)
-        {
-            case 1:
-            
-            break;
-        }
-    }
-</script>
 	<div class="page_base">
         <div style="width:1000px;margin:0 auto;">
             <p style="padding-top: 20px;">版权所有©2014广州中医药大学</p>

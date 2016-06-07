@@ -29,15 +29,6 @@
             $(".position:eq("+i+")").show();//显示第i个wenben
         });
 
-        $(".position1").hide();//隐藏wenben
-        $(".position1:eq(0)").show();//显示第一个wenben
-        $("#specific_position1 a").click(function(){
-            $(".navigation_chart1").removeClass("navigation_chart1");//移除样式
-            $(this).addClass("navigation_chart1");//添加样式
-            var i=$(this).index();//获得下标
-            $(".position1").hide();//隐藏wenben
-            $(".position1:eq("+i+")").show();//显示第i个wenben
-        });
 
         $(".position2").hide();//隐藏wenben
         $(".position2:eq(0)").show();//显示第一个wenben
@@ -86,7 +77,7 @@
     <h4>客服中心</h4>
     <i></i>
     <ul>
-        <li><span>咨询服务：</span><a href="javascript:void();"><img src="__PUBLIC__/images/icon_qq.png" height="19" width="19"></a>唐老师</li>
+        <li><span>咨询服务：</span><a href="javascript:void();"><img src="images/icon_qq.png" height="19" width="19"></a>唐老师</li>
         <li><span>咨询邮箱：</span>93023885@qq.com</li>
         <li><span>咨询电话：</span><i>400-608-8260</i></li>
     </ul>
@@ -97,10 +88,10 @@
 
     <div class="head_logo">
         <div class="head_title">
-            <img src="__PUBLIC__/images/syzx_logo.png" height="67" width="348">
-            <a href="home_page.html"><img src="__PUBLIC__/images/icon-room.png" height="17" width="18">学校主页</a>
+            <img src="images/syzx_logo.png" height="67" width="348">
+            <a href="home_page.html"><img src="images/icon-room.png" height="17" width="18">学校主页</a>
             <h3>教学实验中心</h3>
-            <img src="__PUBLIC__/images/icon_prose.png" height="34" width="217" style="padding:0 20px 0 0;float:right;">
+            <img src="images/icon_prose.png" height="34" width="217" style="padding:0 20px 0 0;float:right;">
         </div>
     </div>
     <div class="option_click">
@@ -116,16 +107,16 @@
         </div>
     </div>
     <div class="switch_page">
-        <img src="__PUBLIC__/images/scene.jpg" height="201" width="1000" style="margin:10px 0;">
+        <img src="images/scene.jpg" height="201" width="1000" style="margin:10px 0;">
         <div class="page_left">
             <h4>用户登陆</h4>
             <i></i>
             <div class="user_login">
                 <ul>
                     <li><span>帐&nbsp;&nbsp;&nbsp;号</span><input type="text" style="width:69%;" /></li>
-                    <li><span>密&nbsp;&nbsp;&nbsp;码</span><input type="text" style="width:69%;" /></li>
+                    <li><span>密&nbsp;&nbsp;&nbsp;码</span><input type="password" style="width:69%;" /></li>
                     <li><span style="margin-right: 8px;">验证码</span><input type="text" style="width:79px;" />
-                        <img src="__PUBLIC__/images/captcha.jpg" height="26"></li>
+                        <img src="images/captcha.jpg" height="26"></li>
                     <li><button class="user_land">登陆</button><button class="user_enroll" onclick="javascript:location='register.html'">注册</button></li>
                 </ul>
             </div>
@@ -135,9 +126,9 @@
             <i></i>
             <div class="example2">
         <ul>
-            <li><img src="__PUBLIC__/images/play.jpg" height="152" width="181" alt="1"/></li>
-            <li><img src="__PUBLIC__/images/play.jpg" height="152" width="181" alt="2"/></li>
-            <li><img src="__PUBLIC__/images/play.jpg" height="152" width="181" alt="3"/></li>
+            <li><img src="images/play.jpg" height="152" width="181" alt="1"/></li>
+            <li><img src="images/play.jpg" height="152" width="181" alt="2"/></li>
+            <li><img src="images/play.jpg" height="152" width="181" alt="3"/></li>
         </ul>
         <ol>
             <li>1</li>
@@ -147,12 +138,12 @@
     </div>
             <div class="trends_time">
                 <ul>
-                    <li><a href="javascript:void();"><p>思政第一课王省良校长讲国际...</p></a><span>2015-09-24</span></li>
-                    <li><a href="javascript:void();"><p>陈英华副书记慰问“北马”赛...</p></a><span>2015-09-23</span></li>
-                    <li><a href="javascript:void();"><p>学校党委理论学习中心组开展...</p></a><span>2015-09-22</span></li>
-                    <li><a href="javascript:void();"><p>樊代明院士来校做报告 妙论...</p></a><span>2015-09-21</span></li>
-                    <li><a href="javascript:void();"><p>第四届“赢在广州”大学生创...</p></a><span>2015-09-18</span></li>
-                    <li><a href="javascript:void();"><p>第四届“赢在广州”大学生创...</p></a><span>2015-09-18</span></li>
+                    <li><a href="javascript:void();"><p>思政第一课王省良校长讲国际...</p></a><span>11-10</span></li>
+                    <li><a href="javascript:void();"><p>陈英华副书记慰问“北马”赛...</p></a><span>11-10</span></li>
+                    <li><a href="javascript:void();"><p>学校党委理论学习中心组开展...</p></a><span>11-10</span></li>
+                    <li><a href="javascript:void();"><p>樊代明院士来校做报告 妙论...</p></a><span>11-10</span></li>
+                    <li><a href="javascript:void();"><p>第四届“赢在广州”大学生创...</p></a><span>11-10</span></li>
+                    <li><a href="javascript:void();"><p>第四届“赢在广州”大学生创...</p></a><span>11-10</span></li>
                 </ul>
             </div>
         </div>
@@ -184,14 +175,14 @@
             </div>
         </div>
         <div class="page_centre fruit" style="height:240px;">
-        <h4>科研成果<a href="javascript:void();">更多</a></h4>
+        <h4>教学科研成果<a href="javascript:void();">更多</a></h4>
             <i></i>
             <div class="scientific_fruit">
                 <ul>
-                    <li><a href="javascript:void();"><img src="__PUBLIC__/images/scientific.jpg" height="68" width="226"><br>国家级中医学实验教学示范中心科研成果</a></li>
-                    <li><a href="javascript:void();"><img src="__PUBLIC__/images/scientific.jpg" height="68" width="226"><br>国家级中医学实验教学示范中心科研成果</a></li>
-                    <li><a href="javascript:void();"><img src="__PUBLIC__/images/scientific.jpg" height="68" width="226"><br>国家级中医学实验教学示范中心科研成果</a></li>
-                    <li><a href="javascript:void();"><img src="__PUBLIC__/images/scientific.jpg" height="68" width="226"><br>国家级中医学实验教学示范中心科研成果</a></li>
+                    <li><a href="javascript:void();"><img src="images/scientific.jpg" height="68" width="226"><br>国家级中医学实验教学示范中心科研成果</a></li>
+                    <li><a href="javascript:void();"><img src="images/scientific.jpg" height="68" width="226"><br>国家级中医学实验教学示范中心科研成果</a></li>
+                    <li><a href="javascript:void();"><img src="images/scientific.jpg" height="68" width="226"><br>国家级中医学实验教学示范中心科研成果</a></li>
+                    <li><a href="javascript:void();"><img src="images/scientific.jpg" height="68" width="226"><br>国家级中医学实验教学示范中心科研成果</a></li>
                 </ul>
             </div>
         </div>
@@ -275,12 +266,12 @@
             <table border="0" align=center cellpadding="1" cellspacing="1" cellspace="0" >
             <tr><td valign=top bgcolor=ffffff id="marquePic1">
             <table width='100%' border='0' cellspacing='0'><tr>
-            <td align=center><a href='javascript:void();'><img src="__PUBLIC__/images/autoplay_1.jpg" height="153" width="181"><br><br>01</a></td>
-            <td align=center><a href='javascript:void();'><img src="__PUBLIC__/images/autoplay_2.jpg" height="153" width="181"><br><br>02</a></td>
-            <td align=center><a href='javascript:void();'><img src="__PUBLIC__/images/autoplay_3.jpg" height="153" width="181"><br><br>03</a></td>
-            <td align=center><a href='javascript:void();'><img src="__PUBLIC__/images/autoplay_4.jpg" height="153" width="181"><br><br>04</a></td>
-            <td align=center><a href='javascript:void();'><img src="__PUBLIC__/images/autoplay_5.jpg" height="153" width="181"><br><br>05</a></td>
-            <td align=center><a href='javascript:void();'><img src="__PUBLIC__/images/autoplay_5.jpg" height="153" width="181"><br><br>05</a></td>
+            <td align=center><a href='javascript:void();'><img src="images/autoplay_1.jpg" height="153" width="181"><br><br>01</a></td>
+            <td align=center><a href='javascript:void();'><img src="images/autoplay_2.jpg" height="153" width="181"><br><br>02</a></td>
+            <td align=center><a href='javascript:void();'><img src="images/autoplay_3.jpg" height="153" width="181"><br><br>03</a></td>
+            <td align=center><a href='javascript:void();'><img src="images/autoplay_4.jpg" height="153" width="181"><br><br>04</a></td>
+            <td align=center><a href='javascript:void();'><img src="images/autoplay_5.jpg" height="153" width="181"><br><br>05</a></td>
+            <td align=center><a href='javascript:void();'><img src="images/autoplay_5.jpg" height="153" width="181"><br><br>05</a></td>
             </tr></table>
             </td><td id="marquePic2" valign="top"></td></tr>
             </table>
@@ -333,22 +324,17 @@
             <h4>成果展示</h4>
             <i></i>
             <div class="specific_position" id="specific_position1">
-                    <a href="javascript:void();" class="navigation_chart1"><span>>></span><p>科研成果</p></a>
-                    <a href="javascript:void();"><span>>></span><p>教学成果</p></a>
+                    <a href="javascript:void();" class="navigation_chart1"><span>>></span><p>教学科研成果</p></a>
             </div>
         </div>
         <div class="position1">
-            <h3>您的位置：成果展示>>科研成果</h3>
+            <h3>您的位置：成果展示>>教学科研成果</h3>
             <ul>
                 <li><p>1.国家级中药学实验教学示范中心科研成果一览</p></li>
                 <li><p>2.国家级中医学实验教学示范中心科研成果一览</p></li>
             </ul>
         </div>
 
-        <div class="position1">
-            <h3>您的位置：成果展示>>教学成果</h3>
-            <p id="special">请您先<a href="home_page.html">登录</a>之后，在进行查看。</p>
-        </div>
 
     </div>
 

@@ -118,10 +118,10 @@
     
  <div class="option_click">
         <div style="width:1000px;margin:0 auto;" id="option">
-            <a href="<?php echo U('Home/Index/index');?>" class="click_switch">首页</a>
+            <a href="<?php echo U('Home/Index/index');?>">首页</a>
             <a href="<?php echo U('Home/Center/index');?>">中心介绍</a>
             <a href="<?php echo U('Home/Show/index');?>">成果展示</a>
-            <a href="<?php echo U('Home/Lib/index');?>">实验室管理</a>
+            <a href="<?php echo U('Home/Lib/index');?>" class="click_switch">实验室管理</a>
             <a href="<?php echo U('Home/Play/index');?>">资源点播共享</a>
             <a href="<?php echo U('Home/Exam/index');?>">安全考试</a>
             <a href="<?php echo U('Home/Contact/index');?>">联系我们</a>
@@ -130,90 +130,42 @@
 </div>
 <div class="switch_page">
         <div class="navigation">
-            <h4>注册</h4>
+            <h4>实验室管理</h4>
             <i></i>
-            <div class="specific_position" id="specific_position">
-                <a href="javascript:void();" class="navigation_chart"><span>>></span><p>注册</p></a>
+            <div class="specific_position" id="specific_position2">
+                    <a href="<?php echo U('Home/Lib/index');?>" title="仪器使用预约"><span>>></span><p>仪器使用预约</p></a>
+                    <a href="<?php echo U('Home/Lib/orderSearch');?>" title="预约查询"><span>>></span><p>预约查询</p></a>
+                    <a href="<?php echo U('Home/Lib/expArr');?>" class="navigation_chart2" title="综合设计性实验安排"><span>>></span><p>综合设计性实验安排</p></a>
+                    <a href="<?php echo U('Home/Lib/expArrSearch');?>" title="综合设计性实验查询"><span>>></span><p>综合设计性实验查询</p></a>
+                    <a href="<?php echo U('Home/Lib/inExpArr');?>"title="创新性实验安排"><span>>></span><p>创新性实验安排</p></a>
+                    <a href="<?php echo U('Home/Lib/inExpArrSearch');?>"title="创新性实验查询"><span>>></span><p>创新性实验查询</p></a>
             </div>
         </div>
-        <div class="position">
-            <h3>您的位置：首页>>注册</h3>
-            <div class="lookup">
-                <form id="reg_form" method="post" action="<?php echo U('Home/Index/register2');?>" onsubmit="return check_form();">
-                <input type="hidden" name="student_no" value="<?php echo ($student_no); ?>">
-                <span>用户名：</span><input name="username" type="text" style="width:250px;height:27px;" /><i class="warning">*</i>
-                <span>真实姓名：</span><input name="realname" type="text" style="width:250px;height:27px;" /><i class="warning">*</i>
-                <span>密码：</span><input name="password" type="password" style="width:250px;height:27px;" /><i class="warning">*</i>
-                <span>密码确认：</span><input name="confirm_pwd" type="password" style="width:250px;height:27px;" /><i class="warning">*</i>
-                <span>性别：</span>
-                    <select name="sex" style="width:256px;">
-                        <option value ="1">男</option>
-                        <option value ="2">女</option>
-                    </select> <i class="warning">*</i>
-                <span>籍贯：</span>
-                    <select name="fir_na" style="width:124px;">
-                        <option value ="广东省">广东省</option>
-                    </select>
-                    <select name="sec_na" style="width:124px;">
-                        <option value ="广州市">广州市</option>
-                    </select><i class="warning">*</i>
-                <span>身份证号：</span><input name="id_card_no" type="text" style="width:250px;height:27px;" /><i class="warning">*</i>
-                <span>手机：</span><input name="mobile" type="text" style="width:250px;height:27px;" /><i class="warning">*</i>
-                <span>邮箱：</span><input name="email" type="text" style="width:250px;height:27px;" /><i class="warning">*</i>
-                <div class="button_center" style="margin-top:10px">
-                    <button class="confirm" type="submit">确认</button><button class="cancel">取消</button>
-                </div>
-                </form>
+        <div class="position2">
+            <h3>您的位置：实验室管理>>综合设计性实验安排</h3>
+            <div class="arrange">
+                <ul>
+                    <li><span>开始日期：</span><input name="Fruit" type="text" value="" style="height:25px;width:160px;" /><select style="width:85px;color:#8e8e8e;height:31px;margin-left: 5px;">
+                        <option value ="1">9:00</option>
+                        <option value ="2">10:00</option>
+                    </select></li>
+                    <li><span>结束日期：</span><input name="Fruit" type="text" value="" style="height:25px;width:160px;" /><select style="width:85px;color:#8e8e8e;height:31px;margin-left: 5px;">
+                        <option value ="1">9:00</option>
+                        <option value ="2">10:00</option>
+                    </select></li>
+                    <li><span>课程名称：</span><select style="width:255px;color:#8e8e8e;height:31px;">
+                        <option value ="1">中医学</option>
+                    </select></li>
+                    <li><span>实验项目：</span><input name="Fruit" type="text" value="" style="height:25px;width:250px;" /></li>
+                    <li><span>实验人数：</span><input name="Fruit" type="text" value="" style="height:25px;width:250px;" /></li>
+                    <li><span>实验组数：</span><input name="Fruit" type="text" value="" style="height:25px;width:250px;" /></li>
+                    <li style="margin-top: 10px;"><span>实验方案与内容：</span><button class="upload">上传</button><a href="javascript:void();">word模板下载</a></li>
+                    <li><span>仪器与试剂需求：</span>（ <i class="warning" style="float: none;margin-right: 5px;">*</i>需标明型号、参数、数量）<button class="upload" style="margin-left: 5px;">上传</button><a href="javascript:void();">word模板下载</a></li>
+                    <li style="margin-top:20px;"><span></span><button class="submit">提交</button><button  class="cancel">取消</button></li>
+                </ul>
             </div>
         </div>
     </div>
-
-<script type="text/javascript">
-    function check_form(){
-        var check = true;
-        $("#reg_form > input").each(function(){
-            if(!$(this).val()){
-                check = false;
-                return false;
-            }
-        })
-        if(!check){
-            alert("输入信息不完整");
-        }else{
-            if($("input[name='password']").val()!=$("input[name='confirm_pwd']").val()){
-                alert("两次输入的密码不对应,请重新输入");
-                $("input[name='password']").focus();
-                check = false;
-            }else{
-                var url = "<?php echo U('Home/Index/reg_check');?>";
-                $.ajax({
-                    type:"post",
-                    url:url,
-                    data:$("#reg_form").serialize(),
-                    async : false,
-                    success:function(data){
-                        if(data){
-                            alert(data);
-                            check = false;
-                        }else{
-                            check = true;
-                        }
-                    }
-                })
-            }
-        }
-        return check;
-    }
-
-    function error_info(num){
-        switch(num)
-        {
-            case 1:
-            
-            break;
-        }
-    }
-</script>
 	<div class="page_base">
         <div style="width:1000px;margin:0 auto;">
             <p style="padding-top: 20px;">版权所有©2014广州中医药大学</p>

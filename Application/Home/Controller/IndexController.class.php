@@ -62,6 +62,7 @@ class IndexController extends Controller {
     public function register1(){
     	$this->display();
     }
+
     //注册step2
     public function register2(){
     	if(I('xuehao')){
@@ -74,9 +75,6 @@ class IndexController extends Controller {
             //手机验证
     		$data['password'] = md5($data['password']);
     		$data['native'] = $data['fir_na'].$data['sec_na'];
-    		if($this->reg_check($data)){
-
-    		}
     		M('user')->create($data);
     		$uid = M('user')->add();
     		if($uid){
@@ -86,10 +84,12 @@ class IndexController extends Controller {
     		}
     	}
     }
+
     //注册成功
     public function reg_success(){
     	$this->display();
     }
+
     //检测学号
     public function check_sid(){
     	$sid = I('sid');
@@ -129,7 +129,6 @@ class IndexController extends Controller {
     			}
     		}
     	}
-    	
     }
 
     public function error_return($num){

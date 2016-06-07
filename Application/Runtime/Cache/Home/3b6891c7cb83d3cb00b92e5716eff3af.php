@@ -118,9 +118,9 @@
     
  <div class="option_click">
         <div style="width:1000px;margin:0 auto;" id="option">
-            <a href="<?php echo U('Home/Index/index');?>" class="click_switch">首页</a>
+            <a href="<?php echo U('Home/Index/index');?>">首页</a>
             <a href="<?php echo U('Home/Center/index');?>">中心介绍</a>
-            <a href="<?php echo U('Home/Show/index');?>">成果展示</a>
+            <a href="<?php echo U('Home/Show/index');?>" class="click_switch">成果展示</a>
             <a href="<?php echo U('Home/Lib/index');?>">实验室管理</a>
             <a href="<?php echo U('Home/Play/index');?>">资源点播共享</a>
             <a href="<?php echo U('Home/Exam/index');?>">安全考试</a>
@@ -130,90 +130,20 @@
 </div>
 <div class="switch_page">
         <div class="navigation">
-            <h4>注册</h4>
+            <h4>成果展示</h4>
             <i></i>
-            <div class="specific_position" id="specific_position">
-                <a href="javascript:void();" class="navigation_chart"><span>>></span><p>注册</p></a>
+            <div class="specific_position" id="specific_position1">
+                    <a href="javascript:void();" class="navigation_chart1"><span>>></span><p>教学科研成果</p></a>
             </div>
         </div>
-        <div class="position">
-            <h3>您的位置：首页>>注册</h3>
-            <div class="lookup">
-                <form id="reg_form" method="post" action="<?php echo U('Home/Index/register2');?>" onsubmit="return check_form();">
-                <input type="hidden" name="student_no" value="<?php echo ($student_no); ?>">
-                <span>用户名：</span><input name="username" type="text" style="width:250px;height:27px;" /><i class="warning">*</i>
-                <span>真实姓名：</span><input name="realname" type="text" style="width:250px;height:27px;" /><i class="warning">*</i>
-                <span>密码：</span><input name="password" type="password" style="width:250px;height:27px;" /><i class="warning">*</i>
-                <span>密码确认：</span><input name="confirm_pwd" type="password" style="width:250px;height:27px;" /><i class="warning">*</i>
-                <span>性别：</span>
-                    <select name="sex" style="width:256px;">
-                        <option value ="1">男</option>
-                        <option value ="2">女</option>
-                    </select> <i class="warning">*</i>
-                <span>籍贯：</span>
-                    <select name="fir_na" style="width:124px;">
-                        <option value ="广东省">广东省</option>
-                    </select>
-                    <select name="sec_na" style="width:124px;">
-                        <option value ="广州市">广州市</option>
-                    </select><i class="warning">*</i>
-                <span>身份证号：</span><input name="id_card_no" type="text" style="width:250px;height:27px;" /><i class="warning">*</i>
-                <span>手机：</span><input name="mobile" type="text" style="width:250px;height:27px;" /><i class="warning">*</i>
-                <span>邮箱：</span><input name="email" type="text" style="width:250px;height:27px;" /><i class="warning">*</i>
-                <div class="button_center" style="margin-top:10px">
-                    <button class="confirm" type="submit">确认</button><button class="cancel">取消</button>
-                </div>
-                </form>
-            </div>
+        <div class="position1">
+            <h3>您的位置：成果展示>>教学科研成果</h3>
+            <ul>
+                <li><p>1.国家级中药学实验教学示范中心科研成果一览</p></li>
+                <li><p>2.国家级中医学实验教学示范中心科研成果一览</p></li>
+            </ul>
         </div>
-    </div>
-
-<script type="text/javascript">
-    function check_form(){
-        var check = true;
-        $("#reg_form > input").each(function(){
-            if(!$(this).val()){
-                check = false;
-                return false;
-            }
-        })
-        if(!check){
-            alert("输入信息不完整");
-        }else{
-            if($("input[name='password']").val()!=$("input[name='confirm_pwd']").val()){
-                alert("两次输入的密码不对应,请重新输入");
-                $("input[name='password']").focus();
-                check = false;
-            }else{
-                var url = "<?php echo U('Home/Index/reg_check');?>";
-                $.ajax({
-                    type:"post",
-                    url:url,
-                    data:$("#reg_form").serialize(),
-                    async : false,
-                    success:function(data){
-                        if(data){
-                            alert(data);
-                            check = false;
-                        }else{
-                            check = true;
-                        }
-                    }
-                })
-            }
-        }
-        return check;
-    }
-
-    function error_info(num){
-        switch(num)
-        {
-            case 1:
-            
-            break;
-        }
-    }
-</script>
+</div>
 	<div class="page_base">
         <div style="width:1000px;margin:0 auto;">
             <p style="padding-top: 20px;">版权所有©2014广州中医药大学</p>
