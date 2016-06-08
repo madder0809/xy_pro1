@@ -21,11 +21,13 @@
             </div>
             <div class="user_data">
             <ul>
-                <li><span>用户名：</span><input name="Fruit" type="text" value="" style="height:25px;width:220px;" /></li>
-                <li><span>真实姓名：</span><input name="Fruit" type="text" value="" style="height:25px;width:220px;" /></li>
+                <li><span>用户名：</span><input name="Fruit" type="text" value="{$username}" style="height:25px;width:220px;" /></li>
+                <li><span>真实姓名：</span><input name="Fruit" type="text" value="{$realname}" style="height:25px;width:220px;" /></li>
                 <li><span>性别：</span>
-                    <input name="Fruit" type="radio" value="" style="margin:8px;float:left;" />男
-                    <input name="Fruit" type="radio" value=""style="margin:0 8px;position: relative;top:3px;" />女
+                    <input name="Fruit" type="radio" value="1" style="margin:8px;float:left;" 
+                    {$sex==1?'checked':''}
+                    />男
+                    <input name="Fruit" type="radio" value="2" style="margin:0 8px;position: relative;top:3px;" {$sex==2?'checked':''}/>女
                 </li>
                 <li><span>籍贯：</span>
                     <select style="width:105px;color:#333;height:31px;">

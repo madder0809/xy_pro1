@@ -8,9 +8,9 @@
     <script type="text/javascript" src="__PUBLIC__/js/jquery.luara.0.0.1.min.js"></script>
     <script type="text/javascript" src="__PUBLIC__/js/float.js"></script>
     <script type="text/javascript">
-        /*$(function(){
-        $(".switch_page").hide();//隐藏wenben
-        $(".switch_page:eq(0)").show();//显示第一个wenben
+        $(function(){
+        //$(".switch_page").hide();//隐藏wenben
+        //$(".switch_page:eq(0)").show();//显示第一个wenben
         $("#option a").click(function(){
             $(".click_switch").removeClass("click_switch");//移除样式
             $(this).addClass("click_switch");//添加样式
@@ -18,56 +18,6 @@
             $(".switch_page").hide();//隐藏wenben
             $(".switch_page:eq("+i+")").show();//显示第i个wenben
         });
-
-        $(".position").hide();//隐藏wenben
-        $(".position:eq(0)").show();//显示第一个wenben
-        $("#specific_position a").click(function(){
-            $(".navigation_chart").removeClass("navigation_chart");//移除样式
-            $(this).addClass("navigation_chart");//添加样式
-            var i=$(this).index();//获得下标
-            $(".position").hide();//隐藏wenben
-            $(".position:eq("+i+")").show();//显示第i个wenben
-        });
-
-        $(".position1").hide();//隐藏wenben
-        $(".position1:eq(0)").show();//显示第一个wenben
-        $("#specific_position1 a").click(function(){
-            $(".navigation_chart1").removeClass("navigation_chart1");//移除样式
-            $(this).addClass("navigation_chart1");//添加样式
-            var i=$(this).index();//获得下标
-            $(".position1").hide();//隐藏wenben
-            $(".position1:eq("+i+")").show();//显示第i个wenben
-        });
-
-        $(".position2").hide();//隐藏wenben
-        $(".position2:eq(0)").show();//显示第一个wenben
-        $("#specific_position2 a").click(function(){
-            $(".navigation_chart2").removeClass("navigation_chart2");//移除样式
-            $(this).addClass("navigation_chart2");//添加样式
-            var i=$(this).index();//获得下标
-            $(".position2").hide();//隐藏wenben
-            $(".position2:eq("+i+")").show();//显示第i个wenben
-        });
-
-        $(".user_data").hide();//隐藏wenben
-        $(".user_data:eq(0)").show();//显示第一个wenben
-        $("#personal_profile a").click(function(){
-            $(".revise").removeClass("revise");//移除样式
-            $(this).addClass("revise");//添加样式
-            var i=$(this).index();//获得下标
-            $(".user_data").hide();//隐藏wenben
-            $(".user_data:eq("+i+")").show();//显示第i个wenben
-        });
-
-        $(".about").hide();//隐藏wenben
-        $(".about:eq(0)").show();//显示第一个wenben
-        $("#mine a").click(function(){
-            $(".course").removeClass("course");//移除样式
-            $(this).addClass("course");//添加样式
-            var i=$(this).index();//获得下标
-            $(".about").hide();//隐藏wenben
-            $(".about:eq("+i+")").show();//显示第i个wenben
-        });*/
 
          var speed=50
             marquePic2.innerHTML=marquePic1.innerHTML
@@ -85,7 +35,7 @@
         //调用Luara示例
         $(".example2").luara({width:"180",height:"150",interval:4500,selected:"seleted",deriction:"left"});
 
-    /*});*/
+    });
     function img1(){
         document.getElementById("img1").style.display="none";
     };
@@ -114,5 +64,5 @@
             <h3>教学实验中心</h3>
             <img src="__PUBLIC__/images/icon_prose.png" height="34" width="217" style="padding:0 20px 0 0;float:right;">
         </div>
-    </div>
+</div>
     

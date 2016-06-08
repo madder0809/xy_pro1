@@ -867,7 +867,7 @@ a.revise,a.display{
     resize:none;
 }
 .keep{
-    width: 55px;
+    width: 100px;
     height: 30px;
     border-radius: 5px;
     background:#3d7508;
