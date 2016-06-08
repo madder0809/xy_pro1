@@ -70,9 +70,6 @@ class IndexController extends Controller {
     		$this->display();
     	}else{
     		$data = I();
-    		//身份证验证
-            //邮箱验证
-            //手机验证
     		$data['password'] = md5($data['password']);
     		$data['native'] = $data['fir_na'].$data['sec_na'];
     		M('user')->create($data);

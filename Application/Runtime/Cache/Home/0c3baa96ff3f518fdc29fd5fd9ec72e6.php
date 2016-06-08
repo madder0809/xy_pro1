@@ -133,64 +133,50 @@
             <h4>个人中心</h4>
             <i></i>
             <div class="personal_profile" id="personal_profile">
-                <a href="<?php echo U('Home/Person/index');?>" class="revise">个人中心</a>
+                <a href="<?php echo U('Home/Person/index');?>">个人中心</a>
                 <a href="<?php echo U('Home/Person/pwdChange');?>">修改密码</a>
-                <a href="<?php echo U('Home/Person/myUpload');?>">我的上传</a>
+                <a href="<?php echo U('Home/Person/myUpload');?>" class="revise">我的上传</a>
             </div>
             <div class="user_data">
-            <ul>
-                <li><span>用户名：</span><input name="Fruit" type="text" value="" style="height:25px;width:220px;" /></li>
-                <li><span>真实姓名：</span><input name="Fruit" type="text" value="" style="height:25px;width:220px;" /></li>
-                <li><span>性别：</span>
-                    <input name="Fruit" type="radio" value="" style="margin:8px;float:left;" />男
-                    <input name="Fruit" type="radio" value=""style="margin:0 8px;position: relative;top:3px;" />女
-                </li>
-                <li><span>籍贯：</span>
-                    <select style="width:105px;color:#333;height:31px;">
-                        <option value ="1">广东</option>
-                    </select>
-                    <select style="width:105px;color:#333;height:31px;">
-                        <option value ="1">广州</option>
-                    </select></li>
-                <li><span>任教科目：</span>
-                    <select style="width:220px;color:#333;height:31px;">
-                        <option value ="1"></option>
-                    </select></li>
-                <li><span>个人介绍：</span><textarea></textarea></li>
-                <li><span>手机：</span><input name="Fruit" type="text" value="" style="height:25px;width:220px;" /></li>
-                <li><span>确认密码：</span><input name="Fruit" type="text" value="" style="height:25px;width:220px;" /></li>
-                <li><span></span><button class="keep">保存</button></li>
-            </ul>
+                <div class="mine" id="mine">
+                    <a href="javascript:void();"class="course">我上传的视频</a>
+                    <a href="javascript:void();">我上传的课程</a>
+                    <a href="javascript:void();">我学习的课程</a>
+                </div>
+                <div class="about">
+                    <p>共<i>2</i>个</p>
+                    <ul>
+                        <li><img src="images/video1.jpg" height="125" width="223">
+                        <div class="details">
+                        <h5>关于分数乘法的学习微课<a href="javascript:void();" class="remove">删除</a><a href="javascript:void();" class="compile">编辑</a></h5>
+                        <p>简介</p><span class="adopt">通过审核</span><p style="height:0;">上传时间：2015-1-22</p></div>
+                        </li>
+                        <li><img src="images/video2.jpg" height="125" width="223">
+                        <div class="details">
+                        <h5>关于分数乘法的学习微课<a href="javascript:void();" class="remove">删除</a><a href="javascript:void();" class="compile">编辑</a></h5>
+                        <p>简介</p><span class="conducted">审核中</span><p style="height:0;">上传时间：2015-1-22</p></div>
+                        </li>
+                    </ul>
+                <div class="page_turning" style="position: inherit;">
+                每页<select style="width:65px;color:#585858;height:30px;margin:0 5px;">
+                        <option value ="1">10</option>
+                        <option value ="2">11</option>
+                    </select>条
+                    <span>共<i style="background: 0;float: none;">61</i>条记录</span>
+                    <div class="currently">
+                        <button>I<</button>
+                        <button><</button>
+                        <button  class="location">1</button>
+                        <button>2</button>
+                        <button>3</button>
+                        <button>></button>
+                        <button>>I</button>
+                    </div>
             </div>
         </div>
- </div>
- <script type="text/javascript">
-     /*$(document).ready(function(){
-        $("#personal_profile").on("click",function(){
-            $(this).parent().find(".revise").removeClass("revise");
-            $(this).addClass("revise");
-            var index = $(this).index();//索引
-            var type;
-            switch (index) {
-                case 0 :
-                type = "info";
-                break;
-                case 1 :
-                type = "pwd";
-                break;
-                case 2 :
-                type = "upload";
-                break;
-            }
-            var url = "<?php echo U('Home/Person/getPage');?>";
-            $.post(url,{type:type},function(data){
-                $(".switch_page").html(data);
-            })
-
-        })
-     })*/
- </script>
-
+     </div>
+    </div>
+</div>
 	<div class="page_base">
         <div style="width:1000px;margin:0 auto;">
             <p style="padding-top: 20px;">版权所有©2014广州中医药大学</p>

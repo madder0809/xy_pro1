@@ -131,65 +131,15 @@
 <div class="switch_page">
         <div class="personal">
             <h4>个人中心</h4>
-            <i></i>
-            <div class="personal_profile" id="personal_profile">
-                <a href="<?php echo U('Home/Person/index');?>" class="revise">个人中心</a>
-                <a href="<?php echo U('Home/Person/pwdChange');?>">修改密码</a>
-                <a href="<?php echo U('Home/Person/myUpload');?>">我的上传</a>
-            </div>
-            <div class="user_data">
-            <ul>
-                <li><span>用户名：</span><input name="Fruit" type="text" value="" style="height:25px;width:220px;" /></li>
-                <li><span>真实姓名：</span><input name="Fruit" type="text" value="" style="height:25px;width:220px;" /></li>
-                <li><span>性别：</span>
-                    <input name="Fruit" type="radio" value="" style="margin:8px;float:left;" />男
-                    <input name="Fruit" type="radio" value=""style="margin:0 8px;position: relative;top:3px;" />女
-                </li>
-                <li><span>籍贯：</span>
-                    <select style="width:105px;color:#333;height:31px;">
-                        <option value ="1">广东</option>
-                    </select>
-                    <select style="width:105px;color:#333;height:31px;">
-                        <option value ="1">广州</option>
-                    </select></li>
-                <li><span>任教科目：</span>
-                    <select style="width:220px;color:#333;height:31px;">
-                        <option value ="1"></option>
-                    </select></li>
-                <li><span>个人介绍：</span><textarea></textarea></li>
-                <li><span>手机：</span><input name="Fruit" type="text" value="" style="height:25px;width:220px;" /></li>
-                <li><span>确认密码：</span><input name="Fruit" type="text" value="" style="height:25px;width:220px;" /></li>
-                <li><span></span><button class="keep">保存</button></li>
-            </ul>
-            </div>
+            
+            <div class="position">
+	            <h3>您的位置：个人中心>>个人中心</h3>
+	            <p id="special">请您先<a href="<?php echo U('Home/Index/index');?>">登录</a>之后，在进行查看。</p>
+			</div>
         </div>
  </div>
- <script type="text/javascript">
-     /*$(document).ready(function(){
-        $("#personal_profile").on("click",function(){
-            $(this).parent().find(".revise").removeClass("revise");
-            $(this).addClass("revise");
-            var index = $(this).index();//索引
-            var type;
-            switch (index) {
-                case 0 :
-                type = "info";
-                break;
-                case 1 :
-                type = "pwd";
-                break;
-                case 2 :
-                type = "upload";
-                break;
-            }
-            var url = "<?php echo U('Home/Person/getPage');?>";
-            $.post(url,{type:type},function(data){
-                $(".switch_page").html(data);
-            })
 
-        })
-     })*/
- </script>
+
 
 	<div class="page_base">
         <div style="width:1000px;margin:0 auto;">
