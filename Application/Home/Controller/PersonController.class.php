@@ -23,5 +23,7 @@ class PersonController extends Controller{
 		$this->display();
 	}
 
+	
+
 }
 ?>

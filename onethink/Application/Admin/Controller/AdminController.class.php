@@ -33,7 +33,7 @@ class AdminController extends Controller {
             S('DB_CONFIG_DATA',$config);
         }
         C($config); //添加配置
-
+        
         // 是否是超级管理员
         define('IS_ROOT',   is_administrator());
         if(!IS_ROOT && C('ADMIN_ALLOW_IP')){
@@ -278,7 +278,6 @@ class AdminController extends Controller {
                             $where['is_dev']    =   0;
                         }
                         $second_urls = M('Menu')->where($where)->getField('id,url');
-
                         if(!IS_ROOT){
                             // 检测菜单权限
                             $to_check_urls = array();

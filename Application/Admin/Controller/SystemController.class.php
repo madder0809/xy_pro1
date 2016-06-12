@@ -9,4 +9,6 @@ class SystemController extends AdminController {
     public function info(){
     	$this->display();
     }
+    
+    
 }

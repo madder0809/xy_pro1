@@ -27,7 +27,6 @@ class MenuController extends AdminController {
             $this->assign("menu",$this->menu);
             $this->display();
         }
-        
     }
     //编辑
     public function edit(){

@@ -8,54 +8,49 @@ class AdminController extends Controller {
     		$this->redirect("Log/index");
     	}
     	$rule  = strtolower(MODULE_NAME.'/'.CONTROLLER_NAME.'/'.ACTION_NAME);
-    	//exit($rule);
     	$role = $this->checkrule($rule);
-    	if(!$role) $this->error("权限不足");
+    	//if(!$role) $this->error("权限不足");
     	$menu = $this->getMenu();
-    	$this->assign($menu);//可见的菜单列表
+    	$this->assign($menu);
     }
     //检测权限
     protected function checkrule($rule, $type="", $mode='url'){
     	static $Auth    =   null;
         if (!$Auth) {
-            $Auth       =   new \Think\Auth();
+            $Auth = new \Think\Auth();
         }
         if(!$Auth->check($rule,UID,$type,$mode)){
             return false;
         }
         return true;
     }
-    //检测可见菜单
-    protected function getMenu(){
-    	//主菜单
-    	$menus['main'] = M("menu")->where("pid = 0 AND is_display = 1")->order("sort asc")->field("id,title,url")->select();
-    	//权限判断
-    	foreach ($menus['main'] as $k => $v) {
-    		if(!$this->checkrule(strtolower(MODULE_NAME.'/'.$v['url'])))
-    			unset($menus['main'][$k]);
-    		if(strtolower(CONTROLLER_NAME.'/'.ACTION_NAME)  == strtolower($v['url']))
-    		{
-                $menus['main'][$k]['class']='current';
-                $id = $v['id'];//当前主菜单ID
-    		}
-    	}
 
-    	if(!$id){ //父级ID
-            $url = strtolower(CONTROLLER_NAME.'/'.ACTION_NAME);
-            $r = M('menu')->where("lower(url) like '%{$url}%'")->field('t_pid')->find();
-            $id = $r['t_pid'];
+    //检测可见菜单
+    protected function getMenu($controller=CONTROLLER_NAME){
+    	//主菜单
+        $menus['main'] = M("menu")->where("pid = 0 AND is_display = 1")->order("sort ASC")->select();
+        
+        $menus['child'] = array();
+         foreach ($menus['main'] as $key => $item) {
+                // 判断主菜单权限
+                if (!$this->checkrule(strtolower(MODULE_NAME.'/'.$item['url']))) {
+                    unset($menus['main'][$key]);
+                    continue;//继续循环
+                }
+                if(strtolower(CONTROLLER_NAME.'/'.ACTION_NAME)  == strtolower($item['url'])){
+                    $menus['main'][$key]['class']='current';
+                }
+            }
+        $menu_url = strtolower(CONTROLLER_NAME.'/'.ACTION_NAME);
+        //当前菜单ID
+        $id = M('menu')->where("LOWER(url) = '{$menu_url}'")->getField('id');
+        //子菜单
+        if($child_menu = M('menu')->where("pid = {$id}")->select()){
+            
+        }else{
+            
         }
-    	$menus['nav'] = menu_sort($id);
-		
-    	foreach ($menus['nav'] as $k => $v) {
-    		if(!$this->checkrule(strtolower(MODULE_NAME.'/'.$v['url'])))
-    			//unset($menus['nav'][$k]);
-    		if(strtolower(CONTROLLER_NAME.'/'.ACTION_NAME)  == strtolower($v['url']))
-    		{
-                $menus['nav'][$k]['class']='current'.$v['level'];
-    		}
-    	}
-    	return $menus;
+        return $menus;
     }
 }
 ?>

@@ -64,7 +64,7 @@
             <h3>教学实验中心</h3>
             <img src="/Public/images/icon_prose.png" height="34" width="217" style="padding:0 20px 0 0;float:right;">
         </div>
-    </div>
+</div>
     
  <div class="option_click">
         <div style="width:1000px;margin:0 auto;" id="option">
