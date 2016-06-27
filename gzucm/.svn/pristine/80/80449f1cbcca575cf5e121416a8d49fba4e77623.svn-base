@@ -1,0 +1,19 @@
+
+<div id='mask_box'">
+	<div id='mask_box_header'>实验室信息导入</div>
+	<div id='mask_box_content'>
+			<form action='{:U("import")}' class='modal_form' method="post" enctype="multipart/form-data">
+			<table style='width:100%;margin:auto;'>
+			<tr>
+				<td><div>上传文件:</div></td>
+				<td><input type='file' name='file' value=''><span class='mest_input'>*</span></td>
+			</tr>
+			</table>
+			<div id='mask_box_footer'>
+				<input type='submit' value='确定'>
+				<input type='button' onclick='remove_mask_box();' value='取消'>
+			</div>
+		</form>
+	</div>
+</div>
+

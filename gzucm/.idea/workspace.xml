@@ -25,9 +25,21 @@
       <file leaf-file-name="InstrumentController.class.php" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/Application/Admin/Controller/InstrumentController.class.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.5417256">
-              <caret line="45" column="8" selection-start-line="45" selection-start-column="8" selection-end-line="45" selection-end-column="8" />
+            <state vertical-scroll-proportion="0.28712872">
+              <caret line="41" column="87" selection-start-line="41" selection-start-column="87" selection-end-line="41" selection-end-column="87" />
               <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="index.html" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/Application/Admin/View/theme/Instrument/index.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="-2.3225806">
+              <caret line="3" column="22" selection-start-line="3" selection-start-column="22" selection-end-line="3" selection-end-column="22" />
+              <folding>
+                <element signature="n#style#0;n#th#0;n#if#0;n#tr#0;n#thead#0;n#table#0;n#div#2;n#div#0;n#!!top" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -44,7 +56,6 @@
         <option value="$PROJECT_DIR$/Addons/PHPExcel/PHPExcel.php" />
         <option value="$PROJECT_DIR$/Application/Admin/View/theme/Instrument/import.html" />
         <option value="$PROJECT_DIR$/Addons/PHPExcel/PHPExcel/Worksheet.php" />
-        <option value="$PROJECT_DIR$/Application/Admin/View/theme/Instrument/index.html" />
         <option value="$PROJECT_DIR$/Application/Admin/View/theme/Test/index.html" />
         <option value="$PROJECT_DIR$/Application/Admin/Controller/TestController.class.php" />
         <option value="$PROJECT_DIR$/Application/Admin/View/theme/Schedule/import.html" />
@@ -54,6 +65,7 @@
         <option value="$PROJECT_DIR$/Application/Admin/Common/GzucmExcel.class.php" />
         <option value="$PROJECT_DIR$/Application/Admin/Controller/ScheduleController.class.php" />
         <option value="$PROJECT_DIR$/Application/Admin/View/theme/Schedule/index.html" />
+        <option value="$PROJECT_DIR$/Application/Admin/View/theme/Instrument/index.html" />
         <option value="$PROJECT_DIR$/Application/Admin/Controller/InstrumentController.class.php" />
       </list>
     </option>
@@ -272,7 +284,7 @@
   </component>
   <component name="PropertiesComponent">
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="settings.editor.selected.configurable" value="reference.settingsdialog.IDE.editor.colors.Font" />
+    <property name="settings.editor.selected.configurable" value="fileTemplates" />
     <property name="settings.editor.splitter.proportion" value="0.2" />
     <property name="restartRequiresConfirmation" value="false" />
   </component>
@@ -337,7 +349,7 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1456" height="876" extended-state="0" />
+    <frame x="-8" y="-8" width="1456" height="876" extended-state="1" />
     <editor active="true" />
     <layout>
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.24097222" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
@@ -556,14 +568,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Application/Admin/View/theme/Instrument/index.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-8.135593">
-          <caret line="77" column="28" selection-start-line="77" selection-start-column="28" selection-end-line="77" selection-end-column="28" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/Application/Admin/View/theme/Schedule/import.html">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.06789251">
@@ -634,10 +638,36 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/Application/Admin/View/theme/Index/index.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.81471">
+          <caret line="24" column="22" selection-start-line="24" selection-start-column="22" selection-end-line="24" selection-end-column="22" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Application/Admin/View/theme/Instrument/index.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-2.3225806">
+          <caret line="3" column="22" selection-start-line="3" selection-start-column="22" selection-end-line="3" selection-end-column="22" />
+          <folding>
+            <element signature="n#style#0;n#th#0;n#if#0;n#tr#0;n#thead#0;n#table#0;n#div#2;n#div#0;n#!!top" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$APPLICATION_HOME_DIR$/plugins/php/lib/php.jar!/com/jetbrains/php/lang/psi/stubs/data/date.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-0.1768034">
+          <caret line="20" column="9" selection-start-line="20" selection-start-column="9" selection-end-line="20" selection-end-column="9" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/Application/Admin/Controller/InstrumentController.class.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.5417256">
-          <caret line="45" column="8" selection-start-line="45" selection-start-column="8" selection-end-line="45" selection-end-column="8" />
+        <state vertical-scroll-proportion="0.28712872">
+          <caret line="41" column="87" selection-start-line="41" selection-start-column="87" selection-end-line="41" selection-end-column="87" />
           <folding />
         </state>
       </provider>
