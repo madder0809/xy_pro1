@@ -1,0 +1,19 @@
+<include file="Public/base"/>
+
+<div class='main'>
+	<div class="details">
+		<h3>实验室管理 > 实验室课表</h3>
+	</div>
+
+	<div class='header_action'>
+		<span>{$type_name}</span>
+		<div>
+			<a href='{:U("import")}' class='modal header_btn'>导入</a>
+			<a href='{:U("export")}' class='header_btn'>导出</a>
+		</div>
+	</div>
+
+	<div class='main_content'>
+
+	</div>
+</div>

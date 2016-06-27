@@ -1,0 +1,93 @@
+
+<div id='mask_box' style="height:450px">
+
+	<div id='mask_box_header'><notempty name='id'>编辑{$type_name[$type]}&nbsp;- {$user.realname}<else/>新增{$type_name[$type]}</notempty></div>
+	
+	<div id='mask_box_content'>
+		<empty name='id'>
+			<form action='{:U("add")}' method="post" class="modal_form">
+		<else/>
+			<form action='{:U("edit")}' method="post" class="modal_form">
+		</empty>
+			<table style='width:100%;margin:auto;'>
+			<tr>
+				<td><div>姓名：</div></td>
+				<td><input type='text' name='realname' value='{$user.realname}'><span class='mest_input'>*</span></td>
+			</tr>
+			<tr>
+				<td><div>用户名：</div></td>
+				<td><input type='text' name='username' value='{$user.username}'><span class='mest_input'>*</span></td>
+			</tr>
+			<tr>
+				<td><div>性别：</div></td>
+				<td>
+					<select name='sex' style='width:150px;'>
+						<foreach name="sex" item="vo" key="k">
+						    <option value="{$k}">{$vo}</option>
+						</foreach>
+					</select>
+					<span class='mest_input'>*</span>
+				</td>
+			</tr>
+
+			<tr>
+				<td><div><if condition="$type == 1">学籍号<else/>工号</if>：</div></td>
+				<td><input type='text' name='iden_no' value='{$user.iden_no}'><span class='mest_input'>*</span></td>
+			</tr>
+
+			<tr>
+				<td><div>身份证：</div></td>
+				<td><input type='text' name='id_card_no' value='{$user.id_card_no}'><span class='mest_input'>*</span></td>
+			</tr>
+
+			<tr>
+				<td><div>手机：</div></td>
+				<td><input type='text' name='mobile' value='{$user.mobile}'><span class='mest_input'>*</span></td>
+			</tr>
+
+			<tr>
+				<td><div>邮箱：</div></td>
+				<td><input type='text' name='email' value='{$user.email}'><span class='mest_input'>*</span></td>
+			</tr>
+
+			<tr>
+                <td></td>
+                <td>
+                    <div id='prompt_info' style='font-size:16px;color:red;text-align:left;'></div>
+                </td>
+            </tr>
+
+			<input type="hidden" name="type" value="{$type}">
+			<input type='hidden' name='id' value='{$user.id}'>
+			
+			<table>
+			
+			<div id='mask_box_footer'>
+				<input type='submit' value='确定'>
+				<input type='button' onclick='remove_mask_box();' value='取消'>
+			</div>
+		</form>
+	</div>
+</div>
+
+<script>
+	$('#mask_box_footer input[type="submit"]').click(function(){
+		if($('#mask_box_content input[name=title]').val() == ""){
+			$('#prompt_info').text('菜单名称不能为空').show();
+			return false;
+		}
+		if($('#mask_box_content input[name=name]').val() == ""){
+			$('#prompt_info').text('应用名称不能为空').show();
+			return false;
+		}
+		
+		$.post($('.modal_form').attr('action'), $('.modal_form').serialize(), function(data){
+        if(data.status == '1'){
+                location.href=data.url;
+            }else{
+                $('#prompt_info').text(data);                              
+            }
+        },'json');
+		return false;
+	});
+</script>

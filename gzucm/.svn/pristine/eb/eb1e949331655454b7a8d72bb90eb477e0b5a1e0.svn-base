@@ -1,0 +1,97 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>教学实验资源点播共享平台</title>
+	<script src="__PUBLIC__/jquery-2.1.1.min.js"></script>
+	<script src="__PUBLIC__/Admin/js/common.js"></script>
+	<link href="__PUBLIC__/Admin/css/admin.css" rel="stylesheet">
+	<link href="__PUBLIC__/Admin/css/mask_box.css" rel="stylesheet">
+</head>
+
+<body>
+
+<div class='header'>
+	<div class='logo'>logo</div>
+	<div class='nav'>
+		<a class='nav_itme' href='{:U(Index/index)}'>首页</a>	
+		<foreach name="_nav_list" item="nav">
+			<a class='nav_itme <if condition="$nav.selected eq 'selected'">nav_selected</if>' href='{:U($nav[name])}'>{$nav.title}</a>	
+		</foreach>
+	</div>
+	
+	<div class='logout'>
+		<a href={:U('Public/logout')}>退出</a>
+	</div>
+</div>
+
+<div id='mask_bg'></div>
+
+<div class='_menu'>
+	<foreach name="_menu" item="second">
+		<ul>
+			<if condition="$second.name eq '#node'">
+				<a href='#' class='tp_plus'>
+					<if condition="$second.icon neq ''">
+						<img src="__PUBLIC__/Admin/menu_icon/{$second.icon}.png">
+					</if>
+					{$second.title}
+				</a>
+				<foreach name="second[_child]" item="third">
+					<li>
+						<a href='{:U($third[name])}'>
+							<if condition="$third.icon neq ''">
+								<img src="__PUBLIC__/Admin/menu_icon/{$third.icon}.png">
+							</if>
+							{$third.title}
+						</a>
+					</li>
+				</foreach>
+			<else/>
+				<a href='{:U($second[name])}'>
+					<if condition="$second.icon neq ''">
+						<img src="__PUBLIC__/Admin/menu_icon/{$second.icon}.png">
+					</if>
+					{$second.title}
+				</a>
+			</if>
+		</ul>
+	</foreach>
+</div>
+
+<script>
+ 	$("._menu ul > a").click(function(){
+		var sib = $(this).parent('ul').siblings();	//同级ul对象
+		sib.find('a').removeClass('tp_minus').removeClass('tp_plus_select');
+		sib.find('li').slideUp(300);
+		sib.find('li a').removeClass('second_menu_selected');
+		
+		$(this).parent('ul').find('> a').removeClass('menu_selected');
+		
+		if($(this).hasClass('tp_minus')){
+			$(this).removeClass('tp_minus').addClass('tp_plus').addClass('tp_plus_select');
+			$(this).parent('ul').find('li').slideUp(300);
+		}else if($(this).hasClass('tp_plus')){
+			$(this).addClass('tp_minus');
+			$(this).parent('ul').find('li').addClass('tp_minus_li').slideDown(300);
+		}
+	});
+ 
+ 
+	$(function(){
+ 		var current_url = "{$current_url}";
+		var current = $('._menu').find('a[href="'+current_url+'"]');
+		if(current.parent('li')[0]){
+			// 二级菜单选中
+			current.parents('ul').find('> a').addClass('tp_minus');
+			current.parents('ul').find('li').addClass('tp_minus_li').slideDown();
+			current.addClass('second_menu_selected');
+		}else{
+			// 一级菜单选中
+			current.parent('ul').find('> a').addClass('menu_selected');
+		}
+	});
+</script>
+
+
+

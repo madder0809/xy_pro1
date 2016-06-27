@@ -1,0 +1,69 @@
+;$(function(){
+	
+	//弹出框
+	$('.modal').click(function(){
+		$.get($(this).attr('href'),'',function(data){
+			$('body').append(data);
+			document.getElementById("mask_bg").style.display ="block";
+			document.getElementById("mask_box").style.display ="block";
+		},'json');
+		
+		return false;
+	});
+	
+	//删除-询问框
+	$('.ask_del').on("click",function(){
+		var div  = "<div id='mask_box'>";
+				div += "<div id='mask_box_header'>信息</div>";
+					div += "<div id='mask_box_content'>";
+					div += "是否执行此操作";
+					div += "<div id='mask_box_footer'>";
+						div += "<input type='submit' onclick=run_click('" + $(this).attr('href') + "') value='确定'>";
+						div += "<input type='button' onclick='remove_mask_box();' value='取消'>";
+					div += "</div>";
+				div += "</div>";
+			div += "</div>";
+		$('body').append(div);
+		$("#mask_box").width('500');
+		$("#mask_box").height('200');
+		document.getElementById("mask_bg").style.display ="block";
+		document.getElementById("mask_box").style.display ="block";
+		return false;
+	});
+
+	//审核-询问框
+	$('.ask_audit').on("click",function(){
+		var div  = "<div id='mask_box'>";
+				div += "<div id='mask_box_header'>信息</div>";
+					div += "<div id='mask_box_content'>";
+					div += "是否执行此操作";
+					div += "<div id='mask_box_footer'>";
+						div += "<input type='submit' onclick=run_click('" + $(this).attr('href') + "&status=1') value='通过'>";
+						div += "<input type='submit' onclick=run_click('" + $(this).attr('href') + "&status=2') value='不通过'>";
+						div += "<input type='button' onclick='remove_mask_box();' value='取消'>";
+					div += "</div>";
+				div += "</div>";
+			div += "</div>";
+		$('body').append(div);
+		$("#mask_box").width('500');
+		$("#mask_box").height('200');
+		document.getElementById("mask_bg").style.display ="block";
+		document.getElementById("mask_box").style.display ="block";
+		return false;
+	})
+});
+
+
+function run_click(url){
+	$.get(url, '', function(data){
+		if(data.status == 1){
+			location.href = data.url;
+		}else{
+			alert(data.info);
+		}
+	});
+}
+function remove_mask_box() {
+	 $("#mask_bg").hide();
+	 $("#mask_box").remove();
+}

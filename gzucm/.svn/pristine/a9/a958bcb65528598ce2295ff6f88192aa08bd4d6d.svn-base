@@ -1,0 +1,65 @@
+<include file="Public/base"/>
+<div class='main'>
+	<div class="details">
+	    <h3>{$type_name}信息</h3>
+	</div>
+
+	<div class='header_action'>
+		<span>{$type_name}信息列表</span>
+		<div>
+			<a href='{:U("add",array("type"=>$type))}' class='modal header_btn'>添加</a>
+			<a href='{:U("import",array("type"=>$type))}' class="modal header_btn">导入</a>
+		</div>
+	</div>
+
+	<div class='main_content'>
+		<div class='header_seach'>
+			<form action="{:U('index',array('type'=>$type))}" method="post">
+			姓名：<input type='text' name="title" value="{$title}">
+				  <input type="hidden" name="type" value="{$type}">
+				  <input type="submit" value="查询">
+			</form>
+		</div>
+		
+		<table class='table'>
+			<thead>
+				<tr>
+					<th>姓名</th>
+					<th>用户名</th>
+					<th>性别</th>
+					<th>学籍号</th>
+					<th>籍贯</th>
+					<th>身份证号</th>
+					<th>手机号</th>
+					<th>邮箱</th>
+					<th class='table_action' style="width: 250px">操作</th>
+				</tr>
+			</thead>
+			<tbody>
+				<volist name="list" id="list">
+					<tr>
+						<td>{$list.realname}</td>
+						<td>{$list.username}</td>
+						<td>{$sex[$list['sex']]}</td>
+						<td>{$list.iden_no}</td>
+						<td>{$list.fir_na_name}{$list.sec_na_name}</td>
+						<td>{$list.id_card_no}</td>
+						<td>{$list.mobile}</td>
+						<td>{$list.email}</td>
+						<td>
+							<a href="{:U('edit',array(id=>$list[id],type=>$type))}" class="modal table_btn">编辑</a>
+							<a href="{:U('del',array('id'=>$list[id],type=>$type))}" class='ask_del table_btn_info'>删除</a>
+						</td>
+					</tr>
+				</volist>
+			</tbody>
+		</table>
+		<div class="pagination">{$page}<div>
+	</div>
+</div>
+<script type="text/javascript">
+	$(".header_btn").on("click",function(){
+		$("#import_file").click();
+		return false;
+	})
+</script>

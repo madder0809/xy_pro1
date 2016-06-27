@@ -1,0 +1,90 @@
+
+<div id='mask_box'>
+
+	<div id='mask_box_header'><notempty name='id'>编辑菜单&nbsp;- {$menu.title}<else/>新增菜单</notempty></div>
+	
+	<div id='mask_box_content'>
+		<empty name='id'>
+			<form action='{:U("add")}' class='modal_form'>
+		<else/>
+			<form action='{:U("edit")}' class='modal_form'>
+		</empty>
+			<table style='width:100%;margin:auto;'>
+			<tr>
+				<td><div>菜单名称：</div></td>
+				<td><input type='text' name='title' value='{$menu.title}'><span class='mest_input'>*</span></td>
+			</tr>
+			
+		
+			<tr>
+				<td><div>上级菜单：</div></td>
+				<td>
+					<select name='pid'>
+						<option value='0'>作为一级菜单</option>
+						<volist name="menu_list" id="list">
+							<option value={$list.id} <if condition="$list[id] eq $pid"> selected="selected" </if>>{$list.title_show}</option>	
+						</volist>
+					</select>
+				</td>
+			</tr>
+				
+			<tr>
+				<td><div>应用：</div></td>
+				<td>
+					<input type='text' name='name' value='{$menu.name}' placeholder='Controller/action'><span class='mest_input'>*</span>
+					<div style='text-align:left;font-size:13px;margin:3px 0;'>如果此菜单下还有子菜单, 请填写#node</div>
+				</td>
+			</tr>
+			
+			<tr>
+				<td><div>图标：</div></td>
+				<td><input type='text' name='icon' value='{$menu.icon}'></td>
+			</tr>
+			
+			<tr>
+				<td><div>排序：</div></td>
+				<td><input type='text' name='sort' value='<empty name="menu.sort">0<else/>{$menu.sort}</empty>'></td>
+			</tr>
+			
+			<tr>
+				<td><div>类型：</div></td>
+				<td>
+					<label><input type='radio' checked='checked' name='menu_type' value='1' />普通菜单</label>
+					<label><input type='radio' <if condition="$menu[menu_type] eq 2"> checked='checked' </if>name='menu_type' value='2' />操作菜单</label>
+				</td>
+			</tr>
+			
+			<tr>
+				<td></td>
+				<td>
+					<div id='prompt_info' style='font-size:16px;color:red;text-align:left;'></div>
+				</td>
+			</tr>
+		
+			<input type='hidden' name='id' value='{$menu.id}'>
+			<table>
+			<div id='mask_box_footer'>
+				<input type='submit' value='确定'>
+				<input type='button' onclick='remove_mask_box();' value='取消'>
+			</div>
+		</form>
+	</div>
+</div>
+
+<script>
+$(function(){
+	$('#mask_box_footer input[type="submit"]').click(function(){
+		if($('#mask_box_content input[name=title]').val() == ""){
+			$('#prompt_info').text('菜单名称不能为空').show();
+			return false;
+		}
+		if($('#mask_box_content input[name=name]').val() == ""){
+			$('#prompt_info').text('应用名称不能为空').show();
+			return false;
+		}
+		ajax_post();
+		return false;
+});
+
+	});
+</script>

@@ -1,0 +1,88 @@
+<include file="Public/base"/>
+
+<div class='main'>
+	<div class="details">
+	    <h3>实验室管理 > 实验仪器管理</h3>
+	</div>
+
+	<div class='header_action'>
+		<span>{$type_name}</span>
+		<div>
+			<a href='{:U("add",array("type"=>$type))}' class='modal header_btn'>添加</a>
+			<a href='{:U("import",array("type"=>$type))}' class='modal header_btn'>导入</a>
+		</div>
+	</div>
+
+	<div class='main_content'>
+		<div class='header_seach'>
+			<form action="{:U('index')}" method="post">
+			实验室名称:
+			<select name="lab_id">
+				<option <if condition="I('lab_id')">selected</if> value="0">不限</option>
+				<foreach name="lab_list" item="vo" key="k">
+						<option value="{$k}" <if condition="$k eq I('lab_id')">selected</if> >{$vo}</option>
+				</foreach>
+			</select>
+			仪器名称:<input type="text" name="name">
+			仪器状态:
+						<select name="status">
+							<foreach name="status" item="vo" key="k" >
+							   <option value="{$k}" <if condition="$k heq I('status')">selected</if> >{$vo}</option>
+							</foreach>
+					   </select>
+			<input type="submit" value="查询">
+			</form>
+		</div>
+		
+		<table class='table'>
+			<thead>
+				<tr>
+					<th>仪器名称</th>
+					<th>仪器编码</th>
+					<th>实验室地址</th>
+					<th>实验室名称</th>
+					<th>实验室编码</th>
+					<th>实验台号</th>
+					<th>品牌</th>
+					<th>型号</th>
+					<th>规格</th>
+					<th>管理员</th>
+					<th>备注</th>
+					<th>购买日期</th>
+					<th>是否已报修</th>
+					<th>预计修复时间</th>
+					<th>仪器状态</th>
+					<th>故障原因</th>
+					<th class='table_action' style="width: 150px">操作</th>
+				</tr>
+			</thead>
+			<tbody>
+				<volist name="list" id="list">
+					<tr>
+						<td>{$list.name}</td>
+						<td>{$list.number}</td>
+						<td>{$list.address}</td>
+						<td>{$list.lab_name}</td>
+						<td>{$list.lab_number}</td>
+						<td>{$list.table_no}</td>
+						<td>{$list.brand}</td>
+						<td>{$list.model}</td>
+						<td>{$list.spec}</td>
+						<td>{$list.admin_id}</td>
+						<td>{$list.remark}</td>
+						<td>{$list.buy_date}</td>
+						<td>{$list['call_repair']  ? "是" : ""}</td>
+						<td>{$list['fix_time']>0 ? $list['fix_time'] : ""}</td>
+						<td>{$list['status'] ? "故障" : "正常"}</td>
+						<td>{$list.reason}</td>
+						<td>
+							<a href="{:U('edit',array('id'=>$list['id']))}" class="modal table_btn">编辑</a>
+							<a href="{:U('del',array('id'=>$list['id']))}" class='ask_del table_btn_info'>删除</a>
+						</td>
+					</tr>
+				</volist>
+			</tbody>
+		</table>
+	</div>
+	{$_page}
+</div>

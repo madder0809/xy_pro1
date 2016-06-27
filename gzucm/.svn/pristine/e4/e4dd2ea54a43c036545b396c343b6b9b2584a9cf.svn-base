@@ -1,0 +1,111 @@
+<include file="Public/base"/>
+<link href="__PUBLIC__/Admin/js/kindeditor/themes/default/default.css" type="text/css" rel="stylesheet">
+<link href="__PUBLIC__/Admin/js/kindeditor/plugins/code/prettify.css" type="text/css" rel="stylesheet">
+<script type="text/javascript" src="__PUBLIC__/Admin/js/kindeditor/kindeditor-all.js"></script>
+<script type="text/javascript" src="__PUBLIC__/Admin/js/kindeditor/lang/zh-CN.js"></script>
+<script type="text/javascript" src="__PUBLIC__/Admin/js/kindeditor/plugins/code/prettify.js"></script>
+<script>
+		KindEditor.ready(function(K) {
+			var editor1 = K.create('textarea[name="content"]', {
+				cssPath : '__PUBLIC__/Admin/js/kindeditor/plugins/code/prettify.js',
+				uploadJson : '__PUBLIC__/Admin/js/kindeditor/php/upload_json.php',
+				fileManagerJson : '__PUBLIC__/Admin/js/kindeditor/php/file_manager_json.php',
+				allowFileManager : true
+			});
+			prettyPrint();
+		});
+</script>
+<div id='mask_box' style="width:80%;height: 700px">
+	<div id='mask_box_header'><notempty name='id'>编辑<else/>发布</notempty></div>
+	<div id='mask_box_content'>
+		<empty name='id'>
+			<form action='{:U("add")}' name="myform" method="post" enctype="multipart/form-data">
+		<else/>
+			<form action='{:U("edit")}' name="myform" method="post" enctype="multipart/form-data">
+		</empty>
+
+			<table style='width:100%;margin:auto;'>
+			<tr>
+				<td><div>标题：</div></td>
+				<td><input type='text' name='title' value='{$info.title}'><span class='mest_input'>*</span></td>
+			</tr>
+			<tr>
+				<td><div>内容</div></td>
+				<td>
+				<div>
+				<textarea name="content" style="width:700px;height:350px;visibility:hidden;">{$info.content}</textarea>
+				<br />
+				</div>
+    			</td>
+			</tr>
+			<tr>
+				<td><div>固定级别：</div></td>
+				<td><input type='text' name='password' value='{$info.level}'><span class='mest_input'>*</span></td>
+			</tr>
+		
+			<tr>
+				<td><div>类型：</div></td>
+				<td>
+					<select name='type' style='width:150px;'>
+						<foreach name="type" item="t" key="k" >
+							<option value="{$k}" <if condition="$k eq $info['type']"> selected="selected" </if>>{$t}</option>
+						</foreach>
+					</select>
+					<span class='mest_input'>*</span>
+				</td>
+			</tr>
+			
+			<tr>
+				<td><div>状态：</div></td>
+				<td>
+					<select name='type' style='width:150px;'>
+						<foreach name="status" item="s" key="k" >
+							<option value="{$k}" <if condition="$k eq $info['status']"> selected="selected" </if>>{$s}</option>
+						</foreach>
+					</select>
+					<span class='mest_input'>*</span>
+				</td>
+			</tr>	
+			
+			<tr>
+				<td><div>发布时间:</div></td>
+				<td>
+					<input type='text' name='publishtime' value='{$info.publishtime}'>
+				</td>
+			</tr>
+
+			<input type='hidden' name='id' value='{$info.id}'>
+			
+			<table>
+			
+			<div id='mask_box_footer'>
+				<input type='submit' value='确定'>
+				<input type='button' onclick='remove_mask_box();' value='取消'>
+			</div>
+		</form>
+	</div>
+</div>
+
+<script>
+	$('#mask_box_footer input[type="submit"]').click(function(){
+		if($('#mask_box_content input[name=title]').val() == ""){
+			$('#prompt_info').text('菜单名称不能为空').show();
+			return false;
+		}
+		if($('#mask_box_content input[name=name]').val() == ""){
+			$('#prompt_info').text('应用名称不能为空').show();
+			return false;
+		}
+		
+		var form = $(this).parents("form");
+		$.post(form.attr('action'), form.serialize(), function(data){
+			if(data.status == '1'){
+				location.href=data.url;
+			}else{
+				$('#prompt_info').text(data.info);								
+			}
+		},'json');
+		return false;
+	});
+</script>
+

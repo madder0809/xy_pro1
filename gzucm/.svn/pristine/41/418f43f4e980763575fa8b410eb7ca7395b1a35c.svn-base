@@ -1,0 +1,162 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>教学实验资源点播共享平台</title>
+
+	<script src="__PUBLIC__/Admin/js/jquery.min.js"></script>
+	<script src="__PUBLIC__/Admin/js/common.js"></script>
+	<script src="__PUBLIC__/Admin/js/jquery-ui-datepicker.min.js"></script>
+	<link href="__PUBLIC__/Admin/css/admin.css" rel="stylesheet">
+	<link href="__PUBLIC__/Admin/css/mask_box.css" rel="stylesheet">
+	<link href="__PUBLIC__/Admin/css/calendar.css" rel="stylesheet">
+</head>
+<body>
+
+<div class='header'>
+	<div class='logo'></div>
+	<div class='nav'>
+		<a class='nav_itme nav_selected' href='{:U("Index/index")}'>首页</a>	
+		<foreach name="_nav_list" item="nav">
+			<a class='nav_itme' href='{:U($nav[name])}'>{$nav.title}</a>	
+		</foreach>
+	</div>
+	
+    <div class="news">
+        <a href="javascript:void();" id="news"><i>1</i></a>
+        <div class="personal">
+            <a href="javascript:void();">
+            <img src="__PUBLIC__/Admin/Images/1.jpg" height="500" width="500">
+           	 {$username}
+            </a>
+            <div class="set_up" id="set_up"style="display:none;">
+                <a href="javascript:void();"><i class="fa-user"></i>基本信息</a>
+                <i class="wire"></i>
+                <a href="{:U('Public/edit_password')}" class='modal'><i class="fa-lock"></i>修改密码</a>
+                <a href="{:U('Public/Logout')}"><i class="fa-sign-out"></i>安全退出</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id='mask_bg'></div>
+
+<div class="info">
+ <div class="character">
+    <img src="__PUBLIC__/Admin/Images/1.jpg">
+        <p class="name">{$username}</p>
+        <p>管理员</p>
+        <p>{$group_name}</p>
+    </div>
+    
+    <div class="calendar">
+        <h2>日历</h2>
+        <div>
+            <div id="calendar"></div>
+        </div>
+    </div>
+    
+    <div class="weather">
+        <h2>天气</h2>
+        <div style='margin-top:30px;'>
+            <iframe allowtransparency="true" frameborder="0" width="200" height="189" scrolling="no" src="http://tianqi.2345.com/plugin/widget/index.htm?s=2&z=1&t=1&v=1&d=2&bd=0&k=&f=&q=1&e=1&a=1&c=54511&w=220&h=189&align=center"></iframe>
+        </div>
+    </div>
+</div>
+
+<div class='main'>
+
+	<div class="details">
+	    <h3>首页 > 个人中心</h3>
+	</div>
+
+	<div class='main_content'>
+		<div class="substance">
+        <div class="switch" id="switch">
+            <a href="{:U('Index/index', array('tag'=>0))}" class="switch_show">个人中心</a>
+            <a href="{:U('Index/index', array('tag'=>2))}">信息中心</a>
+        </div>
+        <div class="show">
+			1
+        </div>
+        <div class="show">
+            <ul class="node">
+                <li>
+                    <img src="__PUBLIC__/Admin/Images/icon_tidings.jpg" height="35" width="34">
+                    <p>实验室管理<i>12分钟前</i></p>
+                    <b>您有新的实验室预约待处理！</b><span>点击查看</span>
+                </li>
+                <li>
+                    <img src="__PUBLIC__/Admin/Images/icon_tidings.jpg" height="35" width="34">
+                    <p>实验室管理<i>12分钟前</i></p>
+                    <b>您有新的实验室预约待处理！</b><span>点击查看</span>
+                </li>
+            </ul>
+        </div>
+    </div>
+	</div>
+</div>
+	
+
+<script>
+ 	$("._menu ul > a").click(function(){
+		var sib = $(this).parent('ul').siblings();	//同级ul对象
+		sib.find('a').removeClass('tp_minus').removeClass('tp_plus_select');
+		sib.find('li').slideUp(300);
+		sib.find('li a').removeClass('second_menu_selected');
+		
+		$(this).parent('ul').find('> a').removeClass('menu_selected');
+		
+		if($(this).hasClass('tp_minus')){
+			$(this).removeClass('tp_minus').addClass('tp_plus').addClass('tp_plus_select');
+			$(this).parent('ul').find('li').slideUp(300);
+		}else if($(this).hasClass('tp_plus')){
+			$(this).addClass('tp_minus');
+			$(this).parent('ul').find('li').addClass('tp_minus_li').slideDown(300);
+		}
+	});
+ 
+ 
+ 	function getUrlParam(name){
+	 	var reg = new RegExp("(^|&)"+ name +"=([^&]*)(&|$)");
+	 	var r = window.location.search.substr(1).match(reg);
+	 	if (r!=null) 
+	 		return unescape(r[2]); 
+	 	return null;
+ 	} 
+ 	
+	$(function(){
+		var tag = getUrlParam('tag');
+		tag = tag?tag:0;
+		$('#switch a').eq(tag).addClass("switch_show").siblings().removeClass("switch_show");
+        $(".show").hide();//隐藏wenben
+        $(".show:eq("+tag+")").show();
+        
+        $("#switch a").click(function(){
+            $(".switch_show").removeClass("switch_show");//移除样式
+            $(this).addClass("switch_show");//添加样式
+            var i=$(this).index();//获得下标
+            $(".show").hide();//隐藏wenben
+            $(".show:eq("+i+")").show();//显示第i个wenben
+        });
+
+
+    $(".personal").on("mouseenter", function () {
+	    var $this = $(this);
+	    $this.find(".set_up").show();
+		}).on("mouseleave", function () {
+		    var $this = $(this);
+		    $this.find(".set_up").hide();
+		});
+	});
+	
+	$('#calendar').datepicker({
+	    inline: true,
+	    firstDay: 0,
+	    showOtherMonths: true,
+	    dayNamesMin: [ '日','一', '二', '三', '四', '五','六',]
+	});
+</script>
+
+
+

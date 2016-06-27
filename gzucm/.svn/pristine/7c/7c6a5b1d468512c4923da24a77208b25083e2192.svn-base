@@ -1,0 +1,46 @@
+<include file="Public/base"/>
+
+
+<div class='main'>
+
+	<div class="details">
+	    <h3>注册学籍段管理</h3>
+	</div>
+
+	<div class='header_action'>
+		<span>学籍列表</span>
+		<div>
+			<a href='{:U("add")}' class='modal'>添加</a>
+		</div>
+	</div>
+	
+	<div class='main_content'>
+		<table class='table'>
+			<thead>
+				<tr>
+					<th>ID</th>
+					<th>学籍段</th>
+					<th>是否用于注册</th>
+					<th class='table_action'>操作</th>
+				</tr>
+			</thead>
+			<tbody>
+				<volist name="roll_list" id="vo">
+					<tr>
+						<td>{$vo.id}</td>
+						<td>{$vo.roll_start}-{$vo.roll_end}</td>
+						<td>
+							<if condition="$vo[use_reg] eq 1"> 是 <else /> 否 </if>
+						</td>
+						<td>
+							<a href="{:U('edit',array(id=>$vo[id]))}" class="modal">编辑</a>
+							<a href="{:U('del',array('id'=>$vo[id]))}" class='ask_del'>删除</a>
+						</td>
+					</tr>
+				</volist>
+			</tbody>
+		</table>
+		
+	</div>
+</div>
+

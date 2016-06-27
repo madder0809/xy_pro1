@@ -1,0 +1,44 @@
+<include file="Public/base"/>
+
+
+<div class='main'>
+
+	<div class="details">
+	    <h3>首页 > 角色管理</h3>
+	</div>
+
+	<div class='header_action'>
+		<span>角色列表</span>
+		<div>
+			<a href='{:U("add")}' class='modal header_btn'>添加角色</a>
+		</div>
+	</div>
+	
+	<div class='main_content'>
+		<table class='table'>
+			<tr>
+				<th style='width:80px;'>ID</th>
+				<th>角色名称</th>
+				<th>描述</th>
+				<th>操作</th>
+			</tr>
+			<volist name="rule_list" id="first" key="first_key">
+				<tr>
+					<td>{$first.id}</td>
+					<td>{$first.title}</td>
+					<td>{$first.name}</td>
+					<td>
+						<a href="{:U('edit',array(id=>$first[id]))}" class="modal table_btn">编辑</a>
+						<a href="{:U('del',array('id'=>$first[id]))}" class='ask_del table_btn_info'>删除</a>
+					</td>
+				</tr>
+			</volist>
+		</table>
+	</div>
+</div>
+
+<script>
+
+	
+</script>
+

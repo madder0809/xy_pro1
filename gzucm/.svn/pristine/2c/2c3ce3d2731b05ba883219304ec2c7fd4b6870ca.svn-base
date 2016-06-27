@@ -1,0 +1,13 @@
+<include file="Public/base"/>
+
+
+<div class='main'>
+
+	<div class="details">
+	    <h3>首页 > 门户管理</h3>
+	</div>
+
+	<div class='main_content'>		
+	</div>
+</div>
+

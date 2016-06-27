@@ -1,0 +1,136 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>教学实验资源点播共享平台</title>
+	<script src="__PUBLIC__/jquery-2.1.1.min.js"></script>
+	<script src="__PUBLIC__/Admin/js/common.js"></script>
+	<link href="__PUBLIC__/Admin/css/admin.css" rel="stylesheet">
+	<link href="__PUBLIC__/Admin/css/mask_box.css" rel="stylesheet">
+	<link href="__PUBLIC__/Admin/css/page.css" rel="stylesheet">
+</head>
+
+<body>
+
+<div class='header'>
+	<div class='logo'></div>
+	<div class='nav'>
+		<a class='nav_itme' href='{:U("Index/index")}'>首页</a>	
+		<foreach name="_nav_list" item="nav">
+			<a class='nav_itme <if condition="$nav.selected eq 'selected'">nav_selected</if>' href='{:U($nav[name])}'>{$nav.title}</a>	
+		</foreach>
+	</div>
+	
+    <div class="news">
+        <a href="javascript:void();" id="news"><i>1</i></a>
+        <div class="personal">
+            <a href="javascript:void();">
+            <img src="__PUBLIC__/Admin/Images/1.jpg" height="500" width="500">
+           	 {$username}
+            </a>
+            <div class="set_up" id="set_up"style="display:none;">
+                <a href="javascript:void();"><i class="fa-user"></i>基本信息</a>
+                <i class="wire"></i>
+                <a href="{:U('Public/edit_password')}" class='modal'><i class="fa-lock"></i>修改密码</a>
+                <a href="{:U('Public/Logout')}"><i class="fa-sign-out"></i>安全退出</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id='mask_bg'></div>
+
+<div class='_menu'>
+	<foreach name="_menu" item="second">
+		<ul>
+			<if condition="$second.name eq '#node'">
+				<a href='#' class='tp_plus'>
+					<if condition="$second.icon neq ''">
+						<img src="__PUBLIC__/Admin/menu_icon/{$second.icon}.png">
+					</if>
+					{$second.title}
+				</a>
+				<foreach name="second[_child]" item="third">
+					<li>
+						<a href='{:U($third[name])}'>
+							<if condition="$third.icon neq ''">
+								<img src="__PUBLIC__/Admin/menu_icon/{$third.icon}.png">
+							</if>
+							{$third.title}
+						</a>
+					</li>
+				</foreach>
+			<else/>
+				<a href='{:U($second[name])}'>
+					<if condition="$second.icon neq ''">
+						<img src="__PUBLIC__/Admin/menu_icon/{$second.icon}.png">
+					</if>
+					{$second.title}
+				</a>
+			</if>
+		</ul>
+	</foreach>
+</div>
+
+<script>
+ 	$("._menu ul a").click(function(){
+ 		var sib = $(this).parents('ul').siblings();	//同级ul对象
+ 		sib.children('li').slideUp(300);
+ 		
+		sib.children('a').removeClass('tp_minus').removeClass('tp_plus_select');
+		sib.children('li a').removeClass('second_menu_selected');
+		$(this).parent('ul').children('a').removeClass('menu_selected');
+ 		
+ 		$(this).parents('ul').siblings().children('a').removeClass('menu_selected');
+ 		
+ 		//展开收起
+		if($(this).hasClass('tp_minus')){
+			$(this).removeClass('tp_minus').addClass('tp_plus').addClass('tp_plus_select');
+			$(this).parent('ul').find('li').slideUp(300);
+		}else if($(this).hasClass('tp_plus')){
+			$(this).addClass('tp_minus');
+			$(this).parent('ul').find('li').addClass('tp_minus_li').slideDown(300);
+		}
+	});
+ 
+ 
+	$(function(){
+		var url = "{$current_url}"
+		if(url == ''){
+			url = window.location.pathname + window.location.search;
+		}
+		
+		var current_url = url.replace(/(\/(p)\/\d+)|(&p=\d+)|(\/(id)\/\d+)|(&id=\d+)|(\/(group)\/\d+)|(&group=\d+)/, "");
+		
+		var current = $('._menu').find('a[href="'+current_url+'"]');
+		if(current.parent('li')[0]){
+			// 二级菜单选中
+			current.parents('ul').find('> a').addClass('tp_minus');
+			current.parents('ul').find('li').addClass('tp_minus_li').slideDown();
+			current.addClass('second_menu_selected');
+		}else{
+			// 一级菜单选中
+			current.parent('ul').find('> a').addClass('menu_selected');
+		}
+        $(".show").hide();//隐藏wenben
+        $(".show:eq(0)").show();//显示第一个wenben
+        $("#switch a").click(function(){
+            $(".switch_show").removeClass("switch_show");//移除样式
+            $(this).addClass("switch_show");//添加样式
+            var i=$(this).index();//获得下标
+            $(".show").hide();//隐藏wenben
+            $(".show:eq("+i+")").show();//显示第i个wenben
+        });
+
+
+        //鼠标移到用户头像
+	    $(".personal").on("mouseenter", function () {
+	    	var $this = $(this);
+	    	$this.find(".set_up").show();
+		}).on("mouseleave", function () {
+		    var $this = $(this);
+		    $this.find(".set_up").hide();
+		});
+});
+</script>
+

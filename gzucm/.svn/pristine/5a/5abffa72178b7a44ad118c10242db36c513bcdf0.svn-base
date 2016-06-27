@@ -1,0 +1,53 @@
+<include file="Public/base"/>
+
+
+<div class='main'>
+
+	<div class="details">
+	    <h3>首页 > 管理员管理</h3>
+	</div>
+
+	<div class='header_action'>
+		<span>管理员列表</span>
+		<div>
+			<a href='{:U("add")}' class='modal header_btn'>添加管理员</a>
+		</div>
+	</div>
+	
+	<div class='main_content'>
+		<div class='header_seach'>
+			<form action='{:U("index")}' method='post'>
+				用户名：<input type='text' name='username' value='{$adminusername}'>
+				角色：<input type='text' name='auth_group'  value='{$auth_group}'>
+				<input type='submit' value='确定'>
+			</form>
+		</div>
+		
+		<table class='table'>
+			<thead>
+				<tr>
+					<th>用户名</th>
+					<th>角色</th>
+					<th class='table_action' style='width:250px;'>操作</th>
+				</tr>
+			</thead>
+			<tbody>
+				<volist name="admin_user_list" id="user">
+					<tr>
+						<td>{$user.username}</td>
+						<td>{$user.role}</td>
+						<td>
+							<if condition="$user[username] neq 'admin'">
+								<a href="{:U('del',array('uid'=>$user[uid]))}" class='ask_del table_btn_info'>删除</a>
+								<a href="{:U('reset',array(uid=>$user[uid]))}" class="ask_del table_btn_info">重置密码</a>
+								<a href="{:U('edit',array(uid=>$user[uid]))}" class="modal table_btn">编辑</a>
+							</if>
+						</td>
+					</tr>
+				</volist>
+			</tbody>
+		</table>
+	
+		<div class="pagination">{$_page}<div>
+	</div>
+</div>

@@ -1,0 +1,75 @@
+<?php
+namespace Admin\Controller;
+
+class AdminUserController extends AdminController {
+    public function index(){
+    	$admin_user_list = M('admin_user au')
+    		->join('auth_group_access aga on aga.uid = au.uid')
+    		->join('auth_group ag on ag.id = aga.group_id')
+    		->field('au.uid,au.username,ag.title as role')->select();
+    	$this->assign('admin_user_list', $admin_user_list);
+        $this->display();
+    }
+    
+    function add(){
+    	if(IS_POST){
+    		$_POST['password'] = thinkMD5($_POST['password']);
+    		$admin_user = M('admin_user');
+    		if($admin_user->validate($this->rules)->create()){
+    			$uid = $admin_user->add();
+    			if($uid){
+    				M('auth_group_access')->add(array('uid'=>$uid, 'group_id'=>I('group_id')));
+    				$this->success('管理员增加成功', U('index'));
+    			}else{
+    				$this->error('管理员增加失败');
+    			}
+    		}
+    	}else{
+    		$role_list = M('auth_group')->where(array('status'=>1))->select();
+    		$this->assign('role_list',$role_list);
+    		$this->ajaxReturn($this->fetch('edit'));
+    	}
+    }
+    
+    function edit(){
+    	$uid = I('uid');
+    	if(empty($uid)){
+    		$this->error('出错了');
+    	}
+    	if(IS_POST){
+    		$admin_user= M('admin_user');
+    		if($admin_user->validate($this->rules)->create()){
+    			if($admin_user->save() !== false){
+    				$this->cheanMenuCache();
+    				$this->success('管理员编辑成功', U('index'));
+    			}else{
+    				$this->error('管理员编辑失败');
+    			}
+    		}
+    	}else{
+    		$admin_user = M('admin_user au')->where(array('au.uid'=>$uid))
+    		->join('auth_group_access aga on aga.uid = au.uid')
+    		->join('auth_group ag on ag.id = aga.group_id')
+    		->field('au.uid,au.username,aga.group_id')->find();
+    		
+    		$role_list = M('auth_group')->where(array('status'=>1))->select();
+    		$this->assign('role_list',$role_list);
+    		$this->assign('admin_user', $admin_user);
+    		$this->assign('uid', $uid);
+    		$this->ajaxReturn($this->fetch('edit'));
+    	}
+    }
+    
+    function del(){
+    	$uid = I('uid');
+    	if(empty($uid)){
+    		$this->error('出错了');
+    	}
+    	if(M('admin_user')->where(array('uid'=>$uid))->delete()){
+    		$this->success('删除成功', U('index'));
+    	}else{
+    		$this->error('删除失败');
+    	}
+    }
+    
+}

@@ -1,0 +1,27 @@
+<?php
+namespace Home\Model;
+use Think\Model;
+class UserModel extends Model{
+	protected $_validate = array(
+                //array('username','/^(w){4,20}$/','用户名必须为4-20位数字和字母的结合'),
+                array('username','','用户名已被注册！',1,'unique',1),
+                array('confirm_pwd','password','确认密码不正确',0,'confirm'),
+                array('id_card_no','/^[1-9]\d{7}((0\d)|(1[0-2]))(([0|1|2]\d)|3[0-1])\d{3}$|^[1-9]\d{5}[1-9]\d{3}((0\d)|(1[0-2]))(([0|1|2]\d)|3[0-1])\d{3}([0-9]|X)$/','身份证号码不正确'),
+                array('mobile','/^1[34578]{1}\d{9}$/','手机号码不正确'),
+                array('email','/^([0-9A-Za-z\\-_\\.]+)@([0-9a-z]+\\.[a-z]{2,3}(\\.[a-z]{2})?)$/i','邮箱格式不正确'),
+                array('iden_no','check_iden_no','该学籍号不能注册',1,'callback')
+                );
+	
+	protected function check_iden_no($num){
+		$reg_school_roll = M("reg_school_roll")->where("use_reg = 1")->select();
+		foreach ($reg_school_roll as $k => $v) {
+			if($num>=$v['roll_start']&&$num <= $v['roll_end']){
+				$ok = true;
+				break;
+			}
+		}
+		return $ok ? true : false;
+	}
+}
+
+?>

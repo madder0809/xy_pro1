@@ -1,0 +1,38 @@
+.page_turning{
+    position: absolute;
+    bottom:0;
+    color: #585858;
+    margin: 15px 25px;
+    width: 93.5%
+}
+.check_comment{
+    position: inherit;
+    font-size:12px;
+    float: left;
+    margin:30px;
+}
+.check_comment span i{
+    background: none;
+    float: none;
+    font-style:normal;
+}
+.currently{
+    float: right;
+}
+.currently button{
+    height: 30px;
+    width: 30px;
+    border-radius: 5px;
+    border:1px #ddd solid;
+    float: left;
+    color: #777;
+    margin-left: 5px;
+    font-size: 14px;
+    background: #fff;
+    line-height: 25px;
+    cursor: pointer;
+}
+button.location{
+    background:#428bca;
+    color: #fff;
+}

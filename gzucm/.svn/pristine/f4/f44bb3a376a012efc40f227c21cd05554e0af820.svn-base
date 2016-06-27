@@ -1,0 +1,52 @@
+<?php
+#门户
+namespace Admin\Controller;
+class NoticeController extends AdminController {
+	public $type = array(1=>"文字",2=>"图文");
+	public $status = array(0=>"未审核",1=>"已通过",2=>"未通过");
+    #通知公告
+    public function index(){
+    	$notice_list = M("notice")->order('publishtime DESC')->select();
+    	$data['type'] =  $this->type;
+    	$data['status'] = $this->status;
+    	$data['notice_list'] = $notice_list;
+    	$this->assign($data);
+    	$this->display();
+    }
+    #发布
+    public function add(){
+    	if(IS_POST){
+    		M("notice")->create();
+    		$this->success("发布成功",U("Notice/index"));
+    	}else{
+    		$data['type'] = $this->type;
+    		$data['status'] = $this->status;
+    		$this->assign($data);
+			$this->display('edit');
+    	}
+    	
+    }
+
+    #编辑
+    public function edit(){
+    	$nid = I("id");
+    	if(!$nid){
+    		$this->error("出错了");
+    	}
+    	if(IS_POST){
+    		M("notice")->create();
+    		if(M("notice")->save()){
+    			$this->success("编辑成功",U("Notice/index"));
+    		}
+    	}else{
+    		$data['id'] = $nid;
+    		$data['type'] = $this->type;
+    		$data['status'] = $this->status;
+    		$info = M("notice")->find($nid);
+    		$data['info'] = $info;
+    		$this->assign($data);
+    		$this->display("edit");
+    	}
+    }
+}
+?>

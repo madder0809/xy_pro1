@@ -1,0 +1,81 @@
+<?php
+namespace Admin\Controller;
+
+class AuthGroupController extends AdminController {
+    public function index(){
+    	$rule_list = M('auth_group')->select();
+    	$this->assign('rule_list', $rule_list);
+        $this->display();
+    }
+    
+    function add(){
+    	if(IS_POST){
+    		$menu = M('auth_group');
+    		$_POST['rules'] = implode(',', I('rules'));
+    		if($menu->validate($this->rules)->create()){
+    			if($menu->add()){
+    				$this->cheanMenuCache();
+    				$this->success('角色增加成功', U('index'));
+    			}else{
+    				$this->error('角色增加失败');
+    			}
+    		}
+    	}else{
+    		include_once 'Application/Admin/Common/Tree.class.php';
+    		$rule_list = M('auth_menu')->where(array('menu_type'=>1))->field('id,name,title,pid')->select();
+    		$tree = new  \Common\Tree();
+    		$rule_list = list_to_tree($rule_list);
+    		$this->assign('rule_list', $rule_list);
+    		$this->ajaxReturn($this->fetch('edit'));
+    	}
+    }
+    
+    function edit(){
+    	$id = I('id');
+    	if(empty($id)){
+    		$this->error('出错了');
+    	}
+    
+    	if(IS_POST){
+    	    $auth_group = M('auth_group');
+    		$_POST['rules'] = implode(',', I('rules'));
+    		if($auth_group->validate($this->rules)->create()){
+    			if($auth_group->where(array('id'=>$id))->save()){
+    				$this->success('角色编辑成功', U('index'));
+    			}else{
+    				$this->error('角色编辑失败');
+    			}
+    		}
+    	}else{
+    		include_once 'Application/Admin/Common/Tree.class.php';
+    		$rule_list = M('auth_menu')->where(array('menu_type'=>1))->field('id,name,title,pid')->select();
+    		$tree = new  \Common\Tree();
+    		$rule_list = list_to_tree($rule_list);
+    		$this->assign('rule_list', $rule_list);
+    		
+    		
+    		$auth_group = M('auth_group')->where(array('id'=>$id))->find();
+    		
+    		$this->assign('auth_group', $auth_group);
+    		$this->assign('id', $id);
+    		$this->ajaxReturn($this->fetch('edit'));
+    	}
+    }
+    
+    function del(){
+    	$id = I('id');
+    	if(empty($id)){
+    		$this->error('出错了');
+    	}
+    
+    	if(!M('auth_group_access')->where(array('group_id'=>$id))->select()){
+    		if(M('auth_group')->where(array('id'=>$id))->delete()){
+    			$this->success('删除成功', U('index'));
+    		}else{
+    			$this->error('删除失败');
+    		}
+    	}else{
+    		$this->error('删除失败：此角色下还有用户');
+    	}
+    }
+}

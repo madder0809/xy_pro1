@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>首页</title>
+    <link rel="stylesheet" type="text/css" href="__PUBLIC__/Home/css/visitor.css">
+    <script type="text/javascript" src="__PUBLIC__/Home/js/jquery-2.1.1.js"></script>
+    <script type="text/javascript" src="__PUBLIC__/Home/js/jquery.luara.0.0.1.min.js"></script>
+    <script type="text/javascript" src="__PUBLIC__/Home/js/float.js"></script>
+    <script type="text/javascript">
+        $(function(){
+        //$(".switch_page").hide();//隐藏wenben
+        //$(".switch_page:eq(0)").show();//显示第一个wenben
+        $("#option a").click(function(){
+            $(".click_switch").removeClass("click_switch");//移除样式
+            $(this).addClass("click_switch");//添加样式
+            var i=$(this).index();//获得下标
+            $(".switch_page").hide();//隐藏wenben
+            $(".switch_page:eq("+i+")").show();//显示第i个wenben
+        });
+
+         var speed=50
+            marquePic2.innerHTML=marquePic1.innerHTML
+            function Marquee(){
+            if(demo.scrollLeft>=marquePic1.scrollWidth){
+            demo.scrollLeft=0
+            }else{
+            demo.scrollLeft++
+            }
+            }
+            var MyMar=setInterval(Marquee,speed)
+            demo.onmouseover=function() {clearInterval(MyMar)}
+            demo.onmouseout=function() {MyMar=setInterval(Marquee,speed)};
+
+        //调用Luara示例
+        $(".example2").luara({width:"180",height:"150",interval:4500,selected:"seleted",deriction:"left"});
+
+    });
+    function img1(){
+        document.getElementById("img1").style.display="none";
+    };
+
+    </script>
+</head>
+<body>
+
+
+<div class="service">
+    <h4>客服中心</h4>
+    <i></i>
+    <ul>
+        <li><span>咨询服务：</span><a href="javascript:void();"><img src="__PUBLIC__/Home/images/icon_qq.png" height="19" width="19"></a>唐老师</li>
+        <li><span>咨询邮箱：</span>93023885@qq.com</li>
+        <li><span>咨询电话：</span><i>400-608-8260</i></li>
+    </ul>
+    <p style="border-top: 1px #ccc solid;padding-top: 10px;">服务时间<i>（北京）：</i></p>
+    <p>09:00-18:00</p>
+</div>
+<div class="experiment_center">
+    <div class="head_logo">
+        <div class="head_title">
+            <img src="__PUBLIC__/Home/images/syzx_logo.png" height="67" width="348">
+            <a href="home_page.html"><img src="__PUBLIC__/Home/images/icon-room.png" height="17" width="18">学校主页</a>
+            <h3>教学实验中心</h3>
+            <img src="__PUBLIC__/Home/images/icon_prose.png" height="34" width="217" style="padding:0 20px 0 0;float:right;">
+        </div>
+</div>
+    

@@ -1,0 +1,66 @@
+<include file="Public/base"/>
+
+<div class='main'>
+	<div class="details">
+	    <h3>通知公告</h3>
+	</div>
+
+	<div class='header_action'>
+		<span>通知公告列表</span>
+		<div>
+			<a href='{:U("add")}' class=''>发布</a>
+		</div>
+	</div>
+
+	<div class='main_content'>
+		<div class='header_seach'>
+			<form action="{:U('index')}" method="post">
+			标题：<input type='text' name="title" value="{$title}">
+			点击率：<select name="order">
+						<option>ID降序</option>
+						<option>ID升序</option>
+						<option>日点击降</option>
+						<option>周点击降</option>
+						<option>月点击降</option>
+						<option>总点击降</option>
+					</select>
+			<input type="submit" value="查询">
+			</form>
+		</div>
+		
+		<table class='table'>
+			<thead>
+				<tr>
+					<th>ID</th>
+					<th>标题</th>
+					<th>固定级别</th>
+					<th>点击</th>
+					<th>类型</th>
+					<th>状态</th>
+					<th>发布时间</th>
+					<th class='table_action'>操作</th>
+				</tr>
+			</thead>
+			<tbody>
+				<volist name="notice_list" id="list">
+					<tr>
+						<td>{$list.id}</td>
+						<td>{$list.title}</td>
+						<td>{$list.level}</td>
+						<td>21</td>
+						<td>{$type[$list['type']]}</td>
+						<td>{$status[$list['status']]}</td>
+						<td>{$publishtime}</td>
+						<td>
+							<a href="{:U('audit',array(id=>1))}" class="ask_audit">审核</a>
+							<a href="{:U('edit',array(id=>$list[id]))}" class="">编辑</a>
+							<a href="{:U('del',array('id'=>$list[id]))}" class='ask_del'>删除</a>
+						</td>
+					</tr>
+				</volist>
+					
+			</tbody>
+		</table>
+		
+	</div>
+</div>

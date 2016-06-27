@@ -1,0 +1,30 @@
+<div class="option_click">
+        <div style="width:1000px;margin:0 auto;" id="option">
+            <a href="{:U('Home/Index/index')}">首页</a>
+            <a href="{:U('Home/Center/index')}" class="click_switch">中心介绍</a>
+            <a href="{:U('Home/Show/index')}">成果展示</a>
+            <a href="{:U('Home/Lib/index')}">实验室管理</a>
+            <a href="{:U('Home/Play/index')}">资源点播共享</a>
+            <a href="{:U('Home/Exam/index')}">安全考试</a>
+            <a href="{:U('Home/Contact/index')}">联系我们</a>
+            <a href="{:U('Home/Person/index')}" style="border-right:1px #b6721b solid;">个人中心</a>
+        </div>
+</div>
+<div class="switch_page">
+        <div class="navigation">
+            <h4>中心简介</h4>
+            <i></i>
+            <div class="specific_position" id="specific_position">
+                <foreach name="type_name" item="vo" key="k" >
+                   <a href="{:U('Center/index',array("type"=>$k))}" <if condition="$type eq $k">class="navigation_chart"</if>><span>>></span><p>{$vo}</p></a>
+                </foreach>
+                    <!-- <a href="{:U('Center/index',array("type"=>3))}" <if condition="$type eq 3">class="navigation_chart"</if>><span>>></span><p>中心概况</p></a>
+                    <a href="{:U('Center/index',array("type"=>4))}" <if condition="$type eq 4">class="navigation_chart"</if>><span>>></span><p>中心师资</p></a>
+                    <a href="{:U('Center/index',array("type"=>5))}" <if condition="$type eq 5">class="navigation_chart"</if>><span>>></span><p>规章制度</p></a> -->
+            </div>
+        </div>
+        <div class="position" style="text-indent:1.5em;">
+            <h3 style="text-indent: 0;">您的位置：中心简介>>中心概况</h3>
+            {$article.content|htmlspecialchars_decode}
+        </div>
+    </div>

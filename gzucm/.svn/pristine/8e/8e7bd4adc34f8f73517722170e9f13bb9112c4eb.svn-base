@@ -1,0 +1,48 @@
+<?php
+namespace Admin\Controller;
+
+class LoginSchoolRollController extends AdminController {
+    public function index(){
+    	$roll_llist = M("login_school_roll")->select();
+    	$this->assign("roll_list",$roll_llist);
+        $this->display();
+    }
+
+    public function add(){
+    	if(IS_POST){
+    		M("login_school_roll")->create();
+    		if(M("login_school_roll")->add()){
+    			$this->success("添加成功");
+    		}
+    	}else{
+			$this->ajaxReturn($this->fetch('edit'));
+    	}
+    }
+
+    public function edit(){
+    	$rid = I("id");
+    	if(IS_POST){
+    		M("login_school_roll")->create();
+    		if(M("login_school_roll")->save()){
+    			$this->success("修改成功");
+    		}
+    	}else{
+    		$info=M("login_school_roll")->find($rid);
+    		$this->assign("id",$rid);
+    		$this->assign("info",$info);
+    		$this->ajaxReturn($this->fetch('edit'));
+    	}
+    }
+
+    public function del(){
+    	$rid = I('id');
+    	if(empty($rid)){
+    		$this->error('出错了');
+    	}
+    	if(M('login_school_roll')->where(array('id'=>$rid))->delete()){
+    		$this->success('删除成功', U('index'));
+    	}else{
+    		$this->error('删除失败');
+    	}
+    }
+}

@@ -1,0 +1,113 @@
+<?php
+namespace Admin\Controller;
+
+class UserController extends AdminController {
+	public $sex = array("1"=>"男","2"=>"女");
+    public $type_name = array("1"=>"学生","2"=>"教师");
+    public function _initialize(){
+        parent::_initialize();
+        if(!I("type")) $this->error("出错了");
+        $this->type = I("type");
+    }
+
+    public function index(){
+
+    	$count = M('user')->where("type={$this->type}")->count();// 查询满足要求的总记录数
+		$Page = new \Think\Page($count,2);// 实例化分页类 传入总记录数和每页显示的记录数(25)
+		$data['page'] = $Page->show();// 分页显示输出
+    	// 进行分页数据查询 注意limit方法的参数要使用Page类的属性
+		$data['list'] = M('user u')
+        ->join('LEFT JOIN region r1 on u.fir_na = r1.region_code')
+        ->join("LEFT JOIN region r2 on u.sec_na = r2.region_code")
+        ->field("u.*,r1.region_name as fir_na_name,r2.region_name as sec_na_name")
+        ->where("u.type = {$this->type}")
+        ->order('u.id DESC')
+        ->limit($Page->firstRow.','.$Page->listRows)
+        ->select();
+        //echo M('user u')->getLastSql();
+        $data['sex'] = $this->sex;
+		$this->assign($data);
+        $this->display();
+    }
+
+    #添加
+    public function add(){
+        if(IS_POST){
+            $user = D("user");
+            if($user->create()){
+                if(M("user")->add()){
+                    $this->success("添加成功");
+                }else{
+                    $this->error("添加失败");
+                }
+            }else{
+                $this->ajaxReturn($user->getError());
+            }
+        }else{
+            $data['sex'] = $this->sex;
+            $data['type'] = $this->type;
+            $data['type_name'] = $this->type_name;
+            $this->assign($data);
+            $this->ajaxReturn($this->fetch('edit'));
+        }
+    }
+
+    #编辑
+    public function edit(){
+        $id = I("id");
+        if(!$id) $this->error("没找到该用户");
+        $user = D("user");
+        if(IS_POST){
+            $data = I();
+            if(!$user->create($data)){
+                $this->ajaxReturn($user->getError());
+            }else{
+                if($user->save()!==false){
+                    $this->success("编辑成功",U("index",array("type"=>$this->type)));
+                }else{
+                    $this->error("编辑失败");
+                }
+            }
+        }else{
+            $data['id'] = $id;
+            $data['user'] = $user->find($id);
+            $data['sex'] = $this->sex;
+            $data['type'] = $this->type;
+            $data['type_name'] = $this->type_name;
+            $this->assign($data);
+            $this->ajaxReturn($this->fetch('edit'));
+        }
+    }
+
+    #删除
+    function del(){
+    	$id = I("id");
+        if(!$id) $this->error("没找到该用户");
+        if(M("user")->delete($id)){
+            $this->success('删除成功', U('index',array("type"=>$this->type)));
+        }else{
+            $this->error('删除失败');
+        }
+    }
+
+    #导入
+    public function import(){
+        if(IS_POST){
+            include_once 'Application/Admin/Common/DavidThinkController.class.php';
+            
+            $DavidThink = new DavidThinkController();
+            $upload_ret = $DavidThink->uploadExcel();
+            $filename = $upload_ret['filename'];
+            $list = $DavidThink->parseExcelBySheetName($filename);
+            var_dump($list);
+        }else{
+            $data['type'] = $this->type;
+            $data['type_name'] = $this->type_name;
+            $this->assign($data);
+            $this->ajaxReturn($this->fetch('import'));
+        }
+    }
+
+
+
+}

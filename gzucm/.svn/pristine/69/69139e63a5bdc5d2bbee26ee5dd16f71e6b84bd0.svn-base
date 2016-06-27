@@ -1,0 +1,100 @@
+<?php
+namespace Admin\Controller;
+use Think\Controller;
+class GzucmExcel extends Controller {
+    
+	private $PHPReader = null;  
+    
+    public function uploadExcel() {
+        import('Org.Net.UploadFile');
+        $upload = new \UploadFile();
+        $upload->maxSize  = 1024*1024*10 ;// 设置附件上传大小
+        $upload->allowExts  = array('xls', 'xlsx');// 设置附件上传类型
+        $upload->savePath =  $this->getSaveDir();
+        if(!$upload->upload()) {
+            $this->error($upload->getErrorMsg());
+        }else{
+            $uploadFileInfo = $upload->getUploadFileInfo();
+            $uploadFileInfo = $uploadFileInfo[0];
+            $filename = $uploadFileInfo['savepath'].$uploadFileInfo['savename'];
+            //记录的文件id，上传后的文件名，原文件名
+            return array('file_id'=>$file_id, 'filename'=>$filename, 'name'=>$uploadFileInfo['name']);
+        }
+        return false;
+    }
+    
+    // 建立目录   /Uploads/Excel/
+    function getSaveDir(){
+        $dir = "./Uploads";
+        if(!is_dir($dir)) {
+            if(!mkdir($dir, '0777')){
+                $this->error("上传目录 ".$dir." 不存在！");
+            }
+        }
+        $dir .= '/Excel/';
+        if(!is_dir($dir)) {
+            if(!mkdir($dir, '0777')){
+                $this->error("上传目录 ".$dir." 不存在！");
+            }
+        }
+        return $dir;
+    }
+    
+    public function getPHPReader($filename){
+        require "Addons/PHPExcel/PHPExcel.php";
+        //设定缓存模式为经gzip压缩后存入cache
+		$cacheMethod = \PHPExcel_CachedObjectStorageFactory::cache_in_memory_gzip;  
+		$cacheSettings = array();  
+		\PHPExcel_Settings::setCacheStorageMethod($cacheMethod,$cacheSettings);
+		
+        try {
+        	if(!$this->PHPReader){
+        		$this->PHPReader = \PHPExcel_IOFactory::load($filename);
+        	}
+        }catch (Exception $e) {
+            $this->success('加载Excel出错!');
+        }
+        \PHPExcel_CachedObjectStorageFactory::cache_to_discISAM;
+        if(!$this->PHPReader){
+             $this->success('加载Excel出错!');
+        }
+        return $this->PHPReader;
+    }
+    
+    // 按工作表名来解析数据
+    function parseExcelBySheetName($filename, $sheetName, $start_row=3){
+    	$PHPReader = $this->getPHPReader($filename);
+    	$currentSheet = $PHPReader->getSheetByName($sheetName);
+    	if($currentSheet){
+    		$allRow = $currentSheet->getHighestRow();//总行数
+    		$allColumn=$currentSheet->getHighestDataColumn();   //总列数
+            $map = $this->colTrans();
+    		//第一行为标题，第二行为列名，数据从第三行开始， $currentRow表示当前行
+    		for($currentRow=$start_row;$currentRow<=$allRow;$currentRow++){
+    			//从哪列开始，A表示第一列
+    			$flag = false;
+    			for($currentColumn='A';$map[$currentColumn]<=$map[$allColumn];$currentColumn++){
+    				$address=$currentColumn.$currentRow;//数据坐标
+    				$arr1[$currentColumn] = $currentSheet->getCell($address)->getCalculatedValue();
+    				if(!empty($arr1[$currentColumn])){
+    					$flag = $flag || true;
+    				}
+    			}
+    			if($flag)		//过滤整行都为空的数据
+    				$arr[$currentRow]= $arr1;
+    		}
+    	}else {
+    		$this->error('"'.$sheetName.'"' . '工作表不存在文件中 ');
+    	}
+    	return $arr;
+    }
+
+    private  function colTrans(){
+        $i = 1;
+        for($s="A";$s<="Z";$s++){
+            $arr[$s] = $i;
+            $i++;
+        }
+        return $arr;
+    }
+}

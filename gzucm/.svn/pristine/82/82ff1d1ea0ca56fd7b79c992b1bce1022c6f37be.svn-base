@@ -1,0 +1,25 @@
+<?php
+namespace Admin\Controller;
+
+class UserController extends AdminController {
+    public function index(){
+        $this->display();
+    }
+    
+    function add(){
+    	if(IS_POST){
+    		$menu = M('auth_menu');
+    		if($menu->validate($this->rules)->create()){
+    			if($menu->add()){
+    				$this->cheanMenuCache();
+    				$this->success('菜单增加成功', U('index'));
+    			}else{
+    				$this->error('菜单增加失败');
+    			}
+    		}
+    	}else{
+    		$this->assign('pid', I('pid'));
+    		$this->ajaxReturn($this->fetch('edit'));
+    	}
+    }
+}

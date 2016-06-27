@@ -1,0 +1,82 @@
+<?php
+namespace Admin\Controller;
+
+class InstrumentController extends AdminController {
+    public function index(){
+        $data = I();
+        $where .= $data['name'] ? " AND i.name LIKE '%{$data['name']}%'" : "";
+        $where .= $data['status'] && $data['status']<>'-1' ? " AND i.status = {$data['status']}" : "";
+        $where .= $data['lab_id'] ? " AND i.lab_id = {$data['lab_id']}" : "";
+    	$data['list'] = M("instrument i")->join("LEFT JOIN laboratory l ON i.lab_id = l.id")
+    	->field("i.*,l.name as lab_name,l.number as lab_number,l.address,l.admin_id")->where("1 {$where}")
+    	->select();
+        $data['status'] = array("-1"=>"不限","0"=>"正常","1"=>"故障");
+        $data['lab_list'] = array_column(M("laboratory")->field("id,name")->select(),"name","id");
+    	$this->assign($data);
+        $this->display();
+    }
+    #添加
+    public function add(){
+    	if(IS_POST){
+            $instrument = M("instrument");
+            if($instrument->create()){
+                if($laboratory->add()){
+                    $this->success("添加成功",U("index"));
+                    //$this->ajaxReturn(array("status"=>1,"url"=>U("index")));
+                }else{
+                    $this->error("添加失败");
+                }
+            }else{
+                $this->ajaxReturn($instrument->getError());
+            }
+        }else{
+            $data['admin_user'] = $this->admin_user_list;
+            $this->assign($data);
+            $this->ajaxReturn($this->fetch('edit'));
+        }
+    }
+    #编辑
+    public function edit(){
+    	$id = I("id");
+        if(!$id) $this->error("出错了");
+        $instrument = M("instrument");
+        if(IS_POST){
+            if($instrument->create()){
+                if($instrument->save()!==false){
+                    $this->ajaxReturn(array("status"=>1,"url"=>U("index")));
+                    //$this->success("编辑成功",U("index"));
+                }else{
+                    $this->success("编辑失败");
+                }
+            }else{
+                $this->ajaxReturn($instrument->getError());
+            }
+        }else{
+            $data['id'] = $id;
+            $data['instrument'] = M("instrument i")->join("LEFT JOIN laboratory l ON i.lab_id = l.id")
+            ->where("i.id = {$id}")
+	    	->field("i.*,l.name as lab_name,l.number as lab_number,l.address,l.admin_id")
+	    	->find();
+            $data['admin_user'] = $this->admin_user_list;
+            $this->assign($data);
+            $this->ajaxReturn($this->fetch('edit'));
+        }
+    }
+
+    #删除
+    public function del(){
+    	$id = I('id');
+        if(empty($id)){
+            $this->error('出错了');
+        }
+        if(M("instrument")->delete($id)){
+            $this->success('删除成功', U('index'));
+        }else{
+            $this->error('删除失败');
+        }
+    }
+    #导入
+    public function import(){
+
+    }
+}

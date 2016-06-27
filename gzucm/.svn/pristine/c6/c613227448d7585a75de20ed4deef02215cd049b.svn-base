@@ -1,0 +1,47 @@
+<include file="Public/base"/>
+
+
+<div class='main'>
+
+	<div class="details">
+	    <h3>首页 > 管理员管理</h3>
+	</div>
+
+	<div class='header_action'>
+		<span>管理员列表</span>
+		<div>
+			<a href='{:U("add")}' class='modal'>添加管理员</a>
+		</div>
+	</div>
+	
+	<div class='main_content'>
+		<div class='header_seach'>
+			名称：<input type='text'>
+			名称：<input type='text'>
+		</div>
+		
+		<table class='table'>
+			<thead>
+				<tr>
+					<th>用户名</th>
+					<th>角色</th>
+					<th class='table_action'>操作</th>
+				</tr>
+			</thead>
+			<tbody>
+				<volist name="admin_user_list" id="user">
+					<tr>
+						<td>{$user.username}</td>
+						<td>{$user.role}</td>
+						<td>
+							<a href="{:U('edit',array(uid=>$user[uid]))}" class="modal">编辑</a>
+							<a href="{:U('del',array('uid'=>$user[uid]))}" class='ask_del'>删除</a>
+						</td>
+					</tr>
+				</volist>
+			</tbody>
+		</table>
+		
+	</div>
+</div>
+

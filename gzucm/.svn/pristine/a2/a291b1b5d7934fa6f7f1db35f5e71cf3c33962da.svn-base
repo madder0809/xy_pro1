@@ -1,0 +1,116 @@
+
+<div id='mask_box'>
+
+	<div id='mask_box_header'><notempty name='id'>编辑角色&nbsp;- {$auth_group.title}<else/>新增角色</notempty></div>
+	
+	<div id='mask_box_content'>
+		<empty name='id'>
+			<form action='{:U("add")}'>
+		<else/>
+			<form action='{:U("edit")}'>
+		</empty>
+			<table style='width:100%;margin:auto;'>
+			<tr>
+				<td><div>角色名称：</div></td>
+				<td><input type='text' name='title' value='{$auth_group.title}'><span class='mest_input'>*</span></td>
+			</tr>
+		
+			<tr>
+				<td><div>描述：</div></td>
+				<td>
+					<textarea rows="3" cols="40" name='description'></textarea>
+				</td>
+			</tr>
+			
+			<tr>
+				<td><div>权限：</div></td>
+				<td id='rule_list'>
+					<div style='width:80%;margin-top:20px;'>
+						<volist name="rule_list" id="first">
+							<div style='text-align:left;background:#444;height:30px;line-height:30px;'>
+								<label>
+									<input type='checkbox' name='rules[]' value='{$first.id}'>
+									<span style='text-align:left;'>{$first.title}</span>
+								</label>
+							</div>
+							<div style='border-left:1px solid #444;border-right:1px solid #444;border-bottom:1px solid #444;margin-bottom:10px;'>
+								<volist name="first._child" id="second">
+									<div style='text-align:left;margin-left:5px;height:30px;line-height:30px;'>
+										<label>
+											<input type='checkbox' name='rules[]' value='{$second.id}'>
+											<span style='text-align:left;'>{$second.title}</span>
+										</label>
+									</div>
+									<div style='text-align:left;margin-left:20px;'>
+										<volist name="second._child" id="third">
+												<label style='text-align:left;margin-right:0px;'>
+													<input type='checkbox' name='rules[]' value='{$third.id}'>
+													<span style='text-align:left;'>{$third.title}</span>
+												</label>
+										</volist>
+									</div>
+								</volist>
+							</div>
+						</volist>
+					</div>
+				</td>
+			</tr>
+			
+			<tr>
+				<td></td>
+				<td>
+					<div id='prompt_info' style='font-size:16px;color:red;text-align:left;'></div>
+				</td>
+			</tr>
+			
+			<input type='hidden' name='id' value='{$auth_group.id}'>
+			
+			<table>
+			
+			<div id='mask_box_footer'>
+				<input type='submit' value='确定'>
+				<input type='button' onclick='remove_mask_box();' value='取消'>
+			</div>
+		</form>
+	</div>
+</div>
+
+<script>
+	$(document).ready(function(){
+		var arr = [{$auth_group.rules}];
+		$("input[type='checkbox']").each(function(){
+			if($.inArray( parseInt(this.value, 10), arr) > -1){
+				$(this).prop('checked', true);
+			}
+		});
+		
+	});
+	
+	$(function(){
+		$('#mask_box').height('80%');
+		$('#mask_box').width('800');
+		$('#mask_box_footer').css('position', 'relative');
+		$('#mask_box').css('overflow', 'auto');
+	});
+
+	$('#mask_box_footer input[type="submit"]').click(function(){
+		if($('#mask_box_content input[name=title]').val() == ""){
+			$('#prompt_info').text('菜单名称不能为空').show();
+			return false;
+		}
+		if($('#mask_box_content input[name=name]').val() == ""){
+			$('#prompt_info').text('应用名称不能为空').show();
+			return false;
+		}
+		
+		var form = $(this).parents("form");
+		$.post(form.attr('action'), form.serialize(), function(data){
+			if(data.status == '1'){
+				location.href=data.url;
+			}else{
+				$('#prompt_info').text(data.info);								
+			}
+		},'json');
+		return false;
+	});
+</script>

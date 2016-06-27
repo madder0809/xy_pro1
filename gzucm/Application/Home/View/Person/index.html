@@ -1,0 +1,63 @@
+<div class="option_click">
+        <div style="width:1000px;margin:0 auto;" id="option">
+            <a href="{:U('Home/Index/index')}">首页</a>
+            <a href="{:U('Home/Center/index')}">中心介绍</a>
+            <a href="{:U('Home/Show/index')}">成果展示</a>
+            <a href="{:U('Home/Lib/index')}">实验室管理</a>
+            <a href="{:U('Home/Play/index')}">资源点播共享</a>
+            <a href="{:U('Home/Exam/index')}" class="click_switch">安全考试</a>
+            <a href="{:U('Home/Contact/index')}">联系我们</a>
+            <a href="{:U('Home/Person/index')}" style="border-right:1px #b6721b solid;">个人中心</a>
+        </div>
+</div>
+<div class="switch_page">
+        <div class="personal">
+            <h4>个人中心</h4>
+            <i></i>
+            <div class="personal_profile" id="personal_profile">
+                <a href="{:U('Home/Person/index')}" class="revise">个人中心</a>
+                <a href="{:U('Home/Person/pwdChange')}">修改密码</a>
+                <a href="{:U('Home/Person/myUpload')}">我的上传</a>
+            </div>
+            <div class="user_data">
+            <ul>
+                <li><span>用户名：</span><input name="Fruit" type="text" value="{$info.username}" style="height:25px;width:220px;" /></li>
+                <li><span>真实姓名：</span><input name="Fruit" type="text" value="{$info.realname}" style="height:25px;width:220px;" /></li>
+                <li><span>性别：</span>
+                    <input name="Fruit" type="radio" value="1" style="margin:8px;float:left;" 
+                    {$info['sex']==1?'checked':''}
+                    />男
+                    <input name="Fruit" type="radio" value="2" style="margin:0 8px;position: relative;top:3px;" {$info['sex']==2?'checked':''}/>女
+                </li>
+                <li><span>籍贯：</span>
+                    <select name="fir_na" style="width:105px;color:#333;height:31px;">
+                        <volist name="fir_na" id="vo">
+                            <option value="{$vo.region_code}" <if condition="$vo['region_code'] eq $info['fir_na']">selected</if>>{$vo.region_name}</option>
+                        </volist>
+                    </select>
+                    <select name="sec_na" style="width:105px;color:#333;height:31px;">
+                        <option value ="{$sec_na.region_code}">{$sec_na.region_name}</option>
+                    </select></li>
+                <li><span>任教科目：</span>
+                    <select style="width:220px;color:#333;height:31px;">
+                        <option value ="1"></option>
+                    </select></li>
+                <li><span>个人介绍：</span><textarea></textarea></li>
+                <li><span>手机：</span><input name="Fruit" type="text" value="" style="height:25px;width:220px;" /></li>
+                <li><span>确认密码：</span><input name="Fruit" type="password" value="" style="height:25px;width:220px;" /></li>
+                <li><span></span><button class="keep">保存</button></li>
+            </ul>
+            </div>
+        </div>
+ </div>
+ <script type="text/javascript">
+     $("select[name='fir_na']").on("change",function(){
+        $.post("{:U('Index/get_region')}",{father_id:$(this).val()},function(data){
+            var html="";
+            for(var i = 0;i<data.length;i++){
+                html += "<option value='"+data[i].region_code+"'>"+data[i].region_name+"</option>";
+            }
+            $("select[name='sec_na']").html(html);
+        });
+    })
+ </script>

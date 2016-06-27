@@ -1,0 +1,60 @@
+<?php
+namespace Admin\Controller;
+
+class LaboratoryController extends AdminController {
+    public function index(){
+    	$data['list'] = M("laboratory")->select();
+    	$this->assign($data);
+        $this->display();
+    }
+    #添加
+    public function add(){
+        if(IS_POST){
+            $laboratory = M("laboratory");
+            $laboratory->create();
+            if($laboratory->add()){
+                $this->success("添加成功",U("index"));
+            }else{
+                $this->error("添加失败");
+            }
+        }
+        $this->ajaxReturn($this->fetch('edit'));
+    }
+    #编辑
+    public function edit(){
+        $id = I("id");
+        if(!$id) $this->error("出错了");
+        $laboratory = M("laboratory");
+        if(IS_POST){
+            $data = $laboratory->create();
+            if($laboratory->save($data)!==false){
+                $this->success('编辑成功', U('index'));
+            }else{
+                $this->error("编辑失败");
+            }
+        }else{
+            $data['id'] = $id;
+            $data['laboratory'] = $laboratory->find($id);
+            $this->assign($data);
+            $this->ajaxReturn($this->fetch('edit'));
+        }
+        
+    }
+    #删除
+    public function del(){
+        $id = I('id');
+        if(empty($id)){
+            $this->error('出错了');
+        }
+        if(M("laboratory")->delete($id)){
+            $this->success('删除成功', U('index'));
+        }else{
+            $this->error('删除失败');
+        }
+    }
+    #导入
+    public function import(){
+    	
+    }
+    
+}

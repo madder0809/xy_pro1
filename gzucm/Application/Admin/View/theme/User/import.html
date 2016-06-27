@@ -1,0 +1,20 @@
+<div id='mask_box'>
+
+	<div id='mask_box_header'>导入信息</div>
+	
+	<div id='mask_box_content'>
+			<form action='{:U("import")}' method="post" enctype="multipart/form-data">
+			<table style='width:100%;margin:auto;'>
+			<tr>
+				<td><div>上传文件：</div></td>
+				<td><input type='file' name='file' value=''><span class='mest_input'>*</span></td>
+			</tr>
+			<input type="hidden" name="type" value="{$type}">
+			<table>
+			<div id='mask_box_footer'>
+				<input type='submit' value='确定'>
+				<input type='button' onclick='remove_mask_box();' value='取消'>
+			</div>
+			</form>
+	</div>
+</div>

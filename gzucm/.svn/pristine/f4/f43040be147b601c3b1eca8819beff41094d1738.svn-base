@@ -1,0 +1,62 @@
+
+<div id='mask_box' style="height: 250px">
+
+	<div id='mask_box_header'><notempty name='id'>编辑<else/>添加</notempty></div>
+	
+	<div id='mask_box_content'>
+		<empty name='id'>
+			<form action='{:U("add")}'>
+		<else/>
+			<form action='{:U("edit")}'>
+		</empty>
+			<table style='width:100%;margin:auto;'>
+			<tr>
+				<td><div>学籍段</div></td>
+				<td>开始:<input type='text' name='roll_start' value='{$info.roll_start}' style="width: 15%"> --- 结束:<input type='text' name='roll_end' value='{$info.roll_end}' style="width: 15%"><span class='mest_input'>*</span></td>
+			</tr>
+			<tr>
+				<td><div>是否用于注册:</div></td>
+				<td>
+					<select name='use_reg' style='width:150px;'>
+							<option value="1" <if condition="$info['use_reg'] eq 1"> selected="selected" </if>>是</option>
+							<option value="0" <if condition="$info['use_reg'] eq 0"> selected="selected" </if>>否</option>
+					</select>
+					<span class='mest_input'>*</span>
+				</td>
+			</tr>	
+			
+			<input type='hidden' name='id' value='{$info.id}'>
+			
+			<table>
+			
+			<div id='mask_box_footer'>
+				<input type='submit' value='确定'>
+				<input type='button' onclick='remove_mask_box();' value='取消'>
+			</div>
+		</form>
+	</div>
+</div>
+
+<script>
+	
+	$('#mask_box_footer input[type="submit"]').click(function(){
+		if($('#mask_box_content input[name=title]').val() == ""){
+			$('#prompt_info').text('菜单名称不能为空').show();
+			return false;
+		}
+		if($('#mask_box_content input[name=name]').val() == ""){
+			$('#prompt_info').text('应用名称不能为空').show();
+			return false;
+		}
+		
+		var form = $(this).parents("form");
+		$.post(form.attr('action'), form.serialize(), function(data){
+			if(data.status == '1'){
+				location.href=data.url;
+			}else{
+				$('#prompt_info').text(data.info);								
+			}
+		},'json');
+		return false;
+	});
+</script>

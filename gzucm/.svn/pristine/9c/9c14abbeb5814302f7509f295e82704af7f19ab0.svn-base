@@ -1,0 +1,41 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+	<title>欢迎登录教学实验资源点播共享平台</title>
+	<head>
+		<script src="__ROOT__/Public/jquery-2.1.1.min.js"></script>
+		<script src="__ROOT__/Public/Admin/common.js"></script>
+	</head>
+</head>
+
+<body>
+	<div class="login_box">
+		<div class="title">davidThink</div>
+		<form action="{:U('login')}" method="post">
+			<div><input id="username" type="text"class="form-control" name="username" placeholder="请填写用户名"  value='{$username}'/></div>
+			<div><input id="password" type="password" class="form-control" name="password" placeholder="请填写密码"/></div>
+<!-- 			<div><input id="verfyCode" name="verfyCode" class="form-control" maxlength="4" placeholder="请填写验证码"></div>
+	        <div><img id="vdimgck" onclick="changeVerfyCode()"></div> -->
+			<div><input type="submit" class='ajax_post' value="登&nbsp;录"></div>
+			<div class='remind_tag'></div>
+		</form>
+	</div>
+	
+	<style>
+		body{background:#30333f;}	
+		.login_box{overflow:hidden;background:#aaa;width: 340px;height: 280px;overflow: hidden;margin:auto;position: absolute;top: 0; left: 0; bottom: 0; right: 0;border: 1px solid #bbb;-moz-border-radius: 5px;-webkit-border-radius: 5px;border-radius:5px;}
+		.title{font-size:28px;text-align:center;margin-top:20px;margin-bottom:20px;color:#444;}
+		form input{background:#e4e4e4;color:#333;width:300px;height:40px;margin:0px 10px 5px 15px;padding-left:10px;border: 1px solid #aaa;-moz-border-radius: 3px;-webkit-border-radius: 3px;border-radius:3px;}
+		form input[type='submit']{font-size:20px;color:#eee;margin-top:5px;height:45px;width:313px;background:#4b9d00;border:0;cursor:pointer;border: 1px solid #aaa;-moz-border-radius: 4px;-webkit-border-radius: 4px;border-radius:4px;}
+		form input[type='submit']:hover{background:#4bad00;}
+		.remind_tag{color:#DC143C;width:300px;height:40px;margin:5px 10px 5px 15px;padding-left:10px;}
+	</style>
+	
+	<script>
+		$(function(){
+			$('#username').focus();
+		})
+	</script>
+</body>
+</html>

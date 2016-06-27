@@ -1,0 +1,114 @@
+<script src="__ROOT__/Addons/My97DatePicker/WdatePicker.js"></script>
+<div id='mask_box' style="height:750px">
+
+	<div id='mask_box_header'><notempty name='id'>编辑实验室&nbsp;- {$laboratory.name}<else/>新增实验室</notempty></div>
+	
+	<div id='mask_box_content'>
+		<empty name='id'>
+			<form action='{:U("add")}' class='modal_form' method="post">
+		<else/>
+			<form action='{:U("edit")}' class='modal_form' method="post">
+		</empty>
+			<table style='width:100%;margin:auto;'>
+			<tr>
+				<td><div>食品名称：</div></td>
+				<td><input type='text' name='name' value='{$laboratory.name}'><span class='mest_input'>*</span></td>
+			</tr>
+			<tr>
+				<td><div>实验室编号：</div></td>
+				<td><input type='text' name='number' value='{$laboratory.number}'><span class='mest_input'>*</span></td>
+			</tr>
+			<tr>
+				<td><div>实验室地址：</div></td>
+				<td><input type='text' name='address' value='{$laboratory.address}'><span class='mest_input'>*</span></td>
+			</tr>
+			<tr>
+				<td><div>实验室管理员：</div></td>
+				<td>
+				<select name="admin_id" style="width:180px">
+					<volist name="admin_user" id="vo">
+					<option value="{$vo.uid}" <if condition="$vo['uid'] eq $laboratory['admin_id']">selected</if> >{$vo.username}</option>
+					</volist>
+				</select>
+				<span class='mest_input'>*</span>
+				</td>
+			</tr>
+			<tr>
+				<td><div>容纳人数：</div></td>
+				<td><input type='text' name='accommodate_people' value='{$laboratory.accommodate_people}'><span class='mest_input'>*</span></td>
+			</tr>
+			<tr>
+				<td><div>容纳组数：</div></td>
+				<td><input type='text' name='accommodate_group' value='{$laboratory.accommodate_group}'><span class='mest_input'>*</span></td>
+			</tr>
+			<tr>
+				<td><div>占用面积：</div></td>
+				<td><input type='text' name='area' value='{$laboratory.area}'>㎡<span class='mest_input'>*</span></td>
+			</tr>
+			<tr>
+				<td><div>实验室面向课程：</div></td>
+				<td>
+				<textarea name="course" style="width:59%;height:78px">{$laboratory.course}</textarea>
+				</td>
+			</tr>
+			<tr>
+				<td><div>仪器：</div></td>
+				<td>
+				<textarea name="instrument" style="width:59%;height:78px">{$laboratory.instrument}</textarea>
+				<span class='mest_input'>*</span></td>
+			</tr>
+			<tr>
+				<td><div>实验室状态:</div></td>
+				<td>
+				<select name="status" style="width:180px">
+					<option value="0" <if condition="!$laboratory['status']">selected</if> >正常</option>
+					<option value="1" <if condition="$laboratory['status']">selected</if> >故障</option>
+				</select>
+				</td>
+			</tr>
+			<tr>
+				<td><div>是否已报修：</div></td>
+				<td>
+				<select name="call_repair" style="width:180px">
+					<option value="1" <if condition="$laboratory['call_repair']">selected</if> >是</option>
+					<option value="0" <if condition="!$laboratory['call_repair']">selected</if> >否</option>
+				</select>
+				</td>
+			</tr>
+			<tr>
+				<td><div>故障原因：</div></td>
+				<td><input type='text' name='reason' value='{$laboratory.reason}'></td>
+			</tr>
+			<tr>
+				<td><div>预计修复时间：</div></td>
+				<td><input type='text' name='fix_time' value='{$laboratory.fix_time}' class="input_time" onClick="WdatePicker()"></td>
+			</tr>
+			<tr>
+				<td></td>
+				<td>
+					<div id='prompt_info' style='font-size:16px;color:red;text-align:left;'></div>
+				</td>
+			</tr>
+			<input type='hidden' name='id' value='{$laboratory.id}'>
+			<table>
+			
+			<div id='mask_box_footer'>
+				<input type='submit' value='确定'>
+				<input type='button' onclick='remove_mask_box();' value='取消'>
+			</div>
+		</form>
+	</div>
+</div>
+
+<script>
+	$('#mask_box_footer input[type="submit"]').click(function(){
+		$.post($('.modal_form').attr('action'), $('.modal_form').serialize(), function(data){
+		if(data.status == '1'){
+				location.href=data.url;
+			}else{
+				$('#prompt_info').text(data);								
+			}
+		},'json');
+		return false;
+	});
+</script>

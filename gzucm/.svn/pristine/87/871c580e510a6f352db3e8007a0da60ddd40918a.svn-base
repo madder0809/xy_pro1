@@ -1,0 +1,91 @@
+<script src="__ROOT__/Addons/My97DatePicker/WdatePicker.js"></script>
+<div id='mask_box' style="height:700px">
+
+	<div id='mask_box_header'><notempty name='id'>编辑实验室&nbsp;- {$laboratory.name}<else/>新增实验室</notempty></div>
+	
+	<div id='mask_box_content'>
+		<empty name='id'>
+			<form action='{:U("add")}' class='modal_form' method="post">
+		<else/>
+			<form action='{:U("edit")}' class='modal_form' method="post">
+		</empty>
+			<table style='width:100%;margin:auto;'>
+			<tr>
+				<td><div>仪器名称：</div></td>
+				<td><input type='text' name='name' value='{$instrument.name}'><span class='mest_input'>*</span></td>
+			</tr>
+			<tr>
+				<td><div>仪器编号：</div></td>
+				<td><input type='text' name='number' value='{$instrument.number}'><span class='mest_input'>*</span></td>
+			</tr>
+			<tr>
+				<td><div>实验台号：</div></td>
+				<td><input type='text' name='table_no' value='{$instrument.table_no}'><span class='mest_input'>*</span></td>
+			</tr>
+			<tr>
+				<td><div>品牌：</div></td>
+				<td><input type='text' name='brand' value='{$instrument.brand}'><span class='mest_input'>*</span></td>
+			</tr>
+			<tr>
+				<td><div>型号：</div></td>
+				<td><input type='text' name='model' value='{$instrument.model}'><span class='mest_input'>*</span></td>
+			</tr>
+			<tr>
+				<td><div>规格：</div></td>
+				<td><input type='text' name='spec' value='{$instrument.spec}'><span class='mest_input'>*</span></td>
+			</tr>
+			<tr>
+				<td><div>购买日期：</div></td>
+				<td><input type='text' name='buy_date' value='{$instrument.buy_date}' onClick="WdatePicker()"><span class='mest_input'>*</span></td>
+			</tr>
+			<tr>
+				<td><div>仪器状态:</div></td>
+				<td>
+				<select name="status" style="width:180px">
+					<option value="0" <if condition="!$instrument['status']">selected</if> >正常</option>
+					<option value="1" <if condition="$instrument['status']">selected</if> >故障</option>
+				</select>
+				</td>
+			</tr>
+			<tr>
+				<td><div>是否已报修：</div></td>
+				<td>
+				<select name="call_repair" style="width:180px">
+					<option value="1" <if condition="$instrument['call_repair']">selected</if> >是</option>
+					<option value="0" <if condition="!$instrument['call_repair']">selected</if> >否</option>
+				</select>
+				</td>
+			</tr>
+			<tr>
+				<td><div>预计修复时间:</div></td>
+				<td>
+					<input type='text' name='fix_time' value='{$instrument.fix_time}' onClick="WdatePicker()">
+				</td>
+			</tr>
+			
+			<tr>
+				<td><div>备注：</div></td>
+				<td><input type='text' name='remark' value='{$instrument.remark}'></td>
+			</tr>
+			
+			<tr>
+				<td></td>
+				<td>
+					<div id='prompt_info' style='font-size:16px;color:red;text-align:left;'></div>
+				</td>
+			</tr>
+			<input type='hidden' name='id' value='{$instrument.id}'>
+			<table>
+			<div id='mask_box_footer'>
+				<input type='submit' value='确定'>
+				<input type='button' onclick='remove_mask_box();' value='取消'>
+			</div>
+		</form>
+	</div>
+</div>
+
+<script>
+	$('#mask_box_footer input[type="submit"]').click(function(){
+		return ajax_post();
+	});
+</script>
