@@ -1,70 +1,58 @@
 <include file="Public/base"/>
-
+<script src="__ROOT__/Addons/My97DatePicker/WdatePicker.js"></script>
+<style>
+	.header_action li{
+		float:left;
+		margin-left:15px;
+	}
+</style>
 <div class='main'>
 	<div class="details">
 	    <h3>实验室管理 > 仪器使用预约终审批</h3>
 	</div>
 
 	<div class='header_action'>
-
+		<div style="float:left">
+			<a href="{:U('index',array('type'=>0))}"><li>待审批</li></a>
+			<a href="{:U('index',array('type'=>1))}"><li>已审批</li></a>
+		</div>
 	</div>
 
 	<div class='main_content'>
 		<div class='header_seach'>
-			<form action="{:U('Admin/Laboratory/index')}" method="post">
-			实验室名称:<input type="text" name="name" > 
-			实验室管理员:
-			<select name="admin_id">
-			<foreach name="admin_user" item="vo" key="k" >
-			   <option value="{$k}" <if condition="$k eq I('admin_id')">selected</if> >{$vo}</option>
-			</foreach>
-			</select>
-			实验室状态:<select name="status">
-							<foreach name="status" item="vo" key="k" >
-							   <option value="{$k}" <if condition="$k heq I('status')">selected</if> >{$vo}</option>
-							</foreach>
-					   </select>
+			<form action="{:U('index',array('type'=>$_GET['type']))}" method="post">
+			开始时间: <input type="text" name="starttime" value="{$starttime}" onClick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss'})" >
+			结束时间: <input type="text" name="endtime" value="{$endtime}" onClick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss'})" >
+			仪器:<input type="text" name="name" value="{$name}">
+			申请人:<input type="text" name="realname" value="{$realname}">
 			<input type="submit" value="查询">
 			</form>
 		</div>
-		
 		<table class='table'>
 			<thead>
 				<tr>
-					<th>实验室名称</th>
-					<th>实验室编码</th>
-					<th>实验室地址</th>
-					<th>实验室管理员</th>
-					<th>容纳人数</th>
-					<th>容纳组数</th>
-					<th>占用面积</th>
-					<th>实验室面向课程</th>
+					<th>申请人</th>
+					<th>指导老师</th>
 					<th>仪器</th>
-					<th>实验室状态</th>
-					<th>故障原因</th>
-					<th>是否已报修</th>
-					<th>预计修复时间</th>
-					<th class='table_action' style="width: 150px">操作</th>
+					<th>使用起始时间</th>
+					<th>状态</th>
+					<th>用户备注</th>
+					<th class='table_action'>操作</th>
 				</tr>
 			</thead>
 			<tbody>
 				<volist name="list" id="list">
 					<tr>
+						<td>{$list.realname}</td>
+						<td>{$list.adviser}</td>
 						<td>{$list.name}</td>
-						<td>{$list.number}</td>
-						<td>{$list.address}</td>
-						<td>{$admin_user[$list['admin_id']]}</td>
-						<td>{$list.accommodate_people}</td>
-						<td>{$list.accommodate_group}</td>
-						<td>{$list.area}㎡</td>
-						<td>{$list.course}</td>
-						<td>{$list.instrument}</td>
-						<td>{$list['status'] ? "故障" : "正常"}</td>
-						<td>{$list.reason}</td>
-						<td>{$list['call_repair'] ? "是" : ""}</td>
-						<td>{$list['fix_time'] > 0 ? $list['fix_time'] : "" }</td>
+						<td>{$list.starttime|strtotime|date="m月d日",###}至{$list.endtime|strtotime|date="m月d日",###}</td>
+						<td>{$status_name[$list['status']]}</td>
+						<td>{$list.remark}</td>
 						<td>
-							<a href="{:U('edit',array('id'=>$list['id']))}" class="modal table_btn">编辑</a>
+							<if condition="$list['status'] eq 0">
+							<a href="{:U('audit',array('id'=>$list['id']))}" class="ask_audit table_btn">审批</a>
+							</if>
 							<a href="{:U('del',array('id'=>$list['id']))}" class='ask_del table_btn_info'>删除</a>
 						</td>
 					</tr>

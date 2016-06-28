@@ -1,1 +1,4 @@
-/Application/Runtime/*
+/gzucm/Application/Runtime/*
+
+/gzucm/.svn/*
+/gzucm/Application/Common/Conf/*

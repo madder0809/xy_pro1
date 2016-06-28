@@ -190,7 +190,7 @@ class InstrumentController extends AdminController {
     public function getTwoWeek(){
         $week = date('w',strtotime($this->startDate));
         $diff = 1-$week;
-        $startMon = date("Y-m-d",strtotime("+{$diff}days",strtotime($startDate)));
+        $startMon = date("Y-m-d",strtotime("+{$diff}days",strtotime($this->startDate)));
         $now = date("Y-m-d");
         $diffDays = round((strtotime($now)-strtotime($startMon))/3600/24);
         $diff = $diffDays % 14;
@@ -208,10 +208,16 @@ class InstrumentController extends AdminController {
         foreach ($list as $k => $v){
             foreach($twoWeek as $key => $val){
                 $r = $model->query("SELECT count(1) as 'num' FROM `schedule` s LEFT JOIN laboratory l ON s.address = l.address WHERE l.id = {$v['lab_id']} AND s.`date` = '{$val}'");
-                $list[$k]['situation'][] = $r[0]['num']>0 ? true : false ;//true为被占用
+                if($r[0]['num']>0){
+                    $list[$k]['situation'][] = true;
+                }else{
+                    $r = M("appointment")->where("starttime < '{$val}' AND endtime > '{$val}' AND iid = {$v['id']} AND status = 1")->count();
+                    $list[$k]['situation'][] = $r>0 ? true : false;
+                }
             }
         }
         return $list;
     }
+
 
 }
