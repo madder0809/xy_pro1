@@ -44,6 +44,30 @@ class InstrumentController extends AdminController {
         $this->display();
     }
 
+    public function situation()
+    {
+        $data = I();
+        $where .= $data['name'] ? " AND i.name LIKE '%{$data['name']}%'" : "";
+        $where .= isset($data['status']) && $data['status'] <> -1 ? " AND i.status = {$data['status']}" : "";
+        $where .= $data['lab_id'] ? " AND i.lab_id = {$data['lab_id']}" : "";
+        $count = M("instrument i")->join("LEFT JOIN laboratory l ON i.lab_id = l.id")
+            ->field("i.*,l.name as lab_name,l.number as lab_number,l.address,l.admin_id")
+            ->where("1 {$where}")
+            ->count();
+        $Page = new \Think\Page($count,10);
+        $data['admin_user'] = array_column($this->admin_user_list, 'username', 'uid');
+        $data['_page'] = $Page->show();
+        $data['list'] = M("instrument i")->join("LEFT JOIN laboratory l ON i.lab_id = l.id")
+            ->field("i.*,l.name as lab_name,l.number as lab_number,l.address,l.admin_id")->where("1 {$where}")->order("id DESC")
+            ->limit($Page->firstRow.','.$Page->listRows)->select();
+        $data['status'] = array("-1"=>"不限","0"=>"正常","1"=>"故障");
+        $data['lab_list'] = array_column(M("laboratory")->field("id,name")->select(),"name","id");
+        $data['isUseSituation'] =  "situation";
+        if($data['isUseSituation']) $data['list'] = $this->getSituation($data['list']);
+        $this->assign($data);
+        $this->display("index");
+    }
+
     #添加
     public function add()
     {
@@ -105,31 +129,6 @@ class InstrumentController extends AdminController {
             $this->error('删除失败');
         }
     }
-
-    public function situation()
-    {
-        $data = I();
-        $where .= $data['name'] ? " AND i.name LIKE '%{$data['name']}%'" : "";
-        $where .= isset($data['status']) && $data['status'] <> -1 ? " AND i.status = {$data['status']}" : "";
-        $where .= $data['lab_id'] ? " AND i.lab_id = {$data['lab_id']}" : "";
-        $count = M("instrument i")->join("LEFT JOIN laboratory l ON i.lab_id = l.id")
-            ->field("i.*,l.name as lab_name,l.number as lab_number,l.address,l.admin_id")
-            ->where("1 {$where}")
-            ->count();
-        $Page = new \Think\Page($count,10);
-        $data['admin_user'] = array_column($this->admin_user_list, 'username', 'uid');
-        $data['_page'] = $Page->show();
-        $data['list'] = M("instrument i")->join("LEFT JOIN laboratory l ON i.lab_id = l.id")
-            ->field("i.*,l.name as lab_name,l.number as lab_number,l.address,l.admin_id")->where("1 {$where}")->order("id DESC")
-            ->limit($Page->firstRow.','.$Page->listRows)->select();
-        $data['status'] = array("-1"=>"不限","0"=>"正常","1"=>"故障");
-        $data['lab_list'] = array_column(M("laboratory")->field("id,name")->select(),"name","id");
-        $data['isUseSituation'] =  "situation";
-        if($data['isUseSituation']) $data['list'] = $this->getSituation($data['list']);
-        $this->assign($data);
-        $this->display("index");
-    }
-
     #导入
     public function import()
     {
@@ -184,7 +183,7 @@ class InstrumentController extends AdminController {
     }
 
     /**
-     * @param $this->startDate 学期开始的日期
+     * @param $startDate 学期开始的日期
      * @return array $twoWeekDays 双周的14天分别的日期
      */
     public function getTwoWeek(){
