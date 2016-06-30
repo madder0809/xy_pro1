@@ -112,7 +112,6 @@ class LaboratoryController extends AdminController {
         $_validate = array(
             array('number','','实验室编号不能重复',1,'unique',1)
         );
-
         foreach ($list as $k=>$v){
             $data['name'] = $v['A'];
             $data['number'] = $v['B'];

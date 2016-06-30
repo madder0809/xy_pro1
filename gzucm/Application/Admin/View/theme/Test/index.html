@@ -2,14 +2,13 @@
 
 <div class='main'>
 	<div class="details">
-	    <h3>实验室管理 > 安全测试题</h3>
+		<h3>实验室管理 > 安全测试题</h3>
 	</div>
 
 	<div class='header_action'>
 		<span>{$type_name}</span>
 		<div>
-			<a href='{:U("add")}' class='modal header_btn'>添加</a>
-			<a href='{:U("import")}' class='modal header_btn'>导入</a>
+			<a href='{:U("import",array("type"=>$type))}' class='modal header_btn'>试题导入</a>
 		</div>
 	</div>
 
@@ -17,34 +16,35 @@
 		<div class='header_seach'>
 			<form action="{:U('index')}" method="post">
 				仪器:
-				<select name="iid">
-					<option value="0">请选择</option>
+				<select name="name">
+					<volist name = "i_list" id="vo">
+						<option value="{$vo.name}">{$vo.name}</option>
+					</volist>
 				</select>
-			<input type="submit" value="查询">
+				<input type="submit" value="查询">
 			</form>
 		</div>
-		
+
 		<table class='table'>
 			<thead>
-				<tr>
-					<th>仪器</th>
-					<th>是否设置题目</th>
-					<th>题量</th>
-					<th class='table_action' style="width: 150px">操作</th>
-				</tr>
+			<tr>
+				<th>仪器</th>
+				<th>是否设置题目</th>
+				<th>题量</th>
+				<th class='table_action' style="width: 150px">操作</th>
+			</tr>
 			</thead>
 			<tbody>
-				<volist name="list" id="list">
-					<tr>
-						<td></td>
-						<td></td>
-						<td></td>
-						<td>
-							<a href="{:U('edit',array('id'=>$list['id']))}" class="modal table_btn">编辑</a>
-							<a href="{:U('del',array('id'=>$list['id']))}" class='ask_del table_btn_info'>删除</a>
-						</td>
-					</tr>
-				</volist>
+			<volist name="list" id="list">
+				<tr>
+					<td>{$list.iname}</td>
+					<td>{$list['is_test'] ? "是" : "否"}</td>
+					<td>{$list.t_count}</td>
+					<td>
+						<a href="{:U('edit',array('iname'=>$list['iname']))}" class="table_btn">设置</a>
+					</td>
+				</tr>
+			</volist>
 			</tbody>
 		</table>
 	</div>

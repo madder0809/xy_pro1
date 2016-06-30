@@ -94,7 +94,6 @@ class App {
                 header("Content-type:image/png");
                 exit(base64_decode(App::logo()));
             }
-
             // 是否定义Empty控制器
             $module = A('Empty');
             if(!$module){

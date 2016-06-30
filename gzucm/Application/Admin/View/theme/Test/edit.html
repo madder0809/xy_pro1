@@ -1,102 +1,112 @@
-<script src="__ROOT__/Addons/My97DatePicker/WdatePicker.js"></script>
-<div id='mask_box' style="height:700px">
+<include file="Public/base"/>
+<style>
+	.test_header input[type=radio]{
+		width: 13px;
+		height: 13px;
+	}
+	.item_count{
+		display: inline-block;
+		margin: 0 25px;
+	}
+	.test_item li{
+		margin: 10px;
+	}
+	.test_item li .item{
+		display: inline-block;
+		padding: 5px;
+		border: 1px solid #CCC;
+	}
+	.item_count span{
+		font-size: 16px;
+		color:red;
+	}
+	.item_content{
+		width:80%;
+		float: left;
+	}
+	.item_option{
+		width: 20%;
+		float: left;
+		text-align: center;
+		line-height: 6;
+	}
+</style>
+<div class='main'>
+	<div class="details">
+		<h3>{$iname} 试题列表</h3>
+	</div>
 
-	<div id='mask_box_header'><notempty name='id'>编辑实验室&nbsp;- {$laboratory.name}<else/>新增实验室</notempty></div>
-	
-	<div id='mask_box_content'>
-		<empty name='id'>
-			<form action='{:U("add")}' class='modal_form' method="post">
-		<else/>
-			<form action='{:U("edit")}' class='modal_form' method="post">
-		</empty>
-			<table style='width:100%;margin:auto;'>
-			<tr>
-				<td><div>仪器名称：</div></td>
-				<td><input type='text' name='name' value='{$instrument.name}'><span class='mest_input'>*</span></td>
-			</tr>
-			<tr>
-				<td><div>仪器编号：</div></td>
-				<td><input type='text' name='number' value='{$instrument.number}'><span class='mest_input'>*</span></td>
-			</tr>
-			<tr>
-				<td><div>实验台号：</div></td>
-				<td><input type='text' name='table_no' value='{$instrument.table_no}'><span class='mest_input'>*</span></td>
-			</tr>
-				<tr>
-					<td><div>仪器管理员：</div></td>
-					<td>
-						<select name="admin_id" style="width:180px">
-							<volist name="admin_user" id="vo">
-								<option value="{$vo.uid}" <if condition="$vo['uid'] eq $instrument['admin_id']">selected</if> >{$vo.username}</option>
-							</volist>
-						</select>
-						<span class='mest_input'>*</span>
-					</td>
-				</tr>
-			<tr>
-				<td><div>品牌：</div></td>
-				<td><input type='text' name='brand' value='{$instrument.brand}'><span class='mest_input'>*</span></td>
-			</tr>
-			<tr>
-				<td><div>型号：</div></td>
-				<td><input type='text' name='model' value='{$instrument.model}'><span class='mest_input'>*</span></td>
-			</tr>
-			<tr>
-				<td><div>规格：</div></td>
-				<td><input type='text' name='spec' value='{$instrument.spec}'><span class='mest_input'>*</span></td>
-			</tr>
-			<tr>
-				<td><div>购买日期：</div></td>
-				<td><input type='text' name='buy_date' value='{$instrument.buy_date}' onClick="WdatePicker()"><span class='mest_input'>*</span></td>
-			</tr>
-			<tr>
-				<td><div>仪器状态:</div></td>
-				<td>
-				<select name="status" style="width:180px">
-					<option value="0" <if condition="!$instrument['status']">selected</if> >正常</option>
-					<option value="1" <if condition="$instrument['status']">selected</if> >故障</option>
-				</select>
-				</td>
-			</tr>
-			<tr>
-				<td><div>是否已报修：</div></td>
-				<td>
-				<select name="call_repair" style="width:180px">
-					<option value="1" <if condition="$instrument['call_repair']">selected</if> >是</option>
-					<option value="0" <if condition="!$instrument['call_repair']">selected</if> >否</option>
-				</select>
-				</td>
-			</tr>
-			<tr>
-				<td><div>预计修复时间:</div></td>
-				<td>
-					<input type='text' name='fix_time' value="{$instrument['fix_time']>0 ? $instrument['fix_time'] : "" }" onClick="WdatePicker()">
-				</td>
-			</tr>
-			<tr>
-				<td><div>备注：</div></td>
-				<td><input type='text' name='remark' value='{$instrument.remark}'></td>
-			</tr>
-			
-			<tr>
-				<td></td>
-				<td>
-					<div id='prompt_info' style='font-size:16px;color:red;text-align:left;'></div>
-				</td>
-			</tr>
+	<div class='header_action'>
+		<div class="test_header" style="float: left">
+		<input type="radio" name="order" value="1"> 顺序答题
+		<input type="radio" name="order" value="2"> 随机答题
+		</div>
+	</div>
 
-			<input type='hidden' name='id' value='{$instrument.id}'>
-			<table>
-			<div id='mask_box_footer'>
-				<input type='submit' value='确定'>
-				<input type='button' onclick='remove_mask_box();' value='取消'>
-			</div>
+	<div class='main_content'>
+		<div class='header_seach'>
+			<form action="{:U('index')}" method="post" style="float:right;">
+				<input type="checkbox" value="all" id="select_all"> 全选
+				<div class="item_count">
+				已选择题目 <span>30</span>
+				</div>
+				<input type="submit" value="确定" id="confirm">
+			</form>
+		</div>
+		<!--题目列表-->
+		<form id="test_form">
+		<ul class="test_item">
+			<volist name="t_list" id="vo">
+			<li>
+				<div class="item">
+					<div class="item_content">
+						<p>{$vo.title}</p>
+						<p><input type="radio" name="item"> A.{$vo.opt_a}</p>
+						<p><input type="radio" name="item"> B.{$vo.opt_b}</p>
+						<p><input type="radio" name="item"> C.{$vo.opt_c}</p>
+						<p><input type="radio" name="item"> D.{$vo.opt_d}</p>
+					</div>
+					<div class="item_option">
+						<input type="checkbox" name="tid" value="{$vo.id}" class="t_item">选择
+					</div>
+				</div>
+			</li>
+			</volist>
+		</ul>
+			<input type="hidden" value="{$tmp_list}" name="pre_value">
 		</form>
 	</div>
+	{$_page}
 </div>
-
 <script>
-	$('#mask_box_footer input[type="submit"]').click(function(){
-		return ajax_post();
-	});
+	$(document).ready(function(){
+		//确定
+		$("#confirm").on("click",function(){
+			var url = "{:U('edit')}";
+			$.post(url,$("#test_form").serialize(),function(data){
+				
+			})
+			return false;
+		})
+		//点击选中
+		$(".t_item").on("click",function(){
+			var check_status = $(this).is(":checked"); //点击后
+			var id = $(this).val();
+			var control = check_status ? "add" : "remove";
+			var url = "{:U('edit')}";
+			var iname = "{$_GET['iname']}";
+			$.post(url,{tid:id,control:control,iname:iname},function(data){
+				
+			})
+		})
+		//全选
+		$("#select_all").on("click",function(){
+			var status = $(this).is(':checked');
+			$(".t_item").each(function(){
+				$(this).attr("checked",status);
+			})
+		})
+	})
+
+
 </script>

@@ -36,7 +36,7 @@ class InstrumentController extends AdminController {
         $data['admin_user'] = array_column($this->admin_user_list, 'username', 'uid');
         $data['_page'] = $Page->show();
     	$data['list'] = M("instrument i")->join("LEFT JOIN laboratory l ON i.lab_id = l.id")
-    	->field("i.*,l.name as lab_name,l.number as lab_number,l.address,l.admin_id")->where("1 {$where}")->order("id DESC")
+    	->field("i.*,l.name as lab_name,l.number as lab_number,l.address,l.admin_id")->where("1 {$where}")->order("id ASC")
     	->limit($Page->firstRow.','.$Page->listRows)->select();
         $data['status'] = array("-1"=>"不限","0"=>"正常","1"=>"故障");
         $data['lab_list'] = array_column(M("laboratory")->field("id,name")->select(),"name","id");
@@ -64,6 +64,7 @@ class InstrumentController extends AdminController {
             $this->ajaxReturn($this->fetch('edit'));
         }
     }
+
     #编辑
     public function edit()
     {
@@ -120,7 +121,7 @@ class InstrumentController extends AdminController {
         $data['admin_user'] = array_column($this->admin_user_list, 'username', 'uid');
         $data['_page'] = $Page->show();
         $data['list'] = M("instrument i")->join("LEFT JOIN laboratory l ON i.lab_id = l.id")
-            ->field("i.*,l.name as lab_name,l.number as lab_number,l.address,l.admin_id")->where("1 {$where}")->order("id DESC")
+            ->field("i.*,l.name as lab_name,l.number as lab_number,l.address,l.admin_id")->where("1 {$where}")->order("id ASC")
             ->limit($Page->firstRow.','.$Page->listRows)->select();
         $data['status'] = array("-1"=>"不限","0"=>"正常","1"=>"故障");
         $data['lab_list'] = array_column(M("laboratory")->field("id,name")->select(),"name","id");
@@ -163,7 +164,6 @@ class InstrumentController extends AdminController {
             if($tmp[$v['C']]){
                 $table_no++;
                 $data['table_no'] = $table_no;
-
             }else{
                 $tmp[$v['C']]++;
                 $table_no = 1;
