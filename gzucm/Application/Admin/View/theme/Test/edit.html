@@ -93,10 +93,10 @@
 			var check_status = $(this).is(":checked"); //点击后
 			var id = $(this).val();
 			var control = check_status ? "add" : "remove";
-			var url = "{:U('edit')}";
+			var url = "{:U('modified')}";
 			var iname = "{$_GET['iname']}";
 			$.post(url,{tid:id,control:control,iname:iname},function(data){
-				
+
 			})
 		})
 		//全选

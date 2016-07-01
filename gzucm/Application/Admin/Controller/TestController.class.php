@@ -32,7 +32,23 @@ class TestController extends AdminController {
 
     public function modified(){
         $data = I();
-
+        $ti = M("test_instrument")->where("iname = '{$data["iname"]}'")->find();
+        $t_list = explode(",",$ti['tid']);
+        if($data['controll'] == "add"){
+            if(in_array($data['tid'],$t_list))
+            $t_list[] = $data['tid'];
+            $this->ajaxReturn($t_list);
+        }elseif($data['controll'] == "remove"){
+            if(in_array($data['tid'],$t_list)){
+                foreach ($_list as $k=>$v){
+                    if($v==$data['tid']) array_splice($_list, $k);
+                }
+            }
+        }else{
+            exit();
+        }
+        $data['tid'] = implode(",",$_list);
+        $this->ajaxReturn($data);
     }
 
     public function import(){
