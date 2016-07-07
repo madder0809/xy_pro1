@@ -27,7 +27,6 @@ return [
     */
 
     'connections' => [
-
         'pusher' => [
             'driver' => 'pusher',
             'key' => env('PUSHER_KEY'),
@@ -37,7 +36,6 @@ return [
                 //
             ],
         ],
-
         'redis' => [
             'driver' => 'redis',
             'connection' => 'default',

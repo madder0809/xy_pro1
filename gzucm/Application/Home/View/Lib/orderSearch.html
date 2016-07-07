@@ -1,3 +1,5 @@
+<link href="__PUBLIC__/Admin/css/page.css" rel="stylesheet">
+<script src="__ROOT__/Addons/My97DatePicker/WdatePicker.js"></script>
 <div class="option_click">
         <div style="width:1000px;margin:0 auto;" id="option">
             <a href="{:U('Home/Index/index')}">首页</a>
@@ -23,24 +25,30 @@
                     <a href="{:U('Home/Lib/inExpArrSearch')}"title="创新性实验查询"><span>>></span><p>创新性实验查询</p></a>
             </div>
         </div>
-        <div class="position2" style="position: relative;">
+        <div class="position2" style="position: relative;min-height: 600px">
             <h3>您的位置：实验室管理>>预约查询</h3>
-            <div class="inquiry_situation">
-                <span>开始日期：</span><input name="Fruit" type="text" value="" style="height:25px;width:155px;" /><select style="width:85px;color:#8e8e8e;height:31px;margin:0 25px 0 5px;">
-                        <option value ="1">9:00</option>
-                        <option value ="2">10:00</option>
+            <form action="{:U('orderSearch')}" method="post">
+                <div class="inquiry_situation">
+                    <span>开始日期：</span>
+                    <input name="Fruit" type="text" value="" style="height:25px;width:155px;" onClick="WdatePicker()"/>
+                    <span>结束日期：</span>
+                    <input name="Fruit" type="text" value="" style="height:25px;width:155px;" onClick="WdatePicker()"/>
+                    <br>
+                    <span>实验仪器：</span>
+                    <select name="iname" style="width:155px;color:#8e8e8e;height:30px;">
+                        <volist name="i_list" id="vo">
+                            <option value="{$vo.name}">{$vo.name}</option>
+                        </volist>
                     </select>
-                <span>结束日期：</span><input name="Fruit" type="text" value="" style="height:25px;width:155px;" /><select style="width:85px;color:#8e8e8e;height:31px;margin-left: 5px;">
-                        <option value ="1">9:00</option>
-                        <option value ="2">10:00</option>
-                    </select><br>
-                <span>实验仪器：</span><select style="width:155px;color:#8e8e8e;height:30px;">
-                        <option value ="1">分光仪</option>
-                    </select>
-                <span>状态：</span><select style="width:90px;color:#8e8e8e;height:31px;margin-left: 5px;margin:10px 30px 0 0;">
-                        <option value ="1">所有</option>
-                    </select><button class="order_inquiry">查询</button>
-            </div>
+                    <span>状态：</span>
+                    <select name="status" style="width:90px;color:#8e8e8e;height:31px;margin-left: 5px;margin:10px 30px 0 0;">
+                        <foreach name="status" item="v" key="k">
+                            <option value="{$k}">{$v}</option>
+                        </foreach>
+                   </select>
+                    <button class="order_inquiry">查询</button>
+                </div>
+            </form>
             <div class="current">
                 <table border="0"cellpadding="0" cellspacing="0">
                     <tr style="background:#f2f2f2;">
@@ -54,45 +62,21 @@
                         <td>状态</td>
                         <td style="width: 75px;">操作</td>
                     </tr>
-                    <tr>
-                        <td>1</td>
-                        <td>分光计</td>
-                        <td>3月1日周一9:00至3月2日周二17:00</td>
-                        <td>aaa</td>
-                        <td>药科楼A307</td>
-                        <td>1</td>
-                        <td>asg221</td>
-                        <td>待审批</td>
-                        <td><a href="javascript:void();" class="editor">编辑</a><a href="javascript:void();" class="delete">删除</a></td>
-                    </tr>
-                    <tr>
-                        <td>2</td>
-                        <td>分光计</td>
-                        <td>3月1日周一9:00至3月2日周二17:00</td>
-                        <td>aaa</td>
-                        <td>药科楼A307</td>
-                        <td>2</td>
-                        <td>sa677</td>
-                        <td><span class="not_through">审批不通过</span></td>
-                        <td><a href="javascript:void();" class="editor">编辑</a><a href="javascript:void();" class="delete">删除</a></td>
-                    </tr>
+                    <volist name="list" id="vo">
+                        <tr>
+                            <td>{$vo.id}</td>
+                            <td>{$vo.name}</td>
+                            <td>{$vo.starttime|date="n月j日星期N G:i",###}至{$vo.endtime|date="n月j日星期N G:i",###}</td>
+                            <td>{$vo.remark}</td>
+                            <td>{$vo.address}</td>
+                            <td>{$vo.table_no}</td>
+                            <td>{$vo.number}</td>
+                            <td>{$status[$vo['status']]}</td>
+                            <td><a href="javascript:void();" class="editor">编辑</a><a href="javascript:void();" class="delete">删除</a></td>
+                        </tr>
+                    </volist>
                 </table>
             </div>
-            <div class="page_turning">
-                每页<select style="width:65px;color:#585858;height:30px;margin:0 5px;">
-                        <option value ="1">10</option>
-                        <option value ="2">11</option>
-                    </select>条
-                    <span>共<i>61</i>条记录</span>
-                    <div class="currently">
-                        <button>I<</button>
-                        <button><</button>
-                        <button  class="location">1</button>
-                        <button>2</button>
-                        <button>3</button>
-                        <button>></button>
-                        <button>>I</button>
-                    </div>
-            </div>
+            {$_page}
         </div>
     </div>

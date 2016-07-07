@@ -47,6 +47,11 @@ return [
             'path' => storage_path('framework/cache'),
         ],
 
+        'redis' => [
+            'driver' => 'redis',
+            'connection' => 'default',
+        ],
+
         'memcached' => [
             'driver' => 'memcached',
             'servers' => [
@@ -56,11 +61,6 @@ return [
                     'weight' => 100,
                 ],
             ],
-        ],
-
-        'redis' => [
-            'driver' => 'redis',
-            'connection' => 'default',
         ],
 
     ],

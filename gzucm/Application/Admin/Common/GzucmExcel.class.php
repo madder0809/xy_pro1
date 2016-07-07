@@ -76,7 +76,7 @@ class GzucmExcel extends Controller {
         $currentSheet = $this->activeSheet;
     	if($currentSheet){
     		$allRow = $currentSheet->getHighestRow();//总行数
-    		$allColumn=$currentSheet->getHighestDataColumn();   //总列数
+    		$allColumn=$currentSheet->getHighestDataColumn();//总列数
             $map = $this->colTrans();
     		//第一行为标题，第二行为列名，数据从第三行开始， $currentRow表示当前行
     		for($currentRow=$start_row;$currentRow<=$allRow;$currentRow++){
@@ -106,4 +106,5 @@ class GzucmExcel extends Controller {
         }
         return $arr;
     }
+
 }

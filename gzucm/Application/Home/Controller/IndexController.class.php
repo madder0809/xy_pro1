@@ -81,8 +81,7 @@ class IndexController extends Controller {
 
     		//$data['native'] = $data['fir_na'].$data['sec_na'];
             $user = D('user');
-            var_dump($user);
-            exit();
+
     		if(!$user->create($data)){
                 exit($user->getError());
             }else{
@@ -172,7 +171,7 @@ class IndexController extends Controller {
 
     //登录验证,学籍号
     public function check_user($iden_no){
-        $roll_list = M("login_school_roll")->where("use_login = 1 and type = 1")->select();
+        $roll_list = M("login_school_roll")->where("use_login = 1")->select();
         foreach ($roll_list as $k => $v) {
             if($iden_no>=$v['roll_start']&&$iden_no <= $v['roll_end']){
                 $ok = true;

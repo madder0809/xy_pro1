@@ -1,3 +1,4 @@
+<script src="__ROOT__/Addons/My97DatePicker/WdatePicker.js"></script>
 <div class="option_click">
         <div style="width:1000px;margin:0 auto;" id="option">
             <a href="{:U('Home/Index/index')}">首页</a>
@@ -25,28 +26,61 @@
         </div>
         <div class="position2">
             <h3>您的位置：实验室管理>>仪器使用预约</h3>
-            <div class="order">
-                <ul>
-                    <li>
-                    <span>开始日期：</span><input name="Fruit" type="text" value="" style="height:25px;width:155px;" /><select style="width:85px;color:#8e8e8e;height:31px;margin-left: 5px;">
-                        <option value ="1">9:00</option>
-                        <option value ="2">10:00</option>
-                    </select>
-                    </li>
-                    <li>
-                    <span>结束日期：</span><input name="Fruit" type="text" value="" style="height:25px;width:155px;" /><select style="width:85px;color:#8e8e8e;height:31px;margin-left: 5px;">
-                        <option value ="1">9:00</option>
-                        <option value ="2">10:00</option>
-                    </select>
-                    </li>
-                    <li><span>实验仪器：</span><select style="width:250px;color:#8e8e8e;height:31px;">
-                        <option value ="1">分光仪</option>
-                    </select></li>
-                    <li><span>仪器编号：</span><input name="Fruit" type="text" value="" style="height:25px;width:245px;" /><button class="inquiry">查询</button></li>
-                    <li><span>用户备注：</span><textarea></textarea></li>
-                    <li class="point_control"><button class="ordered">预约</button></li>
-                </ul>
-            </div>
-            <img src="images/flow.jpg" height="308" width="308" style="float:right;margin: 20px 25px 0 0;">
+            <form action="{:U('index')}" class="modal_form">
+                <input type="hidden" name="uid" value="{$uid}">
+                <div class="order">
+                    <ul>
+                        <li>
+                            <span>开始日期：</span>
+                            <input name="starttime" type="text" value="" style="height:25px;width:246px;" onClick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss'})"/>
+                        </li>
+                        <li>
+                            <span>结束日期：</span>
+                            <input name="endtime" type="text" value="" style="height:25px;width:246px;" onClick="WdatePicker({dateFmt:'yyyy-MM-dd HH:mm:ss'})"/>
+                        </li>
+                        <li><span>实验仪器：</span>
+                            <select style="width:250px;color:#8e8e8e;height:31px;" name="iname">
+                                <volist name="i_list" id="vo">
+                                    <option value="{$vo.name}">{$vo.name}</option>
+                                </volist>
+                            </select></li>
+                        <li><span>仪器编号：</span>
+                            <select style="width:250px;color:#8e8e8e;height:31px;" name="iid">
+                                <option></option>
+                            </select>
+                            <button id="getInum" class="inquiry">查询</button>
+                        </li>
+                        <li><span>用户备注：</span><textarea></textarea></li>
+                        <li class="point_control"><button type="submit" class="ordered">预约</button></li>
+                    </ul>
+                </div>
+            </form>
+            <img src="__PUBLIC__/Home/images/flow.jpg" height="308" width="308" style="float:right;margin: 20px 25px 0 0;">
         </div>
     </div>
+<script>
+    $("#getInum").on("click",function(){
+        var url = "{:U('getInum')}";
+        $.post(url,{name:$("select[name='iname']").val()},function(data){
+            if(data){
+                var html = "";
+                for (var i = 0;i<data.length;i++){
+                    html += "<option value='"+data[i].id+"'>"+data[i].number+"</option>";
+                }
+                $("select[name='iid']").html(html);
+            }
+        })
+        return false;
+    })
+    $(".ordered").on("click",function(){
+        $.post($('.modal_form').attr('action'), $('.modal_form').serialize(), function(data){
+            if(data.status == '1'){
+                alert(data.info);
+                location.href=data.url;
+            }else{
+                alert(data.info);
+            }
+        });
+        return false;
+    })
+</script>

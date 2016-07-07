@@ -19,18 +19,18 @@
             $(".switch_page:eq("+i+")").show();//显示第i个wenben
         });
 
-         var speed=50
-            marquePic2.innerHTML=marquePic1.innerHTML;
-            function Marquee(){
-            if(demo.scrollLeft>=marquePic1.scrollWidth){
-            demo.scrollLeft=0
-            }else{
-            demo.scrollLeft++
-            }
-            }
-            var MyMar=setInterval(Marquee,speed)
-            demo.onmouseover=function() {clearInterval(MyMar)}
-            demo.onmouseout=function() {MyMar=setInterval(Marquee,speed)};
+         var speed=50;
+        //marquePic2.innerHTML=marquePic1.innerHTML;
+        /*function Marquee(){
+        if(demo.scrollLeft>=marquePic1.scrollWidth){
+        demo.scrollLeft=0
+        }else{
+        demo.scrollLeft++
+        }
+        }*/
+        //var MyMar=setInterval(Marquee,speed)
+        //demo.onmouseover=function() {clearInterval(MyMar)}
+        //demo.onmouseout=function() {MyMar=setInterval(Marquee,speed)};
 
         //调用Luara示例
         $(".example2").luara({width:"180",height:"150",interval:4500,selected:"seleted",deriction:"left"});
