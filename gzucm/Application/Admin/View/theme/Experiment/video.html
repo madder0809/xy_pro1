@@ -1,0 +1,56 @@
+<include file="Public/base"/>
+
+
+<div class='main'>
+
+	<div class="details">
+	    <h3>首页 > 资源点播共享管理 > 主要实验视频</h3>
+	</div>
+
+	<div class='header_action'>
+		<span>实验视频列表</span>
+		<div>
+			<a href='{:U("add",array("type"=>$type))}' class='modal header_btn'>添加实验视频</a>
+		</div>
+	</div>
+	
+	<div class='main_content'>
+		<table class='table'>
+			<tr>
+				<th>ID</th>
+				<th>科目</th>
+				<th>课程名称</th>
+				<th>课程介绍</th>
+				<th>固定级别</th>
+				<th>点击数</th>
+				<th>下载数</th>
+				<th>发布者</th>
+				<th>发布时间</th>
+				<th>状态</th>
+				<th style='width:150px;'>操作</th>
+			<volist name="experiment_list" id="list">
+				<tr>
+					<td>{$list.id}</td>
+					<td>{$list.subject}</td>
+					<td>{$list.class_name}</td>
+					<td>{$list.class_common}</td>
+					<td>{$list.level}</td>
+					<td>{$list.click_count}</td>
+					<td>{$list.download_count}</td>
+					<td>{$list.release_man}</td>
+					<td>{$list.release_time}</td>
+					<td>{$list.status}</td>
+					<td>
+						<a href="{:U('edit',array(type=>$type,id=>$list[id]))}" class="modal table_btn">编辑</a>
+						<a href="{:U('del',array(type=>$type,id=>$list[id]))}" class='ask_del table_btn_info'>删除</a>
+					</td>
+				</tr>
+			</volist>
+		</table>
+	</div>
+</div>
+
+<script>
+	
+</script>
+

@@ -4,6 +4,17 @@ use Think\Controller;
 class PlayController extends Controller{
 	//资源点播
 	public function index(){
+	    $experiment_list = M('experiment')->where(array('type'=>1))->limit(6)->select();
+	    $this->assign('experiment_list', $experiment_list);
+	    
+	    $video_subject_list = M('experiment')->where(array('type'=>2))->limit(6)->field('id,subject')->group('subject')->limit(3)->select();
+	    
+	    foreach ($video_subject_list as $key => $video){
+	       $video_list = M('experiment')->where(array('type'=>2, 'subject' =>$video['subject']))->limit(4)->select();
+	       $video_subject_list[$key]['video_list'] = $video_list; 
+	    }
+	    $this->assign('video_subject_list', $video_subject_list);
+	    
 		$this->display();
 	}
 

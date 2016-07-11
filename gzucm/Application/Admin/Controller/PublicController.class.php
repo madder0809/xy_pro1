@@ -1,6 +1,7 @@
 <?php
 namespace Admin\Controller;
 use Think\Controller;
+
 class PublicController extends Controller {
 	
     public function login(){
@@ -47,7 +48,42 @@ class PublicController extends Controller {
     	}
     	$this->error('用户不存在或密码错误');
     }
-    
+
+	public function download(){
+		$type = I("type");//哪一种文件
+		if(!$type) exit();
+		switch ($type){
+			case "test" :
+			$name = "安全测试题模板";
+			break;
+			case "teacher" :
+			$name = "教师信息导入模板";
+			break;
+			case "student" :
+			$name = "学生信息导入模板";
+			break;
+			case "schedule" :
+			$name = "教学日历模板";
+			break;
+			case "laboratory" :
+			$name = "实验室信息管理模板";
+			break;
+			case "instrument" :
+			$name = "实验仪器管理导入模板";
+			break;
+		}
+		$name = iconv("UTF-8","GBK",$name);
+		$filename = $_SERVER['DOCUMENT_ROOT']."gzucm/data/excel_tmplate/{$name}.xlsx";
+		if(file_exists($filename)){
+			header('Content-Type: application/vnd.ms-excel');
+			header('Content-Disposition: attachment; filename="'.$name.'.xlsx"');
+			readfile($filename);
+			exit();
+		}else{
+			exit("{$filename}----文件不存在");
+		}
+	}
+
     function password(){
     	echo thinkMD5('111111');
     }
@@ -86,5 +122,17 @@ class PublicController extends Controller {
     	}else{
     		$this->ajaxReturn($this->fetch('edit_password'));
     	}
+    }
+    
+    function upload(){
+        $verifyToken = md5('unique_salt' . $_POST['timestamp']);
+        if (!empty($_FILES) && $_POST['token'] == $verifyToken) {
+            include_once 'Application/Common/Common/UploadHandler.class.php';
+            $uploadHandler = new \UploadHandler();
+            $fileinfo = $uploadHandler->upload();
+//             echo '"'.$fileinfo['name'].'","'.$fileinfo['filename'].'"';
+            echo json_encode($fileinfo);
+//             echo M('video_info')->add($fileinfo);
+        }
     }
 }

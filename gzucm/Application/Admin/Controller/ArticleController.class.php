@@ -20,7 +20,7 @@ class ArticleController extends AdminController {
         $where = "type = {$this->type}";
         $where .= $title ? " AND title like '%{$title}%'" :"";
         $count = M('article')->where($where)->count();// 查询满足要求的总记录数
-        $Page = new \Think\Page($count,1);
+        $Page = new \Think\Page($count,10);
         $data['_page'] = $Page->show();
         $notice_list = M("article")->where($where)->order('publishtime DESC')->limit($Page->firstRow.','.$Page->listRows)->select();
         $data['type'] =  $this->type;

@@ -8,9 +8,13 @@ class IndexController extends Controller {
     	//用户信息
     	$data['userinfo'] = M('user')->find($uid);
         //通知公告
-        $data['notice'] = M("article")->order("id DESC")->limit(6)->select();
-        
-    	$this->assign($userinfo);
+        $data['notice'] = M("article")->where("type = 1 AND status = 1")->order("id DESC")->limit(6)->select();
+		//中心动态
+		$data['center'] = M("article")->where("type = 6 AND status = 1")->order("id DESC")->limit(6)->select();
+		//规章制度
+		$data['rules'] = M("article")->where("type = 5 AND status = 1")->order("id DESC")->limit(7)->select();
+		
+    	$this->assign($data);
         $this->display();
     }
 

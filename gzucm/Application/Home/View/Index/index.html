@@ -70,12 +70,9 @@
     </div>
             <div class="trends_time">
                 <ul>
-                    <li><a href="javascript:void();"><p>思政第一课王省良校长讲国际...</p></a><span>2015-09-24</span></li>
-                    <li><a href="javascript:void();"><p>陈英华副书记慰问“北马”赛...</p></a><span>2015-09-23</span></li>
-                    <li><a href="javascript:void();"><p>学校党委理论学习中心组开展...</p></a><span>2015-09-22</span></li>
-                    <li><a href="javascript:void();"><p>樊代明院士来校做报告 妙论...</p></a><span>2015-09-21</span></li>
-                    <li><a href="javascript:void();"><p>第四届“赢在广州”大学生创...</p></a><span>2015-09-18</span></li>
-                    <li><a href="javascript:void();"><p>第四届“赢在广州”大学生创...</p></a><span>2015-09-18</span></li>
+                    <volist name="center" id="vo">
+                        <li><a href="{:U('Show/view',array('id'=>$vo['id']))}"><p>{$vo.title}</p><span>{$vo.publishtime|strtotime|date="Y-m-d",###}</span></a></li>
+                    </volist>
                 </ul>
             </div>
         </div>
@@ -85,12 +82,9 @@
             <div class="notice">
                 <i class="notice_wire"></i>
                 <ul>
-                    <li><i class="notice_round"></i><a href="javascript:void();">工会小组长变更公示</a></li>
-                    <li><i class="notice_round"></i><a href="javascript:void();">教学实验中心第十四期课程建设中期</a></li>
-                    <li><i class="notice_round"></i><a href="javascript:void();">教学实验中心第十三期期课程建设结</a></li>
-                    <li><i class="notice_round"></i><a href="javascript:void();">教学实验中心第七批大学生科创中期</a></li>
-                    <li><i class="notice_round"></i><a href="javascript:void();">教学实验中心第六批大学生科创结题</a></li>
-                    <li><i class="notice_round"></i><a href="javascript:void();">教学实验中心第八批大学生科创开题</a></li>
+                    <volist name="notice" id="vo">
+                        <li><a href="{:U('Show/view',array('id'=>$vo['id']))}">{$vo.title}</a></li>
+                    </volist>
                 </ul>
             </div>
         </div>
@@ -123,13 +117,9 @@
             <i></i>
             <div class="rules_system">
                 <ul>
-                    <li><a href="javascript:void();"><i class="notice_square"></i>教学实验中心规章制度大全</a></li>
-                    <li><a href="javascript:void();"><i class="notice_square"></i>教学实验中心规章制度大全</a></li>
-                    <li><a href="javascript:void();"><i class="notice_square"></i>教学实验中心规章制度大全</a></li>
-                    <li><a href="javascript:void();"><i class="notice_square"></i>教学实验中心规章制度大全</a></li>
-                    <li><a href="javascript:void();"><i class="notice_square"></i>教学实验中心规章制度大全</a></li>
-                    <li><a href="javascript:void();"><i class="notice_square"></i>教学实验中心规章制度大全</a></li>
-                    <li><a href="javascript:void();"><i class="notice_square"></i>教学实验中心规章制度大全</a></li>
+                    <volist name="rules" id="vo">
+                        <li><a href="{:U('Show/view',array('id'=>$vo['id']))}"><i class="notice_square"></i>{$vo.title}</a></li>
+                    </volist>
                 </ul>
             </div>
         </div>

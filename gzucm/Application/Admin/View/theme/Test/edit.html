@@ -15,6 +15,7 @@
 		display: inline-block;
 		padding: 5px;
 		border: 1px solid #CCC;
+		width: 99%;
 	}
 	.item_count span{
 		font-size: 16px;
@@ -38,8 +39,8 @@
 
 	<div class='header_action'>
 		<div class="test_header" style="float: left">
-		<input type="radio" name="order" value="1"> 顺序答题
-		<input type="radio" name="order" value="2"> 随机答题
+		<input type="radio" name="order" value="1" class="setOrderRadio" {$order==1 ? "checked" : "" }> 顺序答题
+		<input type="radio" name="order" value="2" class="setOrderRadio" {$order==2 ? "checked" : "" }> 随机答题
 		</div>
 	</div>
 
@@ -48,7 +49,7 @@
 			<form action="{:U('index')}" method="post" style="float:right;">
 				<input type="checkbox" value="all" id="select_all"> 全选
 				<div class="item_count">
-				已选择题目 <span>30</span>
+				已选择题目 <span>{$t_count}</span>
 				</div>
 				<input type="submit" value="确定" id="confirm">
 			</form>
@@ -67,7 +68,7 @@
 						<p><input type="radio" name="item"> D.{$vo.opt_d}</p>
 					</div>
 					<div class="item_option">
-						<input type="checkbox" name="tid" value="{$vo.id}" class="t_item">选择
+						<input type="checkbox" name="tid" value="{$vo.id}" class="t_item" {$vo['selectd']?"checked" : ""}>选择
 					</div>
 				</div>
 			</li>
@@ -80,14 +81,15 @@
 </div>
 <script>
 	$(document).ready(function(){
-		//确定
-		$("#confirm").on("click",function(){
-			var url = "{:U('edit')}";
-			$.post(url,$("#test_form").serialize(),function(data){
-				
+		$(".setOrderRadio").on("change",function(){
+			var url = "{:U('setOrder')}";
+			var order = $(this).val();
+			var iname = "{$_GET['iname']}";
+			$.post(url,{iname:iname,order:order},function(data){
+
 			})
-			return false;
 		})
+
 		//点击选中
 		$(".t_item").on("click",function(){
 			var check_status = $(this).is(":checked"); //点击后
@@ -96,14 +98,16 @@
 			var url = "{:U('modified')}";
 			var iname = "{$_GET['iname']}";
 			$.post(url,{tid:id,control:control,iname:iname},function(data){
-
+				$(".item_count span").text(data);
 			})
 		})
 		//全选
 		$("#select_all").on("click",function(){
 			var status = $(this).is(':checked');
 			$(".t_item").each(function(){
-				$(this).attr("checked",status);
+				if($(this).is(':checked') != status){
+					$(this).click();
+				}
 			})
 		})
 	})

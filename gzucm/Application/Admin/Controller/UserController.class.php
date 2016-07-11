@@ -101,6 +101,7 @@ class UserController extends AdminController {
             $this->success("{$num}条信息导入成功",U('index',array("type"=>$this->type)));
         }else{
             $data['type'] = $this->type;
+            $data['download_type'] = $data['type'] == 1 ? "student" : "teacher";
             $data['type_name'] = $this->type_name;
             $this->assign($data);
             $this->ajaxReturn($this->fetch('import'));

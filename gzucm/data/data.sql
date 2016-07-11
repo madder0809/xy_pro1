@@ -80,3 +80,37 @@ INSERT INTO `auth_menu`(id, name, title,pid, menu_type,sort) VALUES ('14', 'Test
 INSERT INTO `auth_menu`(id, name, title,pid, menu_type,sort) VALUES ('15', 'Stu/index', '用户管理1', '3', '1','0');
 INSERT INTO `auth_menu`(id, name, title,pid, menu_type,sort) VALUES ('16', 'Teac/index', '用户管理2', '3', '1','0');
 INSERT INTO `auth_menu`(id, name, title,pid, menu_type,sort) VALUES ('17', 'Menu/index', '菜单设置', '2', '1','0');
+
+
+DROP TABLE IF EXISTS `video_info`;
+CREATE TABLE `video_info` (
+  `id` int(32) NOT NULL AUTO_INCREMENT COMMENT '',
+  `filename` varchar(250) NOT NULL COMMENT '文件名',
+  `path` varchar(250) NOT NULL COMMENT '路径',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 common='视频信息';
+
+DROP TABLE IF EXISTS `experiment`;
+CREATE TABLE `experiment` (
+  `id` int(12) NOT NULL AUTO_INCREMENT COMMENT '',
+  `subject` varchar(100) NOT NULL COMMENT '科目',
+  `class_name` varchar(200) NOT NULL COMMENT '课程名称',
+  `class_common` text  COMMENT '课程介绍',
+  `lavel` int(3) DEFAULT 0 COMMENT '固定级别',
+  `status` varchar(20) NOT NULL COMMENT '状态',
+  `release_man` varchar(30) NOT NULL COMMENT '发布者',
+  `release_time` varchar(10) NOT NULL COMMENT '发布时间',
+  `video_id` text NOT NULL COMMENT '视频资源id',
+  `click_count` int(12) DEFAULT 0 COMMENT '点击数',
+  `download_count` int(12) DEFAULT 0 COMMENT '下载数',
+  `type` int(1) DEFAULT 0 COMMENT '类型：1主要实验课程，2实验视频',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 comment='实验视频';
+
+DROP TABLE IF EXISTS `video_info`;
+CREATE TABLE `video_info` (
+  `id` int(32) NOT NULL AUTO_INCREMENT COMMENT '',
+  `filename` varchar(250) NOT NULL COMMENT '文件名',
+  `path` varchar(250) NOT NULL COMMENT '路径',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 comment='视频信息';

@@ -16,44 +16,24 @@
             <h4>主要实验课程<a href="javascript:void();">更多</a></h4>
                 <i></i>
                 <ul>
-                    <li><a href="javascript:void();"><img src="images/icon_method.png" height="23" width="19">中药新药药学研究技术与方法</a></li>
-                    <li><a href="javascript:void();"><img src="images/icon_method.png" height="23" width="19">中药新药药学研究技术与方法</a></li>
-                    <li><a href="javascript:void();"><img src="images/icon_method.png" height="23" width="19">中药新药药学研究技术与方法</a></li>
-                    <li><a href="javascript:void();"><img src="images/icon_method.png" height="23" width="19">中药新药药学研究技术与方法</a></li>
-                    <li><a href="javascript:void();"><img src="images/icon_method.png" height="23" width="19">中药新药药学研究技术与方法</a></li>
-                    <li><a href="javascript:void();"><img src="images/icon_method.png" height="23" width="19">中药新药药学研究技术与方法</a></li>
+	                <volist name="experiment_list" id="list">
+	                	<li><a href="javascript:void();"><img src="images/icon_method.png" height="23" width="19">{$list.class_name}</a></li>
+	                </volist>
                 </ul>
             </div>
-            <div class="test_video">
-                <h4>中医学实验视频<a href="javascript:void();">更多</a></h4>
-                <i></i>
-                <ul>
-                    <li><a href="javascript:void();"><img src="images/autoplay_2.jpg" height="153" width="181"><p class="icon">电子天平</p></a></li>
-                    <li><a href="javascript:void();"><img src="images/autoplay_3.jpg" height="153" width="181"><p class="icon">电子天平</p></a></li>
-                    <li><a href="javascript:void();"><img src="images/autoplay_4.jpg" height="153" width="181"><p class="icon">电子天平</p></a></li>
-                    <li><a href="javascript:void();"><img src="images/autoplay_5.jpg" height="153" width="181"><p class="icon">电子天平</p></a></li>
-                </ul>
-            </div>
-            <div class="test_video">
-                <h4>中医学实验视频<a href="javascript:void();">更多</a></h4>
-                <i></i>
-                <ul>
-                    <li><a href="javascript:void();"><img src="images/autoplay_2.jpg" height="153" width="181"><p class="icon">电子天平</p></a></li>
-                    <li><a href="javascript:void();"><img src="images/autoplay_3.jpg" height="153" width="181"><p class="icon">电子天平</p></a></li>
-                    <li><a href="javascript:void();"><img src="images/autoplay_4.jpg" height="153" width="181"><p class="icon">电子天平</p></a></li>
-                    <li><a href="javascript:void();"><img src="images/autoplay_5.jpg" height="153" width="181"><p class="icon">电子天平</p></a></li>
-                </ul>
-            </div>
-            <div class="test_video">
-                <h4>临床技能实训<a href="javascript:void();">更多</a></h4>
-                <i></i>
-                <ul>
-                    <li><a href="javascript:void();"><img src="images/autoplay_2.jpg" height="153" width="181"><p class="icon">电子天平</p></a></li>
-                    <li><a href="javascript:void();"><img src="images/autoplay_3.jpg" height="153" width="181"><p class="icon">电子天平</p></a></li>
-                    <li><a href="javascript:void();"><img src="images/autoplay_4.jpg" height="153" width="181"><p class="icon">电子天平</p></a></li>
-                    <li><a href="javascript:void();"><img src="images/autoplay_5.jpg" height="153" width="181"><p class="icon">电子天平</p></a></li>
-                </ul>
-            </div>
+            
+            <volist name="video_subject_list" id="list">
+	            <div class="test_video">
+	                <h4>{$list.subject}<a href="javascript:void();">更多</a></h4>
+	                <i></i>
+	                <ul>
+	                	<volist name="list.video_list" id="video">
+	                		<li><a href="javascript:void();"><img src="images/autoplay_2.jpg" height="153" width="181"><p class="icon">{$video.class_name}</p></a></li>
+	                	</volist>
+	                    
+	                </ul>
+	            </div>
+            </volist>
         </div>
         <div class="resource_right">
             <div class="course_search">

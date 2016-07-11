@@ -73,7 +73,7 @@ class ScheduleController extends AdminController
         $objPHPExcel->createSheet();
         $objPHPExcel->setActiveSheetIndex($index);
         $objPHPExcel->getActiveSheet()->setTitle($title); //设置工作表名称
-        $header = array(['课程名称', '班级', '课序号', '日期', '周次', '星期', '节次', '学时', '教学环节', '教师编号', '教师', '职称', '上课地点', '分组说明', '授课内容', '备注']);
+        $header = array('课程名称', '班级', '课序号', '日期', '周次', '星期', '节次', '学时', '教学环节', '教师编号', '教师', '职称', '上课地点', '分组说明', '授课内容', '备注');
         $list = M("schedule")->where("type = '{$title}'")
             ->field("name,class,sort,date,weekly,dayOfWeek,section,hours,type,teac_num,teacher,teac_title,address,group,content,remark")
             ->order("name,class,date,weekly")->select();

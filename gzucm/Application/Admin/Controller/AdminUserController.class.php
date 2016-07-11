@@ -27,7 +27,7 @@ class AdminUserController extends AdminController {
     		->join('left join auth_group_access aga on aga.uid = au.uid')
     		->join('left join auth_group ag on ag.id = aga.group_id')
     		->count();
-    	$page = new \Think\Page($count,1);
+    	$page = new \Think\Page($count,10);
     	$this->assign('_page', $page->show());
     	
     	$admin_user_list = M('admin_user au')

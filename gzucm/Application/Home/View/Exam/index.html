@@ -22,20 +22,15 @@
             <h3>您的位置：安全考试>>安全考试</h3>
             <div class="materials">
                 <ul>
-                    <li>
-                        <span>第一题</span><p class="materials_content">1958年10月11日，毛泽东同志在《卫生部党组关于组织西医离职学习中医班总结报告》上批示：“中国医药学是一个伟大的宝库，应当努力发掘，加以提高。”这一指示的核心是</p>
-                        <p><input name="Fruit" type="radio" value="" />A.继承中医</p>
-                        <p><input name="Fruit" type="radio" value="" />B.发扬中医</p>
-                        <p><input name="Fruit" type="radio" value="" />C.继承和发扬中医</p>
-                        <p><input name="Fruit" type="radio" value="" />D.继承和发扬西医</p>
-                    </li>
-                    <li>
-                        <span>第二题</span><p class="materials_content">1958年10月11日，毛泽东同志在《卫生部党组关于组织西医离职学习中医班总结报告》上批示：“中国医药学是一个伟大的宝库，应当努力发掘，加以提高。”这一指示的核心是</p>
-                        <p><input name="Frui" type="radio" value="" />A.继承中医</p>
-                        <p><input name="Frui" type="radio" value="" />B.发扬中医</p>
-                        <p><input name="Frui" type="radio" value="" />C.继承和发扬中医</p>
-                        <p><input name="Frui" type="radio" value="" />D.继承和发扬西医</p>
-                    </li>
+                    <foreach name="list" item="vo" key="k">
+                        <li>
+                            <span>第{$k}题</span>{$vo.title}</p>
+                            <p><input name="Fruit" type="radio" value="" />A.{$vo.opt_a}</p>
+                            <p><input name="Fruit" type="radio" value="" />B.{$vo.opt_b}</p>
+                            <p><input name="Fruit" type="radio" value="" />C.{$vo.opt_c}</p>
+                            <p><input name="Fruit" type="radio" value="" />D.{$vo.opt_d}</p>
+                        </li>
+                    </foreach>
                 </ul>
             </div>
             <div class="button_center" style="margin: 20px;">

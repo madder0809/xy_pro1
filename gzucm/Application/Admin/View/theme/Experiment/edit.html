@@ -1,0 +1,160 @@
+
+<script src="__ROOT__/Addons/uploadify/jquery.uploadify.min.js" type="text/javascript"></script>
+<link rel="stylesheet" type="text/css" href="__ROOT__/Addons/uploadify/uploadify.css">
+
+<style>
+.uploadify-queue-item .cancel a {
+	background:#ccc;
+}
+</style>
+<div id='mask_box' style='height:500px;'>
+
+	<div id='mask_box_header'><notempty name='id'>编辑视频&nbsp;- {$auth_group.title}<else/>新增视频</notempty></div>
+	
+	<div id='mask_box_content'>
+		<empty name='id'>
+			<form action='{:U("add")}' class="modal_form">
+		<else/>
+			<form action='{:U("edit")}' class="modal_form">
+		</empty>
+			<table style='width:100%;margin:auto;'>
+				<tr>
+					<td><div>科目：</div></td>
+					<td>
+						<input name=subject type="text" value='{$experiment.subject}'>
+					</td>
+				</tr>
+				<tr>
+					<td><div>课程名称：</div></td>
+					<td>
+						<input name="class_name" type="text" value='{$experiment.class_name}'>
+					</td>
+				</tr>
+				
+				<tr>
+					<td><div>固定级别：</div></td>
+					<td>
+						<input name="level" type="text" value='{$experiment.leval}'>
+					</td>
+				</tr>
+				
+				<tr>
+					<td><div>状态：</div></td>
+					<td>
+						<select name='status' style='width:150px;'>
+							<option value='未审核' <if condition="$experiment['status'] eq '未审核'">selected</if>>未审核</option>
+							<option value='已审核' <if condition="$experiment['status'] eq '已审核'">selected</if>>已审核</option>
+						</select>
+					</td>
+				</tr>
+				
+				<tr>
+					<td><div>发布者：</div></td>
+					<td>
+						<input name="release_man" type="text" value='{$experiment.release_man}'>
+					</td>
+				</tr>
+				
+				<tr>
+					<td><div>发布时间：</div></td>
+					<td>
+						<input name="release_time" type="text" value='{$experiment.release_time}'>
+					</td>
+				</tr>
+				
+				<tr>
+					<td><div>附件：</div></td>
+					<td id='file_upload_box'>
+						<span>
+							<input id="file_upload" name="file_upload" type="text">
+						</span>
+						<div id='video_list'>
+							<volist name="video_list" id="video">
+								<div id='video_div_{$video.id}' style='text-align:left;'>
+									<span style='font-size:12px;color:#0000CD;padding:3px 0;'>{$video.filename}</span>
+									<i onclick="del_video({$video.id})" style='cursor:pointer;margin-left: 5px; position:relative;top:-5px;right:0px;color:red;font-size:15px;'>x</i>
+								</div>
+								<input type='hidden' id='input_{$video.id}' name='video_file[]' value='{$video.path},{$video.filename}'></input>
+							</volist>
+						</div>
+					</td>
+				</tr>
+			
+				<tr>
+					<td></td>
+					<td>
+						<div id='prompt_info' style='font-size:16px;color:red;text-align:left;'></div>
+					</td>
+				</tr>
+			
+				<input type='hidden' name='id' value='{$id}'>
+				<input type='hidden' name='type' value='{$type}'>
+			
+			<table>
+			
+			<div id='mask_box_footer' style=''>
+				<input type='submit' value='确定'>
+				<input type='button' onclick='remove_mask_box();' value='取消'>
+			</div>
+		</form>
+	</div>
+</div>
+
+<script>
+
+	function del_video(video_id){
+		$('#video_div_'+video_id).remove();
+		$('#input_'+video_id).remove();
+	}
+	
+	var uploadLimit = 99;	//限制上传文件数
+	if({$type} == '2'){
+		uploadLimit = 1;
+	}
+	
+	<?php $timestamp = time();?>
+	$(function() {
+		$('#file_upload').uploadify({
+			'formData'     : {
+				'timestamp' : '<?php echo $timestamp;?>',
+				'token'     : '<?php echo md5('unique_salt' . $timestamp);?>'
+			},
+			buttonText:"上传文件",
+            'fileExt': "*.flv;*.MP4;*.mpeg;*.mov;*.wmv;*.avi;*.swf",//限制上传格式
+            'sizeLimit': 102400000,//限制大小
+			'swf'      : '__ROOT__/Addons/uploadify/uploadify.swf',
+			'uploadLimit':uploadLimit,
+			'uploader' : '{:U("public/upload")}',
+	        'onCancel' : function(file) {
+	            //todo
+	        },
+			'onUploadSuccess' : function(file, data, response) {
+				$('#mask_box_footer').css('position', 'relative');
+				$('#mask_box').css('overflow', 'auto');
+				
+		        $("#" + file.id + " .cancel").click(function() {
+		        	var fileId = $(this).parents(".uploadify-queue-item").attr("id");
+		        	$('#input_' + file.id).remove();
+		        });
+		        
+				var arr = JSON.parse(data);
+				var file_input = "<input type='hidden' id='input_"+file.id+"' name='video_file[]' value='"+arr.path+','+arr.filename+"'></input>"
+				$('#file_upload_box').append(file_input);
+	        },
+	        'removeCompleted': false,
+
+		});
+		
+
+        
+	});
+
+
+	$('#mask_box_footer input[type="submit"]').click(function(){
+		if($('#mask_box_content input[name=title]').val() == ""){
+			$('#prompt_info').text('角色名称不能为空').show();
+			return false;
+		}
+		return ajax_post();
+	});
+</script>

@@ -24,31 +24,45 @@ class TestController extends AdminController {
             $Page = new \Think\Page($count,2);
             $data['_page'] = $Page->show();
             $data['t_list'] = $test->limit($Page->firstRow.','.$Page->listRows)->select();//试题列表
-            $data['tmp_list'] = $data['t_list'][0]['id'].",".$data['t_list'][1]['id'];
+            $tmp = M("test_instrument")->where("iname = '{$_GET['iname']}'")->field("tid,t_count,order")->find();
+            $data['t_count'] = $tmp['t_count'];
+            $data['order'] = $tmp['order'];
+            $t_list = explode(",",$tmp['tid']);
+            foreach($data['t_list'] as $k=>$v){
+                if(in_array($v['id'],$t_list)) $data['t_list'][$k]['selectd'] = 1;
+            }
             $this->assign($data);
             $this->display();
         }
     }
-
+    //改变答题顺序
+    public function setOrder(){
+        $data = I();
+        if(I("order")){
+            M("test_instrument")->where("iname = '{$data['iname']}'")->save($data);
+        }
+    }
+    //选择试题
     public function modified(){
         $data = I();
         $ti = M("test_instrument")->where("iname = '{$data["iname"]}'")->find();
         $t_list = explode(",",$ti['tid']);
-        if($data['controll'] == "add"){
-            if(in_array($data['tid'],$t_list))
+        if($data['control'] == "add"){
+            if(!in_array($data['tid'],$t_list))
             $t_list[] = $data['tid'];
-            $this->ajaxReturn($t_list);
-        }elseif($data['controll'] == "remove"){
+        }elseif($data['control'] == "remove"){
             if(in_array($data['tid'],$t_list)){
-                foreach ($_list as $k=>$v){
-                    if($v==$data['tid']) array_splice($_list, $k);
+                foreach ($t_list as $k=>$v){
+                    if($v==$data['tid']) array_splice($t_list, $k);
                 }
             }
         }else{
             exit();
         }
-        $data['tid'] = implode(",",$_list);
-        $this->ajaxReturn($data);
+        $data['tid'] = implode(",",$t_list);
+        $data['t_count'] = count($t_list);
+        if(M("test_instrument")->where("iname = '{$data['iname']}'")->save($data)!==false)
+        $this->ajaxReturn($data['t_count']);
     }
 
     public function import(){
