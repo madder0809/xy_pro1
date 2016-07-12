@@ -14,7 +14,6 @@ class PlayController extends Controller{
 	       $video_subject_list[$key]['video_list'] = $video_list; 
 	    }
 	    $this->assign('video_subject_list', $video_subject_list);
-	    
 		$this->display();
 	}
 
@@ -24,32 +23,36 @@ class PlayController extends Controller{
 
 	public function upload(){
 		if(IS_POST){
-			$data = I();
-/*			$video = $_FILES['video'];
-			var_dump($video);
-			exit();*/
-			$video = $data['file_name'];
-			import('Vendor.Youku.VideoUpload');
-			$upload = new \VideoUpload();
-			try {
-			    $file_md5 = @md5_file($video);
-			    if (!$file_md5) {
-			        throw new \Exception("Could not open the file!\n");
-			    }
-			}catch (\Exception $e) {
-			    echo "(File: ".$e->getFile().", line ".$e->getLine()."): ".$e->getMessage();
-			    return;
-			}
-			$file_name = $video;
-			$file_size = filesize($video);
-			$uploadInfo = array(
-				"title" => $data['title'], //video title
-				"tags" => "test", //tags, split by space
-				"file_name" => $file_name, //video file name
-				"file_md5" => $file_md5, //video file's md5sum
-				"file_size" => $file_size //video file size
+			$video_file = I("video_file");
+			if(!$video_file) $this->error("请上传视频");
+			$rules = array(
+					array('subject','require','科目不能为空！', 1, 'regex', 3),
+					array('class_name', 'require', '课程名称不能为空', 1, 'regex', 3),
 			);
-			$upload->upload($video,$uploadInfo);
+			$data = I();
+			$data['release_man'] = cookie("uid") ? cookie("uid") : '';
+			if(!$data['release_man']) $this->error("请先登录",U("Index/index"));
+			$video_info = M('video_info');
+			foreach ($video_file as $v){
+				$video = explode(",",$v);
+				$fileinfo['path'] = $video[0];
+				$fileinfo['filename'] = $video[1];
+				$video_id = $video_info->add($fileinfo);
+				if($video_id) $video_id_list[] = $video_id;
+			}
+			$data['subject'] = $data['class_name'];
+			$data['is_portal'] = 1;
+			$data['video_id'] = implode(",",$video_id_list);
+			$experiment = M('experiment');
+			if($experiment->validate(rules)->create($data)){
+				if($experiment->add()){
+					$this->success("资源上传成功");
+				}else{
+					$this->error("上传失败");
+				}
+			}else{
+				$this->error($experiment->getError());
+			}
 		}else{
 			$this->display();
 		}

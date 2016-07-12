@@ -8,7 +8,7 @@ class ExperimentController extends AdminController {
         array('subject','require','科目不能为空！', 1, 'regex', 3),
         array('class_name', 'require', '课程名称不能为空', 1, 'regex', 3),
     );
-    
+    private $status = array("0"=>"未审核","1"=>"已审核");
     public function video(){
     	$param = I();
     	$where = array();
@@ -31,9 +31,9 @@ class ExperimentController extends AdminController {
 	     
 	    $experiment_list = M('experiment')->where($where)->select();
 	    $this->assign('experiment_list', $experiment_list);
-
 	    $type = I('type');
     	$this->assign('type', $type);
+        $this->assign('status',$this->status);
         $this->display();
     }
 
@@ -50,7 +50,6 @@ class ExperimentController extends AdminController {
                     $fileinfo['path'] = $video[0];
                     $fileinfo['filename'] = $video[1];
                     $video_id = M('video_info')->add($fileinfo);
-                    
                     $video_id_list .= $video_id.',';
                 }
                 $video_id_list = rtrim($video_id_list, ',');
@@ -70,6 +69,7 @@ class ExperimentController extends AdminController {
     	    }
     	}else{
     	    $this->assign('type', $type);
+            $this->assign('status',$this->status);
     	    $this->assign('sessionid', session_id());
 			$this->ajaxReturn($this->fetch('edit'));
     	}
@@ -95,10 +95,10 @@ class ExperimentController extends AdminController {
                     $video_id = M('video_info')->add($fileinfo);
                     $video_id_list .= $video_id.',';
                 }
+
                 $video_id_list = rtrim($video_id_list, ',');
                 $_POST['video_id'] = $video_id_list;
             }
-            	
             $experiment = M('experiment');
             if($experiment->validate($this->rules)->create()){
                 if($experiment->save() !== fasle){
@@ -113,9 +113,9 @@ class ExperimentController extends AdminController {
             $experiment = M('experiment')->where(array('id'=>$id))->find();
             $video_list = M('video_info')->where(array('id'=>array('in',$experiment['video_id'])))->select();
             $this->assign('video_list', $video_list);
-            
             $this->assign('id', $id);
             $this->assign('type', $type);
+            $this->assign('status',$this->status);
             $this->assign('experiment', $experiment);
             $this->ajaxReturn($this->fetch('edit'));
         }

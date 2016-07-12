@@ -21,7 +21,7 @@
 				<tr>
 					<td><div>科目：</div></td>
 					<td>
-						<input name=subject type="text" value='{$experiment.subject}'>
+						<input name="subject" type="text" value='{$experiment.subject}'>
 					</td>
 				</tr>
 				<tr>
@@ -42,8 +42,8 @@
 					<td><div>状态：</div></td>
 					<td>
 						<select name='status' style='width:150px;'>
-							<option value='未审核' <if condition="$experiment['status'] eq '未审核'">selected</if>>未审核</option>
-							<option value='已审核' <if condition="$experiment['status'] eq '已审核'">selected</if>>已审核</option>
+							<option value="0" <if condition="$experiment['status'] eq 0">selected</if>>未审核</option>
+							<option value="1" <if condition="$experiment['status'] eq 1">selected</if>>已审核</option>
 						</select>
 					</td>
 				</tr>
@@ -141,9 +141,6 @@
 			},
 	        'removeCompleted': false,
 		});
-		
-
-        
 	});
 
 	$('#mask_box_footer input[type="submit"]').click(function(){

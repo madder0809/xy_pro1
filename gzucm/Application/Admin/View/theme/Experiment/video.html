@@ -39,7 +39,7 @@
 					<td>{$list.download_count}</td>
 					<td>{$list.release_man}</td>
 					<td>{$list.release_time}</td>
-					<td>{$list.status}</td>
+					<td>{$status[$list['status']]}</td>
 					<td>
 						<a href="{:U('edit',array(type=>$type,id=>$list[id]))}" class="modal table_btn">编辑</a>
 						<a href="{:U('del',array(type=>$type,id=>$list[id]))}" class='ask_del table_btn_info'>删除</a>

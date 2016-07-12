@@ -1341,7 +1341,7 @@ a.is_play{
 .upload_video ul li{
     margin-bottom: 8px;
 }
-.upload_video ul li span{
+.upload_video>ul>li>span{
     width:80px;
     text-align: right;
     color: #8e8e8e;
