@@ -2,7 +2,6 @@
 namespace Home\Controller;
 use Think\Controller;
 class LibController extends Controller{
-
 	private $validate = array(
 			array('uid','require','请先登陆'),
 			array('starttime', 'require', '名称不能为空'),
@@ -28,7 +27,7 @@ class LibController extends Controller{
 		}else{
 			$data['uid'] = cookie("uid") ? cookie("uid") : '';
 			if($data['uid']){
-				$data['i_list'] = M("instrument")->distinct(true)->field("name")->select();//仪器列表
+				$data['i_list'] = M("instrument")->cache(true)->distinct(true)->field("name")->select();//仪器列表
 				$this->assign($data);
 				$this->display();
 			}else{

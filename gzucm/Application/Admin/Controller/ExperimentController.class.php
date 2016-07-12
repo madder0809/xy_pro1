@@ -40,7 +40,6 @@ class ExperimentController extends AdminController {
 
     public function add(){
         $type = I('type');
-        
     	if(IS_POST){
     	    $video_file = I('video_file');
     	    if(!$video_file){
@@ -48,7 +47,6 @@ class ExperimentController extends AdminController {
     	    }else{
                 foreach ($_POST['video_file'] as $video){
                     $video = explode(',', $video);
-                    
                     $fileinfo['path'] = $video[0];
                     $fileinfo['filename'] = $video[1];
                     $video_id = M('video_info')->add($fileinfo);
@@ -92,11 +90,9 @@ class ExperimentController extends AdminController {
             }else{
                 foreach ($_POST['video_file'] as $video){
                     $video = explode(',', $video);
-                    
                     $fileinfo['path'] = $video[0];
                     $fileinfo['filename'] = $video[1];
                     $video_id = M('video_info')->add($fileinfo);
-                    
                     $video_id_list .= $video_id.',';
                 }
                 $video_id_list = rtrim($video_id_list, ',');

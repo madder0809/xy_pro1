@@ -155,6 +155,7 @@ a.click_switch{
 .ranking h4,.specifics h4{
     background: url(../images/icon_ranking.png) no-repeat #3d7508 5px;
 }
+.specifics img{max-width: 98%}
 .more h4{
     background: url(../images/icon_test_video.png) no-repeat #3d7508 5px;
 }

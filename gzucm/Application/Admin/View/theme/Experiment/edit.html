@@ -131,24 +131,20 @@
 			'onUploadSuccess' : function(file, data, response) {
 				$('#mask_box_footer').css('position', 'relative');
 				$('#mask_box').css('overflow', 'auto');
-				
 		        $("#" + file.id + " .cancel").click(function() {
 		        	var fileId = $(this).parents(".uploadify-queue-item").attr("id");
 		        	$('#input_' + file.id).remove();
 		        });
-		        
 				var arr = JSON.parse(data);
 				var file_input = "<input type='hidden' id='input_"+file.id+"' name='video_file[]' value='"+arr.path+','+arr.filename+"'></input>"
 				$('#file_upload_box').append(file_input);
-	        },
+			},
 	        'removeCompleted': false,
-
 		});
 		
 
         
 	});
-
 
 	$('#mask_box_footer input[type="submit"]').click(function(){
 		if($('#mask_box_content input[name=title]').val() == ""){

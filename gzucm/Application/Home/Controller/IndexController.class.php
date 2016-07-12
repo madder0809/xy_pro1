@@ -5,15 +5,29 @@ class IndexController extends Controller {
 	//首页
     public function index(){
     	$uid = cookie("uid") ? cookie("uid") : '';
+		$article = M("article");
     	//用户信息
     	$data['userinfo'] = M('user')->find($uid);
         //通知公告
-        $data['notice'] = M("article")->where("type = 1 AND status = 1")->order("id DESC")->limit(6)->select();
+        $data['notice'] = $article->where("type = 1 AND status = 1")->order("id DESC")->limit(6)->select();
+		//通知
+		$tmp = $data['notice'];
+		$data['fir_notice'] = array_shift($tmp);
 		//中心动态
-		$data['center'] = M("article")->where("type = 6 AND status = 1")->order("id DESC")->limit(6)->select();
+		$data['center'] = $article->where("type = 6 AND status = 1")->field("id,title,content,publishtime")->order("id DESC")->limit(6)->select();
+		//轮转图
+		$data['banner'] = $this->getBannerCover(6,3);
+		//实验室轮转图
+		$data['lab_banner'] = $this->getBannerCover(7,6);
 		//规章制度
-		$data['rules'] = M("article")->where("type = 5 AND status = 1")->order("id DESC")->limit(7)->select();
-		
+		$data['rules'] = $article->where("type = 5 AND status = 1")->field("id,title")->order("id DESC")->limit(7)->select();
+		//科研成果
+		$data['show'] = $this->getCover($article->where("type = 2 AND status = 1")->field("id,title,content")->order("id DESC")->limit(4)->select());
+		//var_dump($data['show']);exit();
+		//教学实验室
+		$data['lab'] = $article->where("type = 7 AND status = 1")->field("id,title")->order("id DESC")->limit(18)->select();
+		//资料下载
+		$data['resource'] = $article->where("type = 8 AND status = 1")->field("id,title")->order("id DESC")->limit(6)->select();
     	$this->assign($data);
         $this->display();
     }
@@ -66,6 +80,35 @@ class IndexController extends Controller {
 		$Verify->entry();
     }
 
+	/**
+	 * @param $type 文章类型
+	 * @param $num 获取的数目
+	 * @return mixed
+	 */
+	private function getBannerCover($type,$num){
+		$list = M("article")->where("type = {$type} AND status = 1")->field("content")->select();
+		$i = 1;
+		foreach ($list as $k=>$v){
+			if($i>$num) break;
+			preg_match ("<img.*src=[\"](.*?)[\"].*?>",htmlspecialchars_decode($v['content']),$match);
+			if($match[1]){
+				$arr[$i]['cover'] = $match[1];
+				$i++;
+			}
+			unset($match);
+		}
+		return $arr;
+	}
+
+	//获取封面图
+	private function getCover($list){
+		foreach($list as $k=>$v){
+			preg_match ("<img.*src=[\"](.*?)[\"].*?>",htmlspecialchars_decode($v['content']),$match);
+			$list[$k]['cover'] = $match[1] ? $match[1] : "/gzucm/Public/Home/images/scientific.jpg";
+			unset($match);
+		}
+		return $list;
+	}
     //注册step1
     public function register_step1(){
     	$this->display();

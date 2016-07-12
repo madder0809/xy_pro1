@@ -27,34 +27,12 @@
                 <h4>点击总排行</h4>
                 <i></i>
                 <ul>
-                    <li><i class="notice_square"></i><a href="javascript:void();">教学实验中心规章制度大全</a><span>1635</span></li>
-                    <li><i class="notice_square"></i><a href="javascript:void();">教学实验中心规章制度大全</a><span>1635</span></li>
-                    <li><i class="notice_square"></i><a href="javascript:void();">教学实验中心规章制度大全</a><span>1635</span></li>
-                    <li><i class="notice_square"></i><a href="javascript:void();">教学实验中心规章制度大全</a><span>1635</span></li>
-                    <li><i class="notice_square"></i><a href="javascript:void();">教学实验中心规章制度大全</a><span>1635</span></li>
-                    <li><i class="notice_square"></i><a href="javascript:void();">教学实验中心规章制度大全</a><span>1635</span></li>
-                    <li><i class="notice_square"></i><a href="javascript:void();">教学实验中心规章制度大全</a><span>1635</span></li>
-                    <li><i class="notice_square"></i><a href="javascript:void();">教学实验中心规章制度大全</a><span>1635</span></li>
-                    <li><i class="notice_square"></i><a href="javascript:void();">教学实验中心规章制度大全</a><span>1635</span></li>
-                    <li><i class="notice_square"></i><a href="javascript:void();">教学实验中心规章制度大全</a><span>1635</span></li>
+                    <volist name="views_list" id="vo">
+                        <li><i class="notice_square"></i><a href="{:U('Show/view',array('id'=>$vo['id']))}">{$vo.title}</a><span>{$vo.views}</span></li>
+                    </volist>
                 </ul>
             </div>
-            <div class="ranking">
-                <h4>最近30天排行</h4>
-                <i></i>
-                <ul>
-                    <li><i class="notice_square"></i><a href="javascript:void();">教学实验中心规章制度大全</a><span>1635</span></li>
-                    <li><i class="notice_square"></i><a href="javascript:void();">教学实验中心规章制度大全</a><span>1635</span></li>
-                    <li><i class="notice_square"></i><a href="javascript:void();">教学实验中心规章制度大全</a><span>1635</span></li>
-                    <li><i class="notice_square"></i><a href="javascript:void();">教学实验中心规章制度大全</a><span>1635</span></li>
-                    <li><i class="notice_square"></i><a href="javascript:void();">教学实验中心规章制度大全</a><span>1635</span></li>
-                    <li><i class="notice_square"></i><a href="javascript:void();">教学实验中心规章制度大全</a><span>1635</span></li>
-                    <li><i class="notice_square"></i><a href="javascript:void();">教学实验中心规章制度大全</a><span>1635</span></li>
-                    <li><i class="notice_square"></i><a href="javascript:void();">教学实验中心规章制度大全</a><span>1635</span></li>
-                    <li><i class="notice_square"></i><a href="javascript:void();">教学实验中心规章制度大全</a><span>1635</span></li>
-                    <li><i class="notice_square"></i><a href="javascript:void();">教学实验中心规章制度大全</a><span>1635</span></li>
-                </ul>
-            </div>
+
         </div>
 
 </div>

@@ -2,7 +2,7 @@
     <h4>通知<a href="javascript:void();" onclick="img1();"></a></h4>
     <i></i>
     <ul>
-        <li>全校今天下午搞卫生</li>
+        <li><a href="{:U('Show/view',array('id'=>$fir_notice['id']))}">{$fir_notice.title}</a></li>
     </ul>
 </div>
 <div class="option_click">
@@ -58,9 +58,9 @@
             <i></i>
             <div class="example2">
         <ul>
-            <li><img src="__PUBLIC__/Home/images/play.jpg" height="152" width="181" alt="1"/></li>
-            <li><img src="__PUBLIC__/Home/images/play.jpg" height="152" width="181" alt="2"/></li>
-            <li><img src="__PUBLIC__/Home/images/play.jpg" height="152" width="181" alt="3"/></li>
+            <foreach name="banner" item="vo" key="k">
+                <li><img src="{$vo.cover}" height="152" width="181" alt="{$k}"/></li>
+            </foreach>
         </ul>
         <ol>
             <li>1</li>
@@ -83,7 +83,7 @@
                 <i class="notice_wire"></i>
                 <ul>
                     <volist name="notice" id="vo">
-                        <li><a href="{:U('Show/view',array('id'=>$vo['id']))}">{$vo.title}</a></li>
+                        <li><i class="notice_round"></i><a href="{:U('Show/view',array('id'=>$vo['id']))}">{$vo.title}</a></li>
                     </volist>
                 </ul>
             </div>
@@ -105,10 +105,9 @@
             <i></i>
             <div class="scientific_fruit">
                 <ul>
-                    <li><a href="javascript:void();"><img src="__PUBLIC__/Home/images/scientific.jpg" height="68" width="226"><br>国家级中医学实验教学示范中心科研成果</a></li>
-                    <li><a href="javascript:void();"><img src="__PUBLIC__/Home/images/scientific.jpg" height="68" width="226"><br>国家级中医学实验教学示范中心科研成果</a></li>
-                    <li><a href="javascript:void();"><img src="__PUBLIC__/Home/images/scientific.jpg" height="68" width="226"><br>国家级中医学实验教学示范中心科研成果</a></li>
-                    <li><a href="javascript:void();"><img src="__PUBLIC__/Home/images/scientific.jpg" height="68" width="226"><br>国家级中医学实验教学示范中心科研成果</a></li>
+                    <volist name="show" id="vo">
+                        <li><a href="{:U('Show/view',array('id'=>$vo['id']))}"><img src="{$vo.cover}" height="68" width="226"><br>{$vo.title}</a></li>
+                    </volist>
                 </ul>
             </div>
         </div>
@@ -141,29 +140,10 @@
         <h4>教学实验室<a href="javascript:void();">更多</a></h4>
             <i></i>
             <div class="laboratory">
-                <ul style="float:left;">
-                    <li><a href="javascript:void();"><span>1</span>生物化学实验室(...</a></li>
-                    <li><a href="javascript:void();"><span>2</span>生物化学实验室(...</a></li>
-                    <li><a href="javascript:void();"><span>3</span>生物化学实验室(...</a></li>
-                    <li><a href="javascript:void();"><span>4</span>生物化学实验室(...</a></li>
-                    <li><a href="javascript:void();"><span>5</span>生物化学实验室(...</a></li>
-                    <li><a href="javascript:void();"><span>6</span>生物化学实验室(...</a></li>
-                </ul>
-                <ul style="float:left;margin: 0 25px;">
-                    <li><a href="javascript:void();"><span>7</span>生物化学实验室(...</a></li>
-                    <li><a href="javascript:void();"><span>8</span>生物化学实验室(...</a></li>
-                    <li><a href="javascript:void();"><span>9</span>生物化学实验室(...</a></li>
-                    <li><a href="javascript:void();"><span>10</span>生物化学实验室(...</a></li>
-                    <li><a href="javascript:void();"><span>11</span>生物化学实验室(...</a></li>
-                    <li><a href="javascript:void();"><span>12</span>生物化学实验室(...</a></li>
-                </ul>
-                <ul>
-                    <li><a href="javascript:void();"><span>13</span>生物化学实验室(...</a></li>
-                    <li><a href="javascript:void();"><span>14</span>生物化学实验室(...</a></li>
-                    <li><a href="javascript:void();"><span>15</span>生物化学实验室(...</a></li>
-                    <li><a href="javascript:void();"><span>16</span>生物化学实验室(...</a></li>
-                    <li><a href="javascript:void();"><span>17</span>生物化学实验室(...</a></li>
-                    <li><a href="javascript:void();"><span>18</span>生物化学实验室(...</a></li>
+                <ul style="float:left;width: 100%">
+                    <volist name="lab" id="vo">
+                        <li><a href="{:U('Show/view',array('id'=>$vo['id']))}">{$vo.title}</li>
+                    </volist>
                 </ul>
             </div>
         </div>
@@ -172,12 +152,9 @@
             <i></i>
             <div class="rules_system">
                 <ul>
-                    <li><a href="javascript:void();"><i class="notice_square"></i>图书软件采购表格下载</a></li>
-                    <li><a href="javascript:void();"><i class="notice_square"></i>图书软件采购表格下载</a></li>
-                    <li><a href="javascript:void();"><i class="notice_square"></i>图书软件采购表格下载</a></li>
-                    <li><a href="javascript:void();"><i class="notice_square"></i>图书软件采购表格下载</a></li>
-                    <li><a href="javascript:void();"><i class="notice_square"></i>图书软件采购表格下载</a></li>
-                    <li><a href="javascript:void();"><i class="notice_square"></i>图书软件采购表格下载</a></li>
+                    <volist name="resource" id="vo">
+                        <li><a href="{:U('Show/view',array('id'=>$vo['id']))}"><i class="notice_square"></i>{$vo.title}</a></li>
+                    </volist>
                 </ul>
             </div>
         </div>
@@ -188,12 +165,9 @@
             <table border="0" align=center cellpadding="1" cellspacing="1" cellspace="0" >
             <tr><td valign=top bgcolor=ffffff id="marquePic1">
             <table width='100%' border='0' cellspacing='0'><tr>
-            <td align=center><a href='javascript:void();'><img src="__PUBLIC__/Home/images/autoplay_1.jpg" height="153" width="181"><br><br>01</a></td>
-            <td align=center><a href='javascript:void();'><img src="__PUBLIC__/Home/images/autoplay_2.jpg" height="153" width="181"><br><br>02</a></td>
-            <td align=center><a href='javascript:void();'><img src="__PUBLIC__/Home/images/autoplay_3.jpg" height="153" width="181"><br><br>03</a></td>
-            <td align=center><a href='javascript:void();'><img src="__PUBLIC__/Home/images/autoplay_4.jpg" height="153" width="181"><br><br>04</a></td>
-            <td align=center><a href='javascript:void();'><img src="__PUBLIC__/Home/images/autoplay_5.jpg" height="153" width="181"><br><br>05</a></td>
-            <td align=center><a href='javascript:void();'><img src="__PUBLIC__/Home/images/autoplay_5.jpg" height="153" width="181"><br><br>05</a></td>
+                <foreach name="lab_banner" item="vo" key="k">
+                    <td align=center><a href='javascript:void();'><img src="{$vo.cover}" height="153" width="181"><br><br>0{$k}</a></td>
+                </foreach>
             </tr></table>
             </td><td id="marquePic2" valign="top"></td></tr>
             </table>
@@ -203,5 +177,4 @@
         </div>
     </div>    
     </div>
-
 </div>

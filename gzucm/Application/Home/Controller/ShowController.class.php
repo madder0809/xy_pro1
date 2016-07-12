@@ -15,8 +15,13 @@ class ShowController extends Controller{
 		if(!$id){
 			$this->error("没找到该文章");
 		}
-		$info = M("article")->find($id);
+		$article = M("article");
+		$info = $article->find($id);
 		$this->assign($info);
+		$article->where("id = {$id}")->setInc('views');//浏览数自增
+		//点击排序
+		$views_list = $article->cache(true)->where("status = 1")->field("id,title,views")->order("views DESC")->limit(10)->select();
+		$this->assign("views_list",$views_list);
 		$this->display();
 	}
 }
