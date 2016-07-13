@@ -93,7 +93,7 @@
                             <td>
                                 <select name='status' style='width:164px;'>
                                     <foreach name="status" item="s" key="k" >
-                                        <option value="{$k}" <if condition="$k eq $info['status']"> selected="selected" </if>>{$s}</option>
+                                        <option value="{$k}" <if condition="$k === $info['status']"> selected="selected" </if>>{$s}</option>
                                     </foreach>
                                 </select>
                                 <span class='mest_input'>*</span>

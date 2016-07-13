@@ -17,7 +17,7 @@
                 <i></i>
                 <ul>
 	                <volist name="experiment_list" id="list">
-	                	<li><a href="javascript:void();"><img src="images/icon_method.png" height="23" width="19">{$list.class_name}</a></li>
+	                	<li><a href="{:U('player', array('id'=>$list[id],'type'=>1))}"><img src="__PUBLIC__/Home/images/icon_method.png" height="23" width="19">{$list.class_name}</a></li>
 	                </volist>
                 </ul>
             </div>
@@ -28,9 +28,8 @@
 	                <i></i>
 	                <ul>
 	                	<volist name="list.video_list" id="video">
-	                		<li><a href="javascript:void();"><img src="images/autoplay_2.jpg" height="153" width="181"><p class="icon">{$video.class_name}</p></a></li>
+	                		<li><a href="javascript:void();"><img src="__PUBLIC__/Home/images/autoplay_2.jpg" height="153" width="181"><p class="icon">{$video.class_name}</p></a></li>
 	                	</volist>
-	                    
 	                </ul>
 	            </div>
             </volist>
@@ -39,44 +38,25 @@
             <div class="course_search">
                 <h4>课程搜索</h4>
                 <i></i>
-                <input name="Fruit" type="text" value="" style="height:20px;width:145px;margin: 20px 0 10px 10px;" />
-                <select style="width:70px;color:#323232;height:25px;">
-                        <option value ="1">标题</option>
-                </select>
-                <button class="hunt">搜索</button>
+
+                <form action="{:U('Play/index')}" method="post">
+                    <input name="title" type="text" value="" style="height:20px;width:145px;margin: 20px 0 10px 10px;" />
+                    <select style="width:70px;color:#323232;height:25px;">
+                            <option value ="1">标题</option>
+                    </select>
+                    <button class="hunt">搜索</button>
+                </form>
             </div>
             <div class="resource_upload"><a href="{:U('Play/upload')}"><button class="transfer">资源上传</button></a></div>
             <div class="ranking">
                 <h4>点击总排行</h4>
                 <i></i>
                 <ul>
-                    <li><i class="notice_square"></i><a href="javascript:void();">教学实验中心规章制度大全</a><span>1635</span></li>
-                    <li><i class="notice_square"></i><a href="javascript:void();">教学实验中心规章制度大全</a><span>1635</span></li>
-                    <li><i class="notice_square"></i><a href="javascript:void();">教学实验中心规章制度大全</a><span>1635</span></li>
-                    <li><i class="notice_square"></i><a href="javascript:void();">教学实验中心规章制度大全</a><span>1635</span></li>
-                    <li><i class="notice_square"></i><a href="javascript:void();">教学实验中心规章制度大全</a><span>1635</span></li>
-                    <li><i class="notice_square"></i><a href="javascript:void();">教学实验中心规章制度大全</a><span>1635</span></li>
-                    <li><i class="notice_square"></i><a href="javascript:void();">教学实验中心规章制度大全</a><span>1635</span></li>
-                    <li><i class="notice_square"></i><a href="javascript:void();">教学实验中心规章制度大全</a><span>1635</span></li>
-                    <li><i class="notice_square"></i><a href="javascript:void();">教学实验中心规章制度大全</a><span>1635</span></li>
-                    <li><i class="notice_square"></i><a href="javascript:void();">教学实验中心规章制度大全</a><span>1635</span></li>
+                    <volist name="views_list" id="vo">
+                        <li><i class="notice_square"></i><a href="{:U('Show/view',array('id'=>$vo['id']))}">{$vo.title}</a><span>{$vo.views}</span></li>
+                    </volist>
                 </ul>
             </div>
-            <div class="ranking" style="margin-top: 10px;">
-                <h4>最近30天排行</h4>
-                <i></i>
-                <ul>
-                    <li><i class="notice_square"></i><a href="javascript:void();">教学实验中心规章制度大全</a><span>1635</span></li>
-                    <li><i class="notice_square"></i><a href="javascript:void();">教学实验中心规章制度大全</a><span>1635</span></li>
-                    <li><i class="notice_square"></i><a href="javascript:void();">教学实验中心规章制度大全</a><span>1635</span></li>
-                    <li><i class="notice_square"></i><a href="javascript:void();">教学实验中心规章制度大全</a><span>1635</span></li>
-                    <li><i class="notice_square"></i><a href="javascript:void();">教学实验中心规章制度大全</a><span>1635</span></li>
-                    <li><i class="notice_square"></i><a href="javascript:void();">教学实验中心规章制度大全</a><span>1635</span></li>
-                    <li><i class="notice_square"></i><a href="javascript:void();">教学实验中心规章制度大全</a><span>1635</span></li>
-                    <li><i class="notice_square"></i><a href="javascript:void();">教学实验中心规章制度大全</a><span>1635</span></li>
-                    <li><i class="notice_square"></i><a href="javascript:void();">教学实验中心规章制度大全</a><span>1635</span></li>
-                    <li><i class="notice_square"></i><a href="javascript:void();">教学实验中心规章制度大全</a><span>1635</span></li>
-                </ul>
-            </div>
+
         </div>
     </div>

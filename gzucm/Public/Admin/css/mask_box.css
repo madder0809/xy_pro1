@@ -71,7 +71,13 @@
 	height:40px;
 	width:60%;
 	height:25px;
+	padding-left:3px;
 }
+
+#mask_box_content table tr select{
+	height:30px;
+}
+
 #mask_box_content table tr label{
 	color:#f2f2f2;
 	font-size:13px;

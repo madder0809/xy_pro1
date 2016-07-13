@@ -27,7 +27,7 @@
                 <div class="status">
                     <img src="__PUBLIC__/Home/images/1.jpg" height="500" width="500">
                     <ul>
-                        <li>用户名：<span>{$info.realname}</span></li>
+                        <li>用户名：<span>{$userinfo.realname}</span></li>
                         <li>角   色：<span>学生</span></li>
                     </ul>
                     <button class="quit" onclick="javascript:location='{:U('Index/logout')}'">退出登陆</button>
@@ -94,9 +94,9 @@
             <i></i>
             <div class="fast_pass">
                 <ul>
-                    <li><a href="javascript:void();" class="appliance">仪 器 使 用 预 约</a></li>
+                    <li><a href="{:U('Lib/index')}" class="appliance">仪 器 使 用 预 约</a></li>
                     <li><a href="javascript:void();" class="subject">主 要 实 验 课 程</a></li>
-                    <li><a href="javascript:void();" class="experiment">实 验 视 频</a></li>
+                    <li><a href="{:U('Play/index')}" class="experiment">实 验 视 频</a></li>
                 </ul>
             </div>
         </div>

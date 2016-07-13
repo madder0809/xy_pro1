@@ -28,13 +28,15 @@
             <li><span>标题：</span><input name="class_name" type="text" value="" style="height:25px;width:245px;" /></li>
             <li>
                 <span>分类：</span>
-                <select style="width:250px;color:#8e8e8e;height:30px;">
-                <option value ="1">中医学</option>
+                <select name="sort" style="width:250px;color:#8e8e8e;height:30px;">
+                    <volist name = "i_list" id="vo">
+                        <option value="{$vo.name}">{$vo.name}</option>
+                    </volist>
                 </select>
             </li>
             <li style="position: absolute;right: 0;top: 0;z-index: 1">
                 <span>简介：</span>
-                <textarea name="class_common"></textarea>
+                <textarea name="description"></textarea>
             </li>
             </ul>
             <button class="start" type="submit">开始上传</button>

@@ -854,7 +854,7 @@ a.revise,a.display{
     font-size: 12px;
     color: #444;
 }
-.user_data ul li span{
+.user_data>ul>li>span{
     width: 80px;
     float: left;
     color: #808080;
@@ -896,7 +896,7 @@ a.revise,a.display{
     float: left;
     width: 98%;
 }
-.about ul li{
+.about>ul>li{
     float: left;
     border-bottom: 1px #dadada solid;
     padding-bottom: 15px;
@@ -1199,7 +1199,6 @@ a.course{
     width: 710px;
     height: 435px;
     margin:15px auto;
-    background: #a6a6a6;
 }
 .episodes{
     font-family: '微软雅黑';

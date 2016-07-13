@@ -1,3 +1,15 @@
+<link rel="stylesheet" type="text/css" href="__PUBLIC__/Home/css/dialog.css">
+<div id="tips_box">
+    <div class="mask_layer"></div>
+    <div class="prompt">
+        <h1>提示</h1>
+        <i></i>
+        <p>必写项不能为空</p>
+        <div class="frame">
+            <button class="ensure" onclick='hide()'>确定</button>
+        </div>
+    </div>
+</div>
 <div class="option_click">
         <div style="width:1000px;margin:0 auto;" id="option">
             <a href="{:U('Home/Index/index')}">首页</a>
@@ -19,38 +31,60 @@
                 <a href="{:U('Home/Person/pwdChange')}">修改密码</a>
                 <a href="{:U('Home/Person/myUpload')}">我的上传</a>
             </div>
+            <form method="post" action="{:U('Person/index')}" class="modal_form" onsubmit="return ajax_post();">
+                <input type="hidden" value="{$info.id}" name="id">
             <div class="user_data">
             <ul>
-                <li><span>用户名：</span><input name="Fruit" type="text" value="{$info.username}" style="height:25px;width:220px;" /></li>
-                <li><span>真实姓名：</span><input name="Fruit" type="text" value="{$info.realname}" style="height:25px;width:220px;" /></li>
+                <li><span>用户名：</span><input name="username" type="text" value="{$info.username}" style="height:25px;width:220px;" /></li>
+                <li><span>真实姓名：</span><input name="realname" type="text" value="{$info.realname}" style="height:25px;width:220px;" /></li>
                 <li><span>性别：</span>
-                    <input name="Fruit" type="radio" value="1" style="margin:8px;float:left;" 
+                    <input name="sex" type="radio" value="1" style="margin:8px;float:left;"
                     {$info['sex']==1?'checked':''}
                     />男
-                    <input name="Fruit" type="radio" value="2" style="margin:0 8px;position: relative;top:3px;" {$info['sex']==2?'checked':''}/>女
+                    <input name="sex" type="radio" value="2" style="margin:0 8px;position: relative;top:3px;" {$info['sex']==2?'checked':''}/>女
                 </li>
-                <li><span>籍贯：</span>
+                <li>
+                    <span>籍贯：</span>
                     <select name="fir_na" style="width:105px;color:#333;height:31px;">
                         <volist name="fir_na" id="vo">
                             <option value="{$vo.region_code}" <if condition="$vo['region_code'] eq $info['fir_na']">selected</if>>{$vo.region_name}</option>
                         </volist>
                     </select>
                     <select name="sec_na" style="width:105px;color:#333;height:31px;">
-                        <option value ="{$sec_na.region_code}">{$sec_na.region_name}</option>
-                    </select></li>
-                <li><span>任教科目：</span>
-                    <select style="width:220px;color:#333;height:31px;">
-                        <option value ="1"></option>
-                    </select></li>
-                <li><span>个人介绍：</span><textarea></textarea></li>
-                <li><span>手机：</span><input name="Fruit" type="text" value="" style="height:25px;width:220px;" /></li>
-                <li><span>确认密码：</span><input name="Fruit" type="password" value="" style="height:25px;width:220px;" /></li>
+                        <volist name="sec_na" id="vo">
+                            <option value="{$vo.region_code}" <if condition="$vo['region_code'] eq $info['sec_na']">selected</if>>{$vo.region_name}</option>
+                        </volist>
+                    </select>
+                </li>
+                <li><span>个人介绍：</span><textarea name="introduce">{$info.introduce}</textarea></li>
+                <li><span>手机：</span><input name="mobile" type="text" value="{$info.mobile}" style="height:25px;width:220px;" /></li>
+                <li><span>确认密码：</span><input name="password" type="password" value="" style="height:25px;width:220px;" /></li>
                 <li><span></span><button class="keep">保存</button></li>
+
             </ul>
             </div>
+            </form>
         </div>
  </div>
  <script type="text/javascript">
+     function hide(){
+         $(".prompt,.mask_layer").hide();
+     }
+     function dialog(txt){
+         $(".prompt").find("p").html(txt);
+         $(".prompt,.mask_layer").show();
+     }
+     function ajax_post(){
+         $.post($('.modal_form').attr('action'), $('.modal_form').serialize(), function(data){
+             if(data.status == '1'){
+                 dialog("修改成功");
+                 location.href=data.url;
+             }else{
+                 dialog(data.info);
+             }
+         },'json');
+         return false;
+     }
      $("select[name='fir_na']").on("change",function(){
         $.post("{:U('Index/get_region')}",{father_id:$(this).val()},function(data){
             var html="";

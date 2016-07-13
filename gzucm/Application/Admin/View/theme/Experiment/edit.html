@@ -6,8 +6,11 @@
 .uploadify-queue-item .cancel a {
 	background:#ccc;
 }
+#mask_box_content table td input[type=text]{
+	width:350px;
+}
 </style>
-<div id='mask_box' style='height:500px;'>
+<div id='mask_box' style='height:580px;'>
 
 	<div id='mask_box_header'><notempty name='id'>编辑视频&nbsp;- {$auth_group.title}<else/>新增视频</notempty></div>
 	
@@ -24,10 +27,18 @@
 						<input name="subject" type="text" value='{$experiment.subject}'>
 					</td>
 				</tr>
+				
 				<tr>
 					<td><div>课程名称：</div></td>
 					<td>
 						<input name="class_name" type="text" value='{$experiment.class_name}'>
+					</td>
+				</tr>
+				
+				<tr>
+					<td><div>课程介绍：</div></td>
+					<td>
+						<textarea name="description" style='resize: none;' rows="5" cols="40">{$experiment.description}</textarea>
 					</td>
 				</tr>
 				
@@ -43,7 +54,8 @@
 					<td>
 						<select name='status' style='width:150px;'>
 							<option value="0" <if condition="$experiment['status'] eq 0">selected</if>>未审核</option>
-							<option value="1" <if condition="$experiment['status'] eq 1">selected</if>>已审核</option>
+							<option value="1" <if condition="$experiment['status'] eq 1">selected</if>>已通过</option>
+							<option value="-1" <if condition="$experiment['status'] eq 2">selected</if>>未通过</option>
 						</select>
 					</td>
 				</tr>

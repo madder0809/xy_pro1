@@ -6,19 +6,38 @@ class PlayController extends Controller{
 	public function index(){
 	    $experiment_list = M('experiment')->where(array('type'=>1))->limit(6)->select();
 	    $this->assign('experiment_list', $experiment_list);
-	    
 	    $video_subject_list = M('experiment')->where(array('type'=>2))->limit(6)->field('id,subject')->group('subject')->limit(3)->select();
-	    
-	    foreach ($video_subject_list as $key => $video){
+		foreach ($video_subject_list as $key => $video){
 	       $video_list = M('experiment')->where(array('type'=>2, 'subject' =>$video['subject']))->limit(4)->select();
 	       $video_subject_list[$key]['video_list'] = $video_list; 
 	    }
-	    $this->assign('video_subject_list', $video_subject_list);
+		$this->assign('video_subject_list', $video_subject_list);
+		//点击排序
+		$views_list = M("article")->where("status = 1")->field("id,title,views")->order("views DESC")->limit(10)->select();
+		$this->assign("views_list",$views_list);
 		$this->display();
 	}
 
 	public function search(){
 
+	}
+	
+	function player(){
+	    $id = I('id');
+	    if(!empty($id)){
+	        $type = I('type');
+	           $experiment = M('experiment')->where(array('type'=>$type, 'id'=>$id))->find();
+	           $video_id = $experiment['video_id'];
+	           if(!empty($video_id)){
+	               $video_list = M('video_info')->where(array('id'=>array('in', $video_id)))->select();
+	               $this->assign('video_list', $video_list);
+	               $this->display();
+	           }else{
+	               $this->error('找不到视频文件');
+	           }
+	    }else{
+	        $this->error('出错了');
+	    }
 	}
 
 	public function upload(){
@@ -42,9 +61,11 @@ class PlayController extends Controller{
 			}
 			$data['subject'] = $data['class_name'];
 			$data['is_portal'] = 1;
+			$data['release_time'] = date("Y-m-d");
+			$data['type'] = 1;
 			$data['video_id'] = implode(",",$video_id_list);
 			$experiment = M('experiment');
-			if($experiment->validate(rules)->create($data)){
+			if($experiment->validate($rules)->create($data)){
 				if($experiment->add()){
 					$this->success("资源上传成功");
 				}else{
@@ -54,6 +75,9 @@ class PlayController extends Controller{
 				$this->error($experiment->getError());
 			}
 		}else{
+			//分类列表
+			$i_list = M("instrument")->cache(true)->distinct(true)->field("name")->select();//仪器列表
+			$this->assign("i_list",$i_list);
 			$this->display();
 		}
 		

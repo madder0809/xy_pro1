@@ -3,7 +3,7 @@
 namespace Admin\Controller;
 class ArticleController extends AdminController {
     public $type_name = array(1=>"通知公告",2=>"成果展示",3=>"中心概况",4=>"中心师资",5=>"规章制度",6=>"中心动态",7=>"教学实验室",8=>"资料下载");
-    public $status = array(0=>"未审核",1=>"已通过",2=>"未通过");
+    public $status = array(1=>"已通过",2=>"未通过",0=>"未审核");
     private $validate = array(
         array('title', 'require', '标题不能为空'),
         array('content', 'require', '内容不能为空')
@@ -14,7 +14,7 @@ class ArticleController extends AdminController {
         $this->type = I("type");//文章类型
     }
     
-    #通知公告
+    //通知公告
     public function index(){
         $title = I("title");
         $where = "type = {$this->type}";
@@ -31,7 +31,7 @@ class ArticleController extends AdminController {
         $this->assign($data);
         $this->display();
     }
-    #审核
+    //审核
     public function audit(){
         $data = I();
         if(M("article")->save($data)!==false){
@@ -40,7 +40,7 @@ class ArticleController extends AdminController {
             $this->error("审核失败");
         }
     }
-    #发布
+    //发布
     public function add(){
         if(IS_POST){
             if(M("article")->validate($this->validate)->create()){
@@ -61,7 +61,7 @@ class ArticleController extends AdminController {
         }
     }
 
-    #编辑
+    //编辑
     public function edit(){
         $id = I("id");
         if(!$id){
@@ -88,7 +88,7 @@ class ArticleController extends AdminController {
         }
     }
 
-    #删除
+    //删除
     public function del(){
         $id = I('id');
         if(!$id) $this->error("没找到对应文章");

@@ -8,7 +8,7 @@ class ExperimentController extends AdminController {
         array('subject','require','科目不能为空！', 1, 'regex', 3),
         array('class_name', 'require', '课程名称不能为空', 1, 'regex', 3),
     );
-    private $status = array("0"=>"未审核","1"=>"已审核");
+    private $status = array("0"=>"未审核","1"=>"已通过","2"=>"未通过");
     public function video(){
     	$param = I();
     	$where = array();
@@ -20,13 +20,14 @@ class ExperimentController extends AdminController {
 //     		$where['au.username'] =  array('like', '%'.$param['username'].'%');
 //     		$this->assign('adminusername', $param['username']);
 //     	}
+
 //     	if($param['auth_group']){
 //     		$where['ag.title'] =  array('like', '%'.$param['auth_group'].'%');
 //     		$this->assign('auth_group', $param['auth_group']);
 //     	}
 
 	    $count = M('experiment')->where($where)->count();
-	    $page = new \Think\Page($count,1);
+	    $page = new \Think\Page($count,10);
 	    $this->assign('_page', $page->show());
 	     
 	    $experiment_list = M('experiment')->where($where)->select();
@@ -49,12 +50,15 @@ class ExperimentController extends AdminController {
                     $video = explode(',', $video);
                     $fileinfo['path'] = $video[0];
                     $fileinfo['filename'] = $video[1];
+                    $fileinfo['cover_path'] = makeCover($fileinfo['path']);
                     $video_id = M('video_info')->add($fileinfo);
                     $video_id_list .= $video_id.',';
                 }
                 $video_id_list = rtrim($video_id_list, ',');
                 $_POST['video_id'] = $video_id_list;
     	    }
+    	    
+    	    $_POST['status'] = 1;
     	    
     	    $experiment = M('experiment');
     	    if($experiment->validate($this->rules)->create()){
@@ -92,6 +96,7 @@ class ExperimentController extends AdminController {
                     $video = explode(',', $video);
                     $fileinfo['path'] = $video[0];
                     $fileinfo['filename'] = $video[1];
+                    $fileinfo['cover_path'] = makeCover($fileinfo['path']);
                     $video_id = M('video_info')->add($fileinfo);
                     $video_id_list .= $video_id.',';
                 }
@@ -121,5 +126,14 @@ class ExperimentController extends AdminController {
         }
     }
 
+    //审核
+    public function audit(){
+        $data = I();
+        if(M("experiment")->save($data)!==false){
+            $this->success("审核成功",U("video",array("type"=>$data['type'])));
+        }else{
+            $this->error("审核失败");
+        }
+    }
 }
 ?>

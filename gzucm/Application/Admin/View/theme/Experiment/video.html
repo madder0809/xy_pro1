@@ -27,7 +27,7 @@
 				<th>发布者</th>
 				<th>发布时间</th>
 				<th>状态</th>
-				<th style='width:150px;'>操作</th>
+				<th style='width:250px;'>操作</th>
 			<volist name="experiment_list" id="list">
 				<tr>
 					<td>{$list.id}</td>
@@ -41,6 +41,7 @@
 					<td>{$list.release_time}</td>
 					<td>{$status[$list['status']]}</td>
 					<td>
+						<if condition="!$list['status']"><a href="{:U('audit',array(id=>$list[id],type=>$type))}" class="ask_audit table_btn">审核</a></if>
 						<a href="{:U('edit',array(type=>$type,id=>$list[id]))}" class="modal table_btn">编辑</a>
 						<a href="{:U('del',array(type=>$type,id=>$list[id]))}" class='ask_del table_btn_info'>删除</a>
 					</td>
@@ -48,6 +49,7 @@
 			</volist>
 		</table>
 	</div>
+	{$_page}
 </div>
 
 <script>

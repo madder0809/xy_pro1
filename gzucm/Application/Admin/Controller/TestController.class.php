@@ -47,6 +47,9 @@ class TestController extends AdminController {
         $data = I();
         $ti = M("test_instrument")->where("iname = '{$data["iname"]}'")->find();
         $t_list = explode(",",$ti['tid']);
+        foreach($t_list as $k=>$v){//清除空值
+            if(empty($v)) unset($t_list[$k]);
+        }
         if($data['control'] == "add"){
             if(!in_array($data['tid'],$t_list))
             $t_list[] = $data['tid'];
@@ -59,6 +62,7 @@ class TestController extends AdminController {
         }else{
             exit();
         }
+        array_filter($t_list);
         $data['tid'] = implode(",",$t_list);
         $data['t_count'] = count($t_list);
         if(M("test_instrument")->where("iname = '{$data['iname']}'")->save($data)!==false)

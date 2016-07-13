@@ -1,3 +1,15 @@
+<link rel="stylesheet" type="text/css" href="__PUBLIC__/Home/css/dialog.css">
+<div id="tips_box">
+    <div class="mask_layer"></div>
+    <div class="prompt">
+        <h1>提示</h1>
+        <i></i>
+        <p>必写项不能为空</p>
+        <div class="frame">
+            <button class="ensure" onclick='hide()'>确定</button>
+        </div>
+    </div>
+</div>
 <div class="option_click">
         <div style="width:1000px;margin:0 auto;" id="option">
             <a href="{:U('Home/Index/index')}">首页</a>
@@ -19,13 +31,35 @@
                 <a href="{:U('Home/Person/pwdChange')}" class="revise">修改密码</a>
                 <a href="{:U('Home/Person/myUpload')}">我的上传</a>
             </div>
+            <form action="{:U('Person/pwdChange')}" method="post" class="modal_form" onsubmit="return ajax_post();">
+            <input type="hidden" name="id" value="{$uid}">
             <div class="user_data">
                 <ul>
-                <li><span>新密码：</span><input name="Fruit" type="text" value="" style="height:25px;width:220px;" /></li>
-                <li><span>旧密码：</span><input name="Fruit" type="text" value="" style="height:25px;width:220px;" /></li>
-                <li><span>确认密码：</span><input name="Fruit" type="text" value="" style="height:25px;width:220px;" /></li>
-                <li><span></span><button class="keep">保存</button></li>
+                <li><span>新密码：</span><input name="password" type="password" value="" style="height:25px;width:220px;" /></li>
+                <li><span>旧密码：</span><input name="oldpwd" type="password" value="" style="height:25px;width:220px;" /></li>
+                <li><span>确认密码：</span><input name="confirm_pwd" type="password" value="" style="height:25px;width:220px;" /></li>
+                <li><span></span><button class="keep" type="submit">保存</button></li>
             </ul>
             </div>
+            </form>
         </div>
  </div>
+<script>
+    function hide(){
+        $(".prompt,.mask_layer").hide();
+    }
+    function dialog(txt){
+        $(".prompt").find("p").html(txt);
+        $(".prompt,.mask_layer").show();
+    }
+    function ajax_post(){
+        $.post($('.modal_form').attr('action'), $('.modal_form').serialize(), function(data){
+            if(data.status == '1'){
+                location.href=data.url;
+            }else{
+                dialog(data.info);
+            }
+        },'json');
+        return false;
+    }
+</script>
