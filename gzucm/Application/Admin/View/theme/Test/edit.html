@@ -104,6 +104,7 @@
 		//全选
 		$("#select_all").on("click",function(){
 			var status = $(this).is(':checked');
+			console.log(status);
 			$(".t_item").each(function(){
 				if($(this).is(':checked') != status){
 					$(this).click();
