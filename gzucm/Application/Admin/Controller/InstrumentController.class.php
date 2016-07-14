@@ -205,13 +205,14 @@ class InstrumentController extends AdminController {
     private function getSituation($list){
         $model = M();
         $twoWeek = $this->getTwoWeek();
+        $appointment = M("appointment");
         foreach ($list as $k => $v){
             foreach($twoWeek as $key => $val){
                 $r = $model->query("SELECT count(1) as 'num' FROM `schedule` s LEFT JOIN laboratory l ON s.address = l.address WHERE l.id = {$v['lab_id']} AND s.`date` = '{$val}'");
                 if($r[0]['num']>0){
                     $list[$k]['situation'][] = true;
                 }else{
-                    $r = M("appointment")->where("starttime < '{$val}' AND endtime > '{$val}' AND iid = {$v['id']} AND status = 1")->count();
+                    $r = $appointment->where("((starttime < '{$val}' AND endtime > '{$val}') OR (date_format(starttime,'%Y-%m-%d')='$val'))  AND iid = {$v['id']} AND status = 1")->count();
                     $list[$k]['situation'][] = $r>0 ? true : false;
                 }
             }

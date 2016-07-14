@@ -26,7 +26,7 @@
         </div>
         <div class="position2">
             <h3>您的位置：实验室管理>>仪器使用预约</h3>
-            <form action="{:U('index')}" class="modal_form">
+            <form action="{:U('Home/lib/index')}" class="modal_form" method="post">
                 <input type="hidden" name="uid" value="{$uid}">
                 <div class="order">
                     <ul>
@@ -72,7 +72,7 @@
         })
         return false;
     })
-    $(".ordered").on("click",function(){
+    /*$(".ordered").on("click",function(){
         $.post($('.modal_form').attr('action'), $('.modal_form').serialize(), function(data){
             if(data.status == '1'){
                 alert(data.info);
@@ -82,5 +82,5 @@
             }
         });
         return false;
-    })
+    })*/
 </script>

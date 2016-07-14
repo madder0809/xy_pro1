@@ -54,7 +54,7 @@
 					<td>
 						<select name='status' style='width:150px;'>
 							<option value="0" <if condition="$experiment['status'] eq 0">selected</if>>未审核</option>
-							<option value="1" <if condition="$experiment['status'] eq 1">selected</if>>已通过</option>
+							<option value="1" <if condition="$experiment['status'] eq 1">selected</if> selected>已通过</option>
 							<option value="-1" <if condition="$experiment['status'] eq 2">selected</if>>未通过</option>
 						</select>
 					</td>

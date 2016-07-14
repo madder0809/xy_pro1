@@ -67,6 +67,10 @@ class PersonController extends Controller{
 		$data['_page'] = $Page->show();
 		$data['list'] = $experiment->where("release_man = {$uid} AND is_portal = 1")
 				->limit($Page->firstRow.','.$Page->listRows)->order("id DESC")->select();
+		$video = M("video_info");
+		foreach($data['list'] as $k =>$v){
+			$data['list'][$k]['cover'] = $video->where("eid = {$v['id']}")->getField("cover_path");
+		}
 		$data['status']=array("0"=>"正在等待审核","1"=>"已通过审核","2"=>"未通过审核");
 		$this->assign($data);
 		$this->display();
@@ -81,7 +85,6 @@ class PersonController extends Controller{
 				$this->error("删除失败");
 			}
 		}
-
 	}
 	
 	public function saveToDb(){

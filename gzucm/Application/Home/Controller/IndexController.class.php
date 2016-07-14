@@ -104,7 +104,7 @@ class IndexController extends Controller {
 	private function getCover($list){
 		foreach($list as $k=>$v){
 			preg_match ("<img.*src=[\"](.*?)[\"].*?>",htmlspecialchars_decode($v['content']),$match);
-			$list[$k]['cover'] = $match[1] ? $match[1] : "/gzucm/Public/Home/images/scientific.jpg";
+			$list[$k]['cover'] = $match[1] ? $match[1] : "/Public/Home/images/scientific.jpg";
 			unset($match);
 		}
 		return $list;

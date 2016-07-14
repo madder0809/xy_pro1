@@ -16,11 +16,9 @@ class LibController extends Controller{
 			$data = I();
 			$appointment = M("appointment");
 			if($appointment->validate($this->validate)->create()){
-				if($appointment->add($data)){
-					$this->success("预约成功",U("index"));
-				}else{
-					$this->success("预约失败");
-				}
+				session("_appointment",$data);
+				$this->redirect("Exam/index",array("iname"=>$data['iname']));
+				exit();
 			}else{
 				$this->error($appointment->getError());
 			}

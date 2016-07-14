@@ -73,7 +73,7 @@ class PublicController extends Controller {
 			break;
 		}
 		$name = iconv("UTF-8","GBK",$name);
-		$filename = $_SERVER['DOCUMENT_ROOT']."gzucm/data/excel_tmplate/{$name}.xlsx";
+		$filename = $_SERVER['DOCUMENT_ROOT']."/data/excel_tmplate/{$name}.xlsx";
 		if(file_exists($filename)){
 			header('Content-Type: application/vnd.ms-excel');
 			header('Content-Disposition: attachment; filename="'.$name.'.xlsx"');

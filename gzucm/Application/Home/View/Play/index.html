@@ -13,7 +13,7 @@
 <div class="switch_page">
         <div class="resource_left">
             <div class="experimental_course">
-            <h4>主要实验课程<a href="javascript:void();">更多</a></h4>
+            <h4>主要实验课程<a href="{:U('more', array('id'=>$list[id],'type'=>1))}">更多</a></h4>
                 <i></i>
                 <ul>
 	                <volist name="experiment_list" id="list">
@@ -24,11 +24,11 @@
             
             <volist name="video_subject_list" id="list">
 	            <div class="test_video">
-	                <h4>{$list.subject}<a href="javascript:void();">更多</a></h4>
+	                <h4>{$list.subject}<a href="{:U('more', array('subject'=>$list[subject],'type'=>2))}">更多</a></h4>
 	                <i></i>
 	                <ul>
-	                	<volist name="list.video_list" id="video">
-	                		<li><a href="javascript:void();"><img src="__PUBLIC__/Home/images/autoplay_2.jpg" height="153" width="181"><p class="icon">{$video.class_name}</p></a></li>
+	                	<volist name="list.video_info" id="video">
+	                		<li><a href="{:U('player', array('id'=>$video[eid],'type'=>2))}"><img src="{$video.cover_path}" height="153" width="181"><p class="icon">{$video.class_name}</p></a></li>
 	                	</volist>
 	                </ul>
 	            </div>

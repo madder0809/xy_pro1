@@ -1,3 +1,6 @@
+<style>
+    .cue{display:none}
+</style>
 <div class="option_click">
         <div style="width:1000px;margin:0 auto;" id="option">
             <a href="{:U('Home/Index/index')}">首页</a>
@@ -20,21 +23,50 @@
         </div>
         <div class="position4">
             <h3>您的位置：安全考试>>安全考试</h3>
-            <div class="materials">
-                <ul>
-                    <foreach name="list" item="vo" key="k">
-                        <li>
-                            <span>第{$k}题</span>{$vo.title}</p>
-                            <p><input name="Fruit" type="radio" value="" />A.{$vo.opt_a}</p>
-                            <p><input name="Fruit" type="radio" value="" />B.{$vo.opt_b}</p>
-                            <p><input name="Fruit" type="radio" value="" />C.{$vo.opt_c}</p>
-                            <p><input name="Fruit" type="radio" value="" />D.{$vo.opt_d}</p>
-                        </li>
-                    </foreach>
-                </ul>
-            </div>
-            <div class="button_center" style="margin: 20px;">
-                    <button class="confirm">确认</button><button class="cancel">取消</button>
-            </div>
+
+            <form action="{:U('checkExam')}" method="post" class="modal_form" onsubmit="return ajax_post()">
+                <div class="materials">
+                    <ul>
+                        <foreach name="list" item="vo" key="k">
+                            <li>
+                                <span>第{$k+1}题</span>{$vo.title}</p>
+                                <p><input name="t_a[{$k}]" type="radio" value="A" />A.{$vo.opt_a}</p>
+                                <p><input name="t_a[{$k}]" type="radio" value="B" />B.{$vo.opt_b}</p>
+                                <p><input name="t_a[{$k}]" type="radio" value="C" />C.{$vo.opt_c}</p>
+                                <p><input name="t_a[{$k}]" type="radio" value="D" />D.{$vo.opt_d}</p>
+                                <p class="cue">正确答案为<i></i></p>
+                                <input type="hidden" name="t[{$k}]" value="{$vo.id}">
+                            </li>
+                        </foreach>
+                    </ul>
+                </div>
+                <div class="button_center" style="margin: 20px;">
+                        <button class="confirm">确认</button><button class="cancel">取消</button>
+                </div>
+            </form>
         </div>
     </div>
+<script>
+    function ajax_post(){
+        $.post($('.modal_form').attr('action'), $('.modal_form').serialize(), function(data){
+            if(data.status == '1'){
+                if(data.url){
+                    alert("预约成功");
+                }
+                window.location.href = data.url;
+            }else{
+                $(".cue").each(function(){
+                    var index = $(".cue").index(this);
+                    $(this).find("i").text(data[index]);
+                    $(this).show();
+                })
+                $(".button_center").html("<button class='again' type='button' onclick='window.location.reload();'>重新答题</button>");
+            }
+        },'json');
+        return false;
+    }
+    /*$(".again").on("click",function(){
+        window.location.reload();
+        //return false;
+    })*/
+</script>

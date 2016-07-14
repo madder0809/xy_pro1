@@ -1,0 +1,57 @@
+
+
+<script type="text/javascript">
+window.onload = function(){
+	if(window.location.hash){
+		var hash = window.location.hash.substr(1, window.location.hash.length-4);
+		if(hash.indexOf("/") > 0 && !(/\/$/.test(hash))){
+			loadFile("hash+"mp4","http://127.0.0.1:8071/" + hash+"jpg");
+            
+		} else {
+			loadFile(null);
+		}
+	} else {
+		loadFile(null);
+	}
+}
+function loadFile(f,y){
+	if(f == null){
+		f = "/media/01/yinghang.mp4";
+	}
+	alert(f);
+	var swfVersionStr = "10.0.0";
+    var xiSwfUrlStr = "js/playerProductInstall.swf";
+    var flashvars = {
+        file:f,
+        autostart:false,
+        showeq:true,
+        image:y,
+        smoothing:true
+    };
+    var params = {};
+    params.quality = "high";
+    params.bgcolor = "#ffffff";
+    params.allowscriptaccess = "always";
+    params.allowfullscreen = "true";
+    var attributes = {};
+    attributes.id = "jwplayer";
+    attributes.name = "jwplayer";
+    attributes.align = "middle";
+    swfobject.embedSWF(
+    "js/player.swf", "video",
+    "700", "443",
+    swfVersionStr, xiSwfUrlStr,
+    flashvars, params, attributes);
+}
+</script>
+</head>
+<body>
+<div style="margin:0 auto;width:700px;height:auto">
+	<div id="video">
+		<p>
+			To view this page ensure that Adobe Flash Player version
+			10.0.0 or greater is installed.
+		</p>
+	</div>
+</div>
+</body>

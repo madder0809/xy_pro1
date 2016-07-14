@@ -1,0 +1,60 @@
+<link href="__PUBLIC__/Admin/css/page.css" rel="stylesheet">
+<style>
+    .pagination .current{margin:0;background: #3d7508}
+</style>
+
+<script type="text/javascript">
+    $(function(){
+    $(".switch_page").hide();//隐藏wenben
+    $(".switch_page:eq(0)").show();//显示第一个wenben
+    $("#option a").click(function(){
+        $(".click_switch").removeClass("click_switch");//移除样式
+        $(this).addClass("click_switch");//添加样式
+        var i=$(this).index();//获得下标
+        $(".switch_page").hide();//隐藏wenben
+        $(".switch_page:eq("+i+")").show();//显示第i个wenben
+    });
+});
+</script>
+
+
+    <div class="option_click">
+        <div style="width:1000px;margin:0 auto;" id="option">
+            <a href="{:U('Home/Index/index')}">首页</a>
+            <a href="{:U('Home/Center/index')}">中心介绍</a>
+            <a href="{:U('Home/Show/index')}">成果展示</a>
+            <a href="{:U('Home/Lib/index')}">实验室管理</a>
+            <a href="{:U('Home/Play/index')}" class="click_switch">资源点播共享</a>
+            <a href="{:U('Home/Exam/index')}">安全考试</a>
+            <a href="{:U('Home/Contact/index')}">联系我们</a>
+            <a href="{:U('Home/Person/index')}" style="border-right:1px #b6721b solid;">个人中心</a>
+        </div>
+    </div>
+    <div class="switch_page" style="position: relative;min-height:500px">
+        <div class="more">
+            <h4>{$subject}</h4>
+            <i></i>
+            <for start="0" end="$list_size" step="5" >
+	            <ul>
+	                <notempty name="video_info_list[$i]">
+	                	<li><a href="{:U('player', array('id'=>$video_info_list[$i][eid],'type'=>$type))}"><img src="{$video_info_list[$i][cover_path]}" height="153" width="182"><span>{$video_info_list[$i][class_name]}</span></a></li>
+	                </notempty>
+	                <notempty name="video_info_list[$i+1]">
+	                	<li><a href="{:U('player', array('id'=>$video_info_list[$i+1][eid],'type'=>$type))}"><img src="{$video_info_list[$i+1][cover_path]}" height="153" width="182"><span>{$video_info_list[$i+1][class_name]}</span></a></li>
+	                </notempty>
+	                <notempty name="video_info_list[$i+2]">
+	                	<li><a href="{:U('player', array('id'=>$video_info_list[$i+2][eid],'type'=>$type))}"><img src="{$video_info_list[$i+2][cover_path]}" height="153" width="182"><span>{$video_info_list[$i+2][class_name]}</span></a></li>
+	                </notempty>
+	                <notempty name="video_info_list[$i+3]">
+	                	<li><a href="{:U('player', array('id'=>$video_info_list[$i+3][eid],'type'=>$type))}"><img src="{$video_info_list[$i+1][cover_path]}" height="153" width="182"><span>{$video_info_list[$i+3][class_name]}</span></a></li>
+	                </notempty>
+   	                <notempty name="video_info_list[$i+4]">
+	                	<li class="last"><a href="{$video_info_list[$i+4][eid]}"><img src="{:U('player', array('id'=>$video_info_list[$i+1][eid],'type'=>$type))}" height="153" width="182"><span>{$video_info_list[$i+4][class_name]}</span></a></li>
+	                </notempty>
+	                
+	            </ul>
+            </for>
+        </div>
+        {$_page}
+    </div>
+   

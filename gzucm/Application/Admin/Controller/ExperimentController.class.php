@@ -45,25 +45,20 @@ class ExperimentController extends AdminController {
     	    $video_file = I('video_file');
     	    if(!$video_file){
     	        $this->error('附件不能为空');
-    	    }else{
-                foreach ($_POST['video_file'] as $video){
-                    $video = explode(',', $video);
-                    $fileinfo['path'] = $video[0];
-                    $fileinfo['filename'] = $video[1];
-                    $fileinfo['cover_path'] = makeCover($fileinfo['path']);
-                    $video_id = M('video_info')->add($fileinfo);
-                    $video_id_list .= $video_id.',';
-                }
-                $video_id_list = rtrim($video_id_list, ',');
-                $_POST['video_id'] = $video_id_list;
     	    }
-    	    
-    	    $_POST['status'] = 1;
     	    
     	    $experiment = M('experiment');
     	    if($experiment->validate($this->rules)->create()){
-    	        $uid = $experiment->add();
-    	        if($uid){
+    	        $eid = $experiment->add();
+    	        if($eid){
+	                foreach ($video_file as $video){
+	                    $video = explode(',', $video);
+	                    $fileinfo['path'] = $video[0];
+	                    $fileinfo['filename'] = $video[1];
+	                    $fileinfo['cover_path'] = makeCover($fileinfo['path']);
+	                    $fileinfo['eid'] = $eid;
+	                    $video_id = M('video_info')->add($fileinfo);
+	                }
     				$this->success('实验课程添加成功', U('video',array('type'=>$type)));
     	        }else{
     				$this->error('实验课程增加失败');
@@ -91,22 +86,23 @@ class ExperimentController extends AdminController {
             $video_file = I('video_file');
             if(!$video_file){
                 $this->error('附件不能为空');
-            }else{
-                foreach ($_POST['video_file'] as $video){
-                    $video = explode(',', $video);
-                    $fileinfo['path'] = $video[0];
-                    $fileinfo['filename'] = $video[1];
-                    $fileinfo['cover_path'] = makeCover($fileinfo['path']);
-                    $video_id = M('video_info')->add($fileinfo);
-                    $video_id_list .= $video_id.',';
-                }
-
-                $video_id_list = rtrim($video_id_list, ',');
-                $_POST['video_id'] = $video_id_list;
             }
+
             $experiment = M('experiment');
             if($experiment->validate($this->rules)->create()){
-                if($experiment->save() !== fasle){
+                if($experiment->save() !== false){
+                    
+                    M('video_info')->where(array('eid'=>$id))->delete();
+                    
+                    foreach ($video_file as $video){
+                        $video = explode(',', $video);
+                        $fileinfo['path'] = $video[0];
+                        $fileinfo['filename'] = $video[1];
+                        $fileinfo['eid'] = $id;
+                        $fileinfo['cover_path'] = makeCover($fileinfo['path']);
+                        $video_id = M('video_info')->add($fileinfo);
+                    }
+                    
                     $this->success('实验课程编辑成功', U('video',array('type'=>$type)));
                 }else{
                     $this->error('实验课程编辑失败');
@@ -116,7 +112,7 @@ class ExperimentController extends AdminController {
             }
         }else{
             $experiment = M('experiment')->where(array('id'=>$id))->find();
-            $video_list = M('video_info')->where(array('id'=>array('in',$experiment['video_id'])))->select();
+            $video_list = M('video_info')->where(array('eid'=>$id))->select();
             $this->assign('video_list', $video_list);
             $this->assign('id', $id);
             $this->assign('type', $type);

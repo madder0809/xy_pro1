@@ -34,7 +34,7 @@
                     <p>共<i>{$count}</i>个</p>
                     <ul>
                         <volist name="list" id="vo">
-                            <li><a href="{:U('Play/player',array('type'=>1,id=>$vo['id']))}"><img src="__PUBLIC__/Home/images/play_cover.jpg" height="125" width="223"></a>
+                            <li><a href="{:U('Play/player',array('type'=>1,id=>$vo['id']))}"><img src="{$vo.cover}" height="125" width="223"></a>
                             <div class="details">
                             <h5>{$vo.subject}<a href="{:U('uploadRemove',array('id'=>$vo['id']))}" class="remove">删除</a></h5>
                             <p>简介:{$vo.description}</p><span class="adopt">{$status[$vo['status']]}</span><p style="height:0;">上传时间：{$vo.release_time}</p></div>
